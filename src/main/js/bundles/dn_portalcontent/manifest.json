@@ -1,0 +1,224 @@
+{
+    "name": "dn_portalitemloader",
+    "version": "1.0.0-SNAPSHOT",
+    "title": "${bundleName}",
+    "description": "${bundleDescription}",
+    "vendor": "con terra GmbH",
+    "main": "",
+    "icon": {},
+    "productName": "devnet-mapapps-portal-item-loader",
+    "keywords": [
+        "portal"
+    ],
+    "dependencies": {
+        "apprt-vue": "^4.14.0",
+        "apprt-vuetify": "^4.14.0",
+        "apprt-binding": "^4.14.0",
+        "map-widget": "^4.14.0",
+        "esri": "^4.22.0"
+    },
+    "cssThemesExtension": [
+        {
+            "name": "*",
+            "files": [
+                "./css/styles.css"
+            ]
+        }
+    ],
+    "layout-widgets": [
+        {
+            "widgetRole": "portalContentWidget",
+            "window": {
+                "dockTool": "portalContentToggleTool",
+                "closable": true,
+                "minimizeOnClose": true,
+                "maximizable": true,
+                "resizable": true
+            }
+        },
+        {
+            "widgetRole": "portalContentWidget",
+            "sublayout": [
+                "desktop"
+            ],
+            "window": {
+                "marginBox": {
+                    "h": "50%",
+                    "w": "50%"
+                },
+                "minSize": {
+                    "h": 600,
+                    "w": 1000
+                }
+            }
+        },
+        {
+            "widgetRole": "portalContentWidget",
+            "sublayout": [
+                "tablet_landscape",
+                "tablet_portrait"
+            ],
+            "window": {
+                "resizable": false,
+                "marginBox": {
+                    "h": "70%",
+                    "w": "70%"
+                },
+                "minSize": {
+                    "h": 600,
+                    "w": 1000
+                }
+            }
+        },
+        {
+            "widgetRole": "portalContentWidget",
+            "sublayout": [
+                "mobile_landscape",
+                "mobile_portrait"
+            ],
+            "window": {
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "100%",
+                    "b": 40,
+                    "l": 0
+                }
+            }
+        }
+    ],
+    "components": [
+        {
+            "name": "Config",
+            "impl": "./PortalContentModel",
+            "provides": "dn_portalitemloader.PortalContentModel",
+            "propertiesConstructor": true,
+            "properties": {
+                "portals": [
+                    {
+                        "id": "arcgis",
+                        "title": "ArcGIS Online",
+                        "url": "https://arcgis.com"
+                    }
+                ],
+                "rowsPerPageItems": [
+                    10,
+                    25,
+                    50,
+                    100
+                ],
+                "pagination": {
+                    "rowsPerPage": 10
+                },
+                "spaceFilters": [
+                    {
+                        "id": "all",
+                        "title": "${ui.spaceFilters.all}"
+                    },
+                    {
+                        "id": "organisation",
+                        "title": "${ui.spaceFilters.organisation}"
+                    },
+                    {
+                        "id": "my-content",
+                        "title": "${ui.spaceFilters.my-content}"
+                    }
+                ],
+                "spaceFilter": "all",
+                "sortAscending": false,
+                "sortByField": "modified",
+                "sortByFields": [
+                    {
+                        "id": "modified",
+                        "title": "${ui.sortByFields.modified}"
+                    },
+                    {
+                        "id": "title",
+                        "title": "${ui.sortByFields.title}"
+                    },
+                    {
+                        "id": "uploaded",
+                        "title": "${ui.sortByFields.uploaded}"
+                    },
+                    {
+                        "id": "username",
+                        "title": "${ui.sortByFields.username}"
+                    },
+                    {
+                        "id": "created",
+                        "title": "${ui.sortByFields.created}"
+                    },
+                    {
+                        "id": "type",
+                        "title": "${ui.sortByFields.type}"
+                    },
+                    {
+                        "id": "owner",
+                        "title": "${ui.sortByFields.owner}"
+                    },
+                    /*{
+                        "id": "avg-rating",
+                        "title": "${ui.sortByFields.avg-rating}"
+                    },
+                    {
+                        "id": "num-ratings",
+                        "title": "${ui.sortByFields.num-ratings}"
+                    },
+                    {
+                        "id": "num-comments",
+                        "title": "${ui.sortByFields.num-comments}"
+                    },*/
+                    {
+                        "id": "num-view",
+                        "title": "${ui.sortByFields.num-view}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "PortalContentWidgetFactory",
+            "provides": [
+                "dijit.Widget",
+                "dn_portalitemloader.Widget"
+            ],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "portalContentWidget"
+            },
+            "references": [
+                {
+                    "name": "_portalContentModel",
+                    "providing": "dn_portalitemloader.PortalContentModel"
+                },
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                }
+            ]
+        },
+        {
+            "name": "PortalContentToggleTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "portalContentToggleTool",
+                "title": "${tool.title}",
+                "tooltip": "${tool.tooltip}",
+                "iconClass": "icon-toolcase",
+                "toolRole": "toolset",
+                "togglable": true,
+                "activateHandler": "activateTool",
+                "deactivateHandler": "deactivateTool"
+            },
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "dn_portalitemloader.Widget"
+                }
+            ]
+        }
+    ]
+}
