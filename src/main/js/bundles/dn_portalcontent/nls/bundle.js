@@ -36,6 +36,11 @@ module.exports = {
                 organisation: "Only my organisation",
                 "my-content": "Only my content"
             },
+            allLayers:{
+                all: "Everywhere",
+                organisation: "Only my organisation",
+                "all-layers":"All Layers"
+            },
             typeFilter: "What type to search",
             sortBy: "Sort by",
             sortByFields: {
@@ -55,3 +60,4 @@ module.exports = {
     },
     de: true
 };
+

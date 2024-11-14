@@ -125,6 +125,33 @@
                     }
                 ],
                 "spaceFilter": "all",
+                "typeFilters": [
+                    {
+                        "id":  "MapService",
+                        "title":  "MapService"
+                    },
+                    {
+                        "id":  "Scene Service",
+                        "title":  "Scene Service"
+                    },
+                    {
+                        "id":  "Image Service",
+                        "title":  "Image Service"
+                    },
+                    {
+                        "id":  "Vector Tile Service",
+                        "title": "Vector Tile Service"
+                    },
+                    {
+                        "id":  "Feature Service",
+                        "title": "Feature Service"
+                    },
+                    {
+                        "id": "all",
+                        "title": "${ui.allLayers.all-layers}"
+                    }
+                ],
+                "typeFilter": "all",
                 "sortAscending": false,
                 "sortByField": "modified",
                 "sortByFields": [

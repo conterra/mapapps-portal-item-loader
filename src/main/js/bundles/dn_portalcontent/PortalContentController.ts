@@ -136,7 +136,6 @@ export default class PortalContentWidgetController {
                 if (typeFilter !== "all") {
                     query += " AND type:" + typeFilter;
                 }
-                debugger
                 const queryParams: __esri.PortalQueryParamsProperties = {
                     query: query,
                     sortField: sortByField,

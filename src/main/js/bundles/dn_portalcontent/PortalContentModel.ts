@@ -60,7 +60,7 @@ export default defineProperties<PortalContentModel, PortalContentModelProps>(Por
     spaceFilters: [],
     spaceFilter: "all",
     typeFilter: "all",
-    typeFilters: ["Feature Service", "Vector Tile Service", "Image Service", "Scene Service", "MapService"],
+    typeFilters: ["Feature Service", "Vector Tile Service", "Image Service", "Scene Service", "MapService", "all"],
     searchText: "",
     sortAscending: false,
     sortByField: "modified",
