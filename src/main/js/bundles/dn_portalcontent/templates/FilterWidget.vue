@@ -43,6 +43,7 @@
             hide-details
         />
         <v-select
+            v-if="authenticated"
             v-model="localSpaceFilter"
             class="pb-2"
             item-value="id"
@@ -102,6 +103,10 @@
             portals: {
                 type: Array,
                 default: () => []
+            },
+            authenticated: {
+                type: Boolean,
+                default: false
             },
             searchText: {
                 type: String,

@@ -21,11 +21,12 @@ function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P)
     return mutableDefinition;
 }
 
-class PortalContentModel extends Mutable {}
+class PortalContentModel extends Mutable { }
 
 interface PortalContentModelProps {
     portals: any[],
     portalItems: __esri.PortalItem[],
+    authenticated: boolean,
     loading: boolean,
     totalItems: number,
     rowsPerPageItems: number[],
@@ -33,6 +34,8 @@ interface PortalContentModelProps {
     portalFilter: string,
     spaceFilters: any[],
     spaceFilter: "all" | "organisation" | "my-content",
+    typeFilter: string,
+    typeFilters: any[],
     searchText: "",
     sortAscending: boolean,
     sortByField: "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views",
@@ -42,6 +45,7 @@ interface PortalContentModelProps {
 export default defineProperties<PortalContentModel, PortalContentModelProps>(PortalContentModel, {
     portals: [],
     portalItems: [],
+    authenticated: false,
     loading: false,
     totalItems: 0,
     rowsPerPageItems: [
@@ -55,6 +59,8 @@ export default defineProperties<PortalContentModel, PortalContentModelProps>(Por
     portalFilter: "",
     spaceFilters: [],
     spaceFilter: "all",
+    typeFilter: "all",
+    typeFilters: ["Feature Service", "Vector Tile Service", "Image Service", "Scene Service"],
     searchText: "",
     sortAscending: false,
     sortByField: "modified",

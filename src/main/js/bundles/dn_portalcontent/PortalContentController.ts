@@ -26,45 +26,50 @@ export default class PortalContentWidgetController {
     private readonly portalContentModel: typeof PortalContentModel;
     private lastTimeout: any;
     private abortController: AbortController;
+    private portal: __esri.Portal;
 
     constructor(i18n: any, mapWidgetModel: MapWidgetModel, portalContentModel: typeof PortalContentModel) {
         this.mapWidgetModel = mapWidgetModel;
         const model = this.portalContentModel = portalContentModel;
         model.portalFilter = model.portals[0].id;
+        this.changeSelectedPortal(model.portalFilter);
 
         portalContentModel.watch("portalFilter", ({ value }) => {
+            // delete current results
             model.portalItems = [];
-            this.queryPortalItems(model.pagination, value, model.searchText, model.spaceFilter,
+            // set new portal
+            this.changeSelectedPortal(value);
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("searchText", ({ value }) => {
-            this.queryPortalItems(model.pagination, model.portalFilter, value, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, value, model.spaceFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("pagination", ({ value }) => {
-            this.queryPortalItems(value, model.portalFilter, model.searchText, model.spaceFilter,
+            this.queryPortalItems(value, this.portal, model.searchText, model.spaceFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("spaceFilter", ({ value }) => {
-            this.queryPortalItems(model.pagination, model.portalFilter, model.searchText, value,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, value,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("sortAscending", ({ value }) => {
-            this.queryPortalItems(model.pagination, model.portalFilter, model.searchText, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
                 value, model.sortByField);
         });
 
         portalContentModel.watch("sortByField", ({ value }) => {
-            this.queryPortalItems(model.pagination, model.portalFilter, model.searchText, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
                 model.sortAscending, value);
         });
     }
 
-    queryPortalItems(pagination: any, portalFilter: string, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
+    queryPortalItems(pagination: any, portal: __esri.Portal, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
         sortAscending: boolean,
         sortByField: Fields): void {
         const model = this.portalContentModel;
@@ -74,9 +79,8 @@ export default class PortalContentWidgetController {
             if (this.abortController) {
                 this.abortController.abort();
             }
-            const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
             const promise =
-                this.queryPortal(selectedPortal, pagination, searchText, spaceFilter, sortAscending, sortByField);
+                this.queryPortal(portal, pagination, searchText, spaceFilter, sortAscending, sortByField);
             promise.then((result) => {
                 this.abortController = null;
                 model.loading = false;
@@ -89,15 +93,28 @@ export default class PortalContentWidgetController {
         }, 500);
     }
 
-    private queryPortal(portalConfig: any, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
+    private changeSelectedPortal(portalId: string) {
+        const model = this.portalContentModel;
+        const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
+        const portal = this.portal = new Portal(selectedPortal.url);
+        portal.load().then(() => {
+            if (portal.user) {
+                model.authenticated = true;
+            } else {
+                model.authenticated = false;
+            }
+        });
+    }
+
+    private queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
         sortAscending: boolean,
         sortByField: Fields): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
-        const portal = new Portal(portalConfig.url);
         return new Promise(resolve => {
             portal.load().then(() => {
-                let query;
+                let query = "";
+                let filter = "typeKeywords:Service";
                 switch (spaceFilter) {
                     case "all":
                         query = "1=1";
@@ -109,14 +126,13 @@ export default class PortalContentWidgetController {
                         query = "owner:" + portal.user.username;
                 }
                 if (searchText !== "") {
-                    query += " AND title:" + searchText;
+                    query += "AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + ")";
                 }
                 const queryParams: __esri.PortalQueryParamsProperties = {
                     query: query,
                     sortField: sortByField,
                     sortOrder: sortAscending ? "asc" : "desc",
-                    filter: 'typeKeywords:Service',
-                    // filter: 'type:"Feature Service"',
+                    filter: filter,
                     num: rowsPerPage,
                     start: page * rowsPerPage - rowsPerPage + 1
                 };

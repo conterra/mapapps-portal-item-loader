@@ -21,6 +21,7 @@
             <filter-widget
                 :i18n="i18n"
                 :portals="portals"
+                :authenticated="authenticated"
                 :space-filters="spaceFilters"
                 :sort-by-fields="sortByFields"
                 :search-text.sync="searchText"
@@ -101,6 +102,10 @@
             portals: {
                 type: Array,
                 default: () => []
+            },
+            authenticated: {
+                type: Boolean,
+                default: false
             },
             loading: {
                 type: Boolean,
