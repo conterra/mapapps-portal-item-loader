@@ -35,6 +35,7 @@ module.exports = {
             organisation: "Nur meine Organisation",
             "my-content": "Nur meine Inhalte"
         },
+        typeFilter: "Nach Typ filtern",
         sortBy: "Sortieren nach",
         sortByFields: {
             title: "Titel",

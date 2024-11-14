@@ -23,10 +23,12 @@
                 :portals="portals"
                 :authenticated="authenticated"
                 :space-filters="spaceFilters"
+                :type-filters="typeFilters"
                 :sort-by-fields="sortByFields"
                 :search-text.sync="searchText"
                 :portal-filter.sync="portalFilter"
                 :space-filter.sync="spaceFilter"
+                :type-filter.sync="typeFilter"
                 :sort-ascending.sync="sortAscending"
                 :sort-by-field.sync="sortByField"
             />
@@ -144,6 +146,14 @@
                 default: () => []
             },
             spaceFilter: {
+                type: String,
+                default: "all"
+            },
+            typeFilters: {
+                type: Array,
+                default: () => []
+            },
+            typeFilter: {
                 type: String,
                 default: "all"
             },

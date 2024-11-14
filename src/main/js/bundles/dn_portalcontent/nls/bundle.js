@@ -36,6 +36,7 @@ module.exports = {
                 organisation: "Only my organisation",
                 "my-content": "Only my content"
             },
+            typeFilter: "What type to search",
             sortBy: "Sort by",
             sortByFields: {
                 title: "Title",

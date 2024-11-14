@@ -39,37 +39,42 @@ export default class PortalContentWidgetController {
             model.portalItems = [];
             // set new portal
             this.changeSelectedPortal(value);
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilters,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("searchText", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, value, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, value, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("pagination", ({ value }) => {
-            this.queryPortalItems(value, this.portal, model.searchText, model.spaceFilter,
+            this.queryPortalItems(value, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("spaceFilter", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, value,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, value, model.typeFilter,
+                model.sortAscending, model.sortByField);
+        });
+
+        portalContentModel.watch("typeFilter", ({ value }) => {
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, value,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("sortAscending", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
                 value, model.sortByField);
         });
 
         portalContentModel.watch("sortByField", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter,
+            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, value);
         });
     }
 
-    queryPortalItems(pagination: any, portal: __esri.Portal, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
+    queryPortalItems(pagination: any, portal: __esri.Portal, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
         sortAscending: boolean,
         sortByField: Fields): void {
         const model = this.portalContentModel;
@@ -80,7 +85,7 @@ export default class PortalContentWidgetController {
                 this.abortController.abort();
             }
             const promise =
-                this.queryPortal(portal, pagination, searchText, spaceFilter, sortAscending, sortByField);
+                this.queryPortal(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
             promise.then((result) => {
                 this.abortController = null;
                 model.loading = false;
@@ -106,7 +111,7 @@ export default class PortalContentWidgetController {
         });
     }
 
-    private queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content",
+    private queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
         sortAscending: boolean,
         sortByField: Fields): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
@@ -126,8 +131,12 @@ export default class PortalContentWidgetController {
                         query = "owner:" + portal.user.username;
                 }
                 if (searchText !== "") {
-                    query += "AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + ")";
+                    query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + ")";
                 }
+                if (typeFilter !== "all") {
+                    query += " AND type:" + typeFilter;
+                }
+                debugger
                 const queryParams: __esri.PortalQueryParamsProperties = {
                     query: query,
                     sortField: sortByField,

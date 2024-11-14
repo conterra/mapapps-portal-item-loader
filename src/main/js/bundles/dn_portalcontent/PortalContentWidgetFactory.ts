@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-import type {InjectedReference} from "apprt-core/InjectedReference";
+import type { InjectedReference } from "apprt-core/InjectedReference";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
@@ -45,7 +45,7 @@ export default class PortalContentWidgetFactory {
 
     createInstance(): any {
         const controller = this.controller;
-        const widget = VueDijit(this.vm, {class: "portal-content-widget"});
+        const widget = VueDijit(this.vm, { class: "portal-content-widget" });
 
         widget.activateTool = async () => {
             this.binding.enable().syncToLeftNow();
@@ -80,13 +80,14 @@ export default class PortalContentWidgetFactory {
         vm.rowsPerPageItems = model.rowsPerPageItems;
         vm.portals = model.portals;
         vm.spaceFilters = model.spaceFilters;
+        vm.typeFilters = model.typeFilters;
         vm.sortByField = model.sortByField;
         vm.sortByFields = model.sortByFields;
 
         this.binding = Binding.for(vm, model)
             .syncAll("portalFilter")
             .syncAllToLeft("portalItems", "totalItems", "loading", "authenticated")
-            .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter");
+            .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter", "typeFilter");
     }
 
 }

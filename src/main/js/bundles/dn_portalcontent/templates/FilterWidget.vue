@@ -53,6 +53,16 @@
             :label="i18n.spaceFilter"
             hide-details
         />
+        <v-select
+            v-model="localTypeFilter"
+            class="pb-2"
+            item-value="id"
+            item-text="title"
+            prepend-inner-icon="filter"
+            :items="typeFilters"
+            :label="i18n.typeFilter"
+            hide-details
+        />
         <div class="ct-flex-container">
             <div class="ct-flex-item">
                 <v-select
@@ -124,6 +134,14 @@
                 type: String,
                 default: "all"
             },
+            typeFilters: {
+                type: Array,
+                default: () => []
+            },
+            typeFilter: {
+                type: String,
+                default: "all"
+            },
             sortAscending: {
                 type: Boolean,
                 default: false
@@ -176,6 +194,14 @@
                 },
                 set: function (spaceFilter) {
                     this.$emit("update:space-filter", spaceFilter);
+                }
+            },
+            localTypeFilter: {
+                get: function () {
+                    return this.typeFilter;
+                },
+                set: function (typeFilter) {
+                    this.$emit("update:type-filter", typeFilter);
                 }
             }
         }
