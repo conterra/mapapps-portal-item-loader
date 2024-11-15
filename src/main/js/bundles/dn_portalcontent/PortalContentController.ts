@@ -119,7 +119,7 @@ export default class PortalContentWidgetController {
         return new Promise(resolve => {
             portal.load().then(() => {
                 let query = "";
-                let filter = "typeKeywords:Service";
+                const filter = "typeKeywords:Service";
                 switch (spaceFilter) {
                     case "all":
                         query = "1=1";
