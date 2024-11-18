@@ -2,104 +2,40 @@
 
 This bundle allows to add portal content
 
-## Usage
+[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml)
+![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.18.3-%20?labelColor=%233E464F&color=%232FC050)
 
-1. First you need to add the bundle dn_mapapps-portal-item-loader to your app.
-2. Then you can configure it.
-3. The last thing you need to do is add the portalContentToggleTool 
+# Portal Item Loader
 
+The Portal Item Loader allows you to add portal content to your app.
 
+![Screenshot App](https://github.com/conterra/mapapps-portal-item-loader/blob/master/screenshot.JPG)
 
-### Configurable Components of dn_portalitemloader:
+## Build Status
 
-#### ActivateLayerAction
+[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml)
+
+## Sample App
+
+https://demos.conterra.de/mapapps/resources/apps/downloads_portalitemloader/index.html
+
+## Installation Guide
+
+[dn_portalitemloader Documentation](https://github.com/conterra/mapapps-portal-item-loader/tree/master/src/main/js/bundles/dn_portalitemloader)
+
+## Quick start
+
+Clone this project and ensure that you have all required dependencies installed correctly (see [Documentation](https://docs.conterra.de/en/mapapps/latest/developersguide/getting-started/set-up-development-environment.html)).
+
+Then run the following commands from the project root directory to start a local development server:
+
+```bash
+# install all required node modules
+$ mvn initialize
+
+# start dev server
+$ mvn compile -Denv=dev -Pinclude-mapapps-deps
+
+# run unit tests
+$ mvn test -P run-js-tests,include-mapapps-deps
 ```
-
-"dn_portalitemloader": {
-    "Config": {
-            "portals": [
-                        {
-                            "id": "arcgis",
-                            "title": "ArcGIS Online",
-                            "url": "https://arcgis.com"
-                        }
-                    ],
-                    "rowsPerPageItems": [
-                        10,
-                        25,
-                        50,
-                        100
-                    ],
-                    "pagination": {
-                        "rowsPerPage": 10
-                    },
-                    "spaceFilter": "all",
-                    "typeFilters": [
-                        "Feature Service",
-                        "Vector Tile Service",
-                        "Image Service",
-                        "Scene Service",
-                        "MapService"
-                    ],
-                    "typeFilter": "all",
-                    "sortAscending": false,
-                    "sortByField": "modified",
-                    "sortByFields": [
-                        {
-                            "id": "modified",
-                            "title": "${ui.sortByFields.modified}"
-                        },
-                        {
-                            "id": "title",
-                            "title": "${ui.sortByFields.title}"
-                        },
-                        {
-                            "id": "uploaded",
-                            "title": "${ui.sortByFields.uploaded}"
-                        },
-                        {
-                            "id": "username",
-                            "title": "${ui.sortByFields.username}"
-                        },
-                        {
-                            "id": "created",
-                            "title": "${ui.sortByFields.created}"
-                        },
-                        {
-                            "id": "type",
-                            "title": "${ui.sortByFields.type}"
-                        },
-                        {
-                            "id": "owner",
-                            "title": "${ui.sortByFields.owner}"
-                        },
-                        {
-                            "id": "avg-rating",
-                            "title": "${ui.sortByFields.avg-rating}"
-                        },
-                        {
-                            "id": "num-ratings",
-                            "title": "${ui.sortByFields.num-ratings}"
-                        },
-                        {
-                            "id": "num-comments",
-                            "title": "${ui.sortByFields.num-comments}"
-                        },
-                        {
-                            "id": "num-view",
-                            "title": "${ui.sortByFields.num-view}"
-                        }
-                    ]
-                }
-}
-```
-| Property         | Type   | Possible Values                                                                                                                                                                                                                                      | Default                                                                                                                                   | Description                      |
-|------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
-| typeFilters      | Array  | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ```  &#124; ```all ```                                                                                                           | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ``` | All filter types                      |
-| typeFilter     | Array  | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ``` &#124; ```all ```                                                                                                           |  ```all ``` | Filter type                      |
-| sortbyFields     | Array  | ``` modified ``` &#124; ```title``` &#124; ```uploaded ``` &#124; ```username``` &#124; ```created ``` &#124; ```type ``` &#124; ```owner ``` &#124; ```avg-rating ``` &#124; ```num-ratings ``` &#124; ```num-comments ``` &#124; ```num-views" ``` | ``` modified ```                                                                                                                          | Sort fields                      |
-| portals          | Object |                                                                                                                                                                                                                                                      |                                                                                                                                           | used portal                      |
-| rowsPerPageItems | Array  | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                                                                                                                           | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                | possible number of rows per page |
-| pagination       | Object | [```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```  ]                                                                                                                                                                                         | ```  10 ```                                                                                                                               | number of rows per page          |
-| spaceFilter      | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```                                                                                                                                                                                       | ```all```                                                                                                                                 | all possible filter portal spaces             |
-| spaceFilters      | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```                                                                                                                                                                                       | ```all```                                                                                                                                 | filter portal space                                                         | Filter portal space              |
