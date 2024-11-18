@@ -36,10 +36,10 @@ module.exports = {
                 organisation: "Only my organisation",
                 "my-content": "Only my content"
             },
-            allLayers:{
+            allLayers: {
                 all: "Everywhere",
                 organisation: "Only my organisation",
-                "all-layers":"All Layers"
+                allLayers: "All layer types"
             },
             typeFilter: "What type to search",
             sortBy: "Sort by",

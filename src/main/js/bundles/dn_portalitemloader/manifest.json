@@ -148,7 +148,7 @@
                     },
                     {
                         "id": "all",
-                        "title": "${ui.allLayers.all-layers}"
+                        "title": "${ui.allLayers.allLayers}"
                     }
                 ],
                 "typeFilter": "all",

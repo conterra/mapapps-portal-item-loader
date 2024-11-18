@@ -18,15 +18,14 @@ import Portal from "esri/portal/Portal";
 import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalContentModel from "./PortalContentModel";
-import type Fields from "../../types/Fields.d.ts";
 
 export default class PortalContentWidgetController {
 
     private readonly mapWidgetModel: MapWidgetModel;
     private readonly portalContentModel: typeof PortalContentModel;
     private lastTimeout: any;
-    private abortController: AbortController;
-    private portal: __esri.Portal;
+    private abortController: AbortController | undefined;
+    private portal: __esri.Portal | undefined;
 
     constructor(i18n: any, mapWidgetModel: MapWidgetModel, portalContentModel: typeof PortalContentModel) {
         this.mapWidgetModel = mapWidgetModel;
@@ -39,45 +38,46 @@ export default class PortalContentWidgetController {
             model.portalItems = [];
             // set new portal
             this.changeSelectedPortal(value);
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilters,
+            this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("searchText", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, value, model.spaceFilter, model.typeFilter,
+            this.queryPortalItems(model.pagination, value, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("pagination", ({ value }) => {
-            this.queryPortalItems(value, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
+            this.queryPortalItems(value, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("spaceFilter", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, value, model.typeFilter,
+            this.queryPortalItems(model.pagination, model.searchText, value, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("typeFilter", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, value,
+            this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, value,
                 model.sortAscending, model.sortByField);
         });
 
         portalContentModel.watch("sortAscending", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
+            this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 value, model.sortByField);
         });
 
         portalContentModel.watch("sortByField", ({ value }) => {
-            this.queryPortalItems(model.pagination, this.portal, model.searchText, model.spaceFilter, model.typeFilter,
+            this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, value);
         });
     }
 
-    queryPortalItems(pagination: any, portal: __esri.Portal, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
+    queryPortalItems(pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
         sortAscending: boolean,
-        sortByField: Fields): void {
+        sortByField: string): void {
         const model = this.portalContentModel;
+        const portal = this.portal!;
         clearTimeout(this.lastTimeout);
         this.lastTimeout = setTimeout(() => {
             model.loading = true;
@@ -87,7 +87,7 @@ export default class PortalContentWidgetController {
             const promise =
                 this.queryPortal(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
             promise.then((result) => {
-                this.abortController = null;
+                this.abortController = undefined;
                 model.loading = false;
                 if (!result) {
                     return;
@@ -112,8 +112,7 @@ export default class PortalContentWidgetController {
     }
 
     private queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
-        sortAscending: boolean,
-        sortByField: Fields): Promise<__esri.PortalQueryResult> {
+        sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
         return new Promise(resolve => {
@@ -150,7 +149,7 @@ export default class PortalContentWidgetController {
                     resolve(result);
                 });
             }, (error) => {
-                resolve(null);
+                resolve(error);
             });
         });
 

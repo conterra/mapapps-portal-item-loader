@@ -35,10 +35,10 @@ module.exports = {
             organisation: "Nur meine Organisation",
             "my-content": "Nur meine Inhalte"
         },
-        allLayers:{
+        allLayers: {
             all: "Everywhere",
             organisation: "Only my organisation",
-            "all-layers":"Alle Layer"
+            allLayers: "Alle Layer-Typen"
         },
         typeFilter: "Nach Typ filtern",
         sortBy: "Sortieren nach",
