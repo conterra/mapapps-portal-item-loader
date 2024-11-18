@@ -36,11 +36,6 @@
                         "id": "arcgis",
                         "title": "ArcGIS Online",
                         "url": "https://arcgis.com"
-                    },
-                    {
-                        "id": "portal",
-                        "title": "ArcGIS Portal",
-                        "url": "https://dev0311w.conterra.de/portal"
                     }
                 ]
             }
