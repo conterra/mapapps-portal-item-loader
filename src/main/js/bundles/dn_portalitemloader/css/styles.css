@@ -13,89 +13,80 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ctAppRoot .portal-content-widget {
-    overflow: hidden;
-}
-
-.ctAppRoot .portal-content-widget .portal-content--container {
+.ctAppRoot .ct-portal-content-widget__main {
     height: 100%;
-}
-
-.ctAppRoot .portal-content-widget .left {
-    width: 300px;
-}
-
-.ctAppRoot .portal-content-widget .center {
-    overflow: auto;;
-}
-
-.ctAppRoot .portal-content-widget .v-data-iterator {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.ctAppRoot .portal-content-widget .v-data-iterator .loading-indicator {
-    height: 8px;
-}
-
-.ctAppRoot .portal-content-widget .v-data-iterator>div:first-child {
+.ctAppRoot .ct-portal-content-widget__portal-item-filter {
+    width: 300px;
     flex: 0 0 auto;
 }
 
-.ctAppRoot .portal-content-widget .v-data-iterator>div:nth-child(2) {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery .loading-indicator {
+    height: 8px;
+}
+
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:first-child {
+    flex: 0 0 auto;
+}
+
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:nth-child(2) {
     flex: 1 1 auto;
     overflow: auto;
 }
 
-.ctAppRoot .portal-content-widget .v-data-iterator>div:nth-child(3) {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:nth-child(3) {
     flex: 0 0 auto;
 }
 
-.ctAppRoot .portal-content-widget .v-toolbar__content {
-    padding-left: 4px;
-    padding-right: 4px;
-}
-
-/* .ctAppRoot .portal-content-widget .portal-flex-item {
-    height: 480px;
-} */
-
-.ctAppRoot .portal-content-widget .portal-flex-item .portal-item-node {
-    height: 100%;
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
     padding: 4px;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card {
     display: flex;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .v-image {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-image {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .backup-icon {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .backup-icon {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .v-list {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-list {
     padding: 0 0 4px;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .v-list--dense .v-list__tile--avatar {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-list--dense .v-list__tile--avatar {
     height: 30px;
     padding: 0;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .v-icon--left {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-icon--left {
     margin-right: 4px;
 }
 
-.ctAppRoot .portal-content-widget .portal-item-card .item-text {
+.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .item-text {
     display: block;
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -104,6 +95,6 @@
     padding-right: 8px;
 }
 
-.ctAppRoot .portal-content-widget .filter-widget .sort-ascending-button .v-icon {
+.ctAppRoot .ct-portal-content-widget__portal-item-filter .sort-ascending-button .v-icon {
     margin-right: 0;
 }

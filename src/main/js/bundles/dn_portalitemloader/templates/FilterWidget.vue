@@ -20,7 +20,7 @@
         fluid
         grid-list-md
         pa-1
-        class="filter-widget"
+        class="ct-portal-content-widget__portal-item-filter"
     >
         <v-select
             v-if="portals.length>1"

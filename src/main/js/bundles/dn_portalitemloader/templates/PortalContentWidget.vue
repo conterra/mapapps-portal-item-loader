@@ -16,8 +16,10 @@
 
 -->
 <template>
-    <div class="ct-flex-container ct-flex-container--row portal-content--container">
-        <div class="left ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink">
+    <div class="ct-portal-content-widget__main">
+        <div
+            class="ct-portal-content-widget__portal-item-filter"
+        >
             <filter-widget
                 :i18n="i18n"
                 :portals="portals"
@@ -33,50 +35,45 @@
                 :sort-by-field.sync="sortByField"
             />
         </div>
-        <div class="center ct-flex-item">
-            <v-data-iterator
-                :items="portalItems"
-                :total-items="totalItems"
-                :rows-per-page-items="rowsPerPageItems"
-                :pagination.sync="pagination"
-                :loading="loading"
-                :no-results-text="i18n.noResultsText"
-                :no-data-text="i18n.noDataText"
-                content-tag="v-layout"
-                row
-                wrap
-                class="fullHeight"
+        <v-data-iterator
+            :items="portalItems"
+            :total-items="totalItems"
+            :rows-per-page-items="rowsPerPageItems"
+            :pagination.sync="pagination"
+            :loading="loading"
+            :no-results-text="i18n.noResultsText"
+            :no-data-text="i18n.noDataText"
+            content-tag="div"
+            content-class="ct-portal-content-widget__portal-item-gallery-content"
+            class="ct-portal-content-widget__portal-item-gallery"
+        >
+            <template
+                #header
             >
-                <template
-                    #header
+                <div
+                    class="loading-indicator"
                 >
-                    <div
-                        class="loading-indicator"
-                    >
-                        <v-progress-linear
-                            v-show="loading"
-                            :indeterminate="true"
-                            class="pa-0 ma-0"
-                        />
-                    </div>
-                </template>
-                <template #item="props">
-                    <v-flex
-                        xs12
-                        sm6
-                        md4
-                        lg4
-                        class="portal-flex-item"
-                    >
-                        <portal-item
-                            :i18n="i18n"
-                            :item="props.item"
-                            @load-item="$emit('load-item', $event)"
-                        />
-                    </v-flex>
-                </template>
-            </v-data-iterator>
-        </div>
+                    <v-progress-linear
+                        v-show="loading"
+                        :indeterminate="true"
+                        class="pa-0 ma-0"
+                    />
+                </div>
+            </template>
+            <template
+                #item="props"
+            >
+                <div
+                    class="portal-flex-item"
+                >
+                    <portal-item
+                        :i18n="i18n"
+                        :item="props.item"
+                        @load-item="$emit('load-item', $event)"
+                    />
+                </div>
+            </template>
+        </v-data-iterator>
     </div>
 </template>
 <script>
