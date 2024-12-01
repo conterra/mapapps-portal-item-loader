@@ -103,7 +103,7 @@
             </v-list>
         </div>
         <v-card-actions
-            class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink"
+            class="ct-portal-item-loader-widget__portal-item-card-actions"
         >
             <v-btn
                 block

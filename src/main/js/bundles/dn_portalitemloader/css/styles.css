@@ -126,3 +126,7 @@
 .ctAppRoot .ct-portal-item-loader-widget__portal-item-filter .sort-ascending-button .v-icon {
     margin-right: 0;
 }
+
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-actions {
+    flex: 0 1 auto;
+}
