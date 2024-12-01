@@ -16,9 +16,9 @@
 
 -->
 <template>
-    <div class="ct-portal-content-widget__main">
+    <div class="ct-portal-item-loader-widget__main">
         <div
-            class="ct-portal-content-widget__portal-item-filter"
+            class="ct-portal-item-loader-widget__portal-item-filter"
         >
             <filter-widget
                 :i18n="i18n"
@@ -44,8 +44,8 @@
             :no-results-text="i18n.noResultsText"
             :no-data-text="i18n.noDataText"
             content-tag="div"
-            content-class="ct-portal-content-widget__portal-item-gallery-content"
-            class="ct-portal-content-widget__portal-item-gallery"
+            content-class="ct-portal-item-loader-widget__portal-item-gallery-content"
+            class="ct-portal-item-loader-widget__portal-item-gallery"
         >
             <template
                 #header

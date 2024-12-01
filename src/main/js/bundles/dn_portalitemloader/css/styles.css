@@ -13,76 +13,75 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ctAppRoot .ct-portal-content-widget__main {
+.ctAppRoot .ct-portal-item-loader-widget__main {
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-filter {
-    width: 300px;
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-filter {
     flex: 0 0 auto;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     overflow: auto;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery .loading-indicator {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery .loading-indicator {
     height: 8px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:first-child {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery>div:first-child {
     flex: 0 0 auto;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:nth-child(2) {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery>div:nth-child(2) {
     flex: 1 1 auto;
     overflow: auto;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery>div:nth-child(3) {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery>div:nth-child(3) {
     flex: 0 0 auto;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 12px;
     padding: 4px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card {
     display: flex;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-image {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-image {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .backup-icon {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .backup-icon {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-list {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-list {
     padding: 0 0 4px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-list--dense .v-list__tile--avatar {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-list--dense .v-list__tile--avatar {
     height: 30px;
     padding: 0;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .v-icon--left {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-icon--left {
     margin-right: 4px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-gallery-content .portal-item-card .item-text {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .item-text {
     display: block;
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -95,6 +94,6 @@
     padding-right: 8px;
 }
 
-.ctAppRoot .ct-portal-content-widget__portal-item-filter .sort-ascending-button .v-icon {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-filter .sort-ascending-button .v-icon {
     margin-right: 0;
 }

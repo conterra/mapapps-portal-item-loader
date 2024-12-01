@@ -45,7 +45,7 @@ export default class PortalItemLoaderWidgetFactory {
 
     createInstance(): any {
         const controller = this.controller;
-        const widget = VueDijit(this.vm, { class: "ct-portal-content-widget" });
+        const widget = VueDijit(this.vm, { class: "ct-portal-item-loader-widget" });
 
         widget.activateTool = async () => {
             this.binding.enable().syncToLeftNow();
