@@ -19,23 +19,23 @@ import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
 import MapWidgetModel from "map-widget/MapWidgetModel";
-import PortalContentController from "./PortalContentController";
-import PortalContentModel from "./PortalContentModel";
-import PortalContentWidget from "./templates/PortalContentWidget.vue";
+import PortalItemLoaderController from "./PortalItemLoaderController";
+import PortalItemLoaderModel from "./PortalItemLoaderModel";
+import PortalItemLoaderWidget from "./templates/PortalItemLoaderWidget.vue";
 
-export default class PortalContentWidgetFactory {
+export default class PortalItemLoaderWidgetFactory {
 
     private readonly _i18n!: InjectedReference<any>;
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
-    private readonly _portalContentModel!: InjectedReference<typeof PortalContentModel>;
-    private controller: PortalContentController;
+    private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private controller: PortalItemLoaderController;
     private vm: Vue;
     private binding: Binding;
 
     activate(): void {
         this.initComponent();
         const i18n = this._i18n.get().ui;
-        this.controller = new PortalContentController(i18n, this._mapWidgetModel, this._portalContentModel);
+        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel, this._portalItemLoaderModel);
     }
 
     deactivate(): void {
@@ -49,7 +49,7 @@ export default class PortalContentWidgetFactory {
 
         widget.activateTool = async () => {
             this.binding.enable().syncToLeftNow();
-            const model = this._portalContentModel;
+            const model = this._portalItemLoaderModel;
             controller.queryPortalItems(model.pagination, model.portalFilter, model.searchText,
                 model.spaceFilter, model.sortAscending, model.sortByField);
 
@@ -73,8 +73,8 @@ export default class PortalContentWidgetFactory {
     }
 
     private initComponent(): void {
-        const vm = this.vm = new Vue(PortalContentWidget);
-        const model = this._portalContentModel;
+        const vm = this.vm = new Vue(PortalItemLoaderWidget);
+        const model = this._portalItemLoaderModel;
         vm.i18n = this._i18n.get().ui;
         vm.pagination = model.pagination;
         vm.rowsPerPageItems = model.rowsPerPageItems;

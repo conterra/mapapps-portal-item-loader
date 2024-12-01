@@ -17,23 +17,23 @@
 import Portal from "esri/portal/Portal";
 import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
-import PortalContentModel from "./PortalContentModel";
+import PortalItemLoaderModel from "./PortalItemLoaderModel";
 
-export default class PortalContentWidgetController {
+export default class PortalItemLoaderWidgetController {
 
     private readonly mapWidgetModel: MapWidgetModel;
-    private readonly portalContentModel: typeof PortalContentModel;
+    private readonly portalItemLoaderModel: typeof PortalItemLoaderModel;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
 
-    constructor(i18n: any, mapWidgetModel: MapWidgetModel, portalContentModel: typeof PortalContentModel) {
+    constructor(i18n: any, mapWidgetModel: MapWidgetModel, portalItemLoaderModel: typeof PortalItemLoaderModel) {
         this.mapWidgetModel = mapWidgetModel;
-        const model = this.portalContentModel = portalContentModel;
+        const model = this.portalItemLoaderModel = portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
         this.changeSelectedPortal(model.portalFilter);
 
-        portalContentModel.watch("portalFilter", ({ value }) => {
+        portalItemLoaderModel.watch("portalFilter", ({ value }) => {
             // delete current results
             model.portalItems = [];
             // set new portal
@@ -42,32 +42,32 @@ export default class PortalContentWidgetController {
                 model.sortAscending, model.sortByField);
         });
 
-        portalContentModel.watch("searchText", ({ value }) => {
+        portalItemLoaderModel.watch("searchText", ({ value }) => {
             this.queryPortalItems(model.pagination, value, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalContentModel.watch("pagination", ({ value }) => {
+        portalItemLoaderModel.watch("pagination", ({ value }) => {
             this.queryPortalItems(value, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalContentModel.watch("spaceFilter", ({ value }) => {
+        portalItemLoaderModel.watch("spaceFilter", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, value, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalContentModel.watch("typeFilter", ({ value }) => {
+        portalItemLoaderModel.watch("typeFilter", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, value,
                 model.sortAscending, model.sortByField);
         });
 
-        portalContentModel.watch("sortAscending", ({ value }) => {
+        portalItemLoaderModel.watch("sortAscending", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 value, model.sortByField);
         });
 
-        portalContentModel.watch("sortByField", ({ value }) => {
+        portalItemLoaderModel.watch("sortByField", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, value);
         });
@@ -76,7 +76,7 @@ export default class PortalContentWidgetController {
     queryPortalItems(pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
         sortAscending: boolean,
         sortByField: string): void {
-        const model = this.portalContentModel;
+        const model = this.portalItemLoaderModel;
         const portal = this.portal!;
         clearTimeout(this.lastTimeout);
         this.lastTimeout = setTimeout(() => {
@@ -99,7 +99,7 @@ export default class PortalContentWidgetController {
     }
 
     private changeSelectedPortal(portalId: string) {
-        const model = this.portalContentModel;
+        const model = this.portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         const portal = this.portal = new Portal(selectedPortal.url);
         portal.load().then(() => {
@@ -175,7 +175,7 @@ export default class PortalContentWidgetController {
                 portalUrl: portalItem.portal.url
             };
         });
-        this.portalContentModel.portalItems = portalItems;
+        this.portalItemLoaderModel.portalItems = portalItems;
     }
 
     addPortalItemLayerToMap(item: any): void {

@@ -15,6 +15,6 @@
 ///
 
 import ".";
-import "./PortalContentWidgetFactory";
-import "./PortalContentModel";
+import "./PortalItemLoaderWidgetFactory";
+import "./PortalItemLoaderModel";
 import "ct/tools/Tool";

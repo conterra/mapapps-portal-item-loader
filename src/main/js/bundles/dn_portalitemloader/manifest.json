@@ -27,17 +27,18 @@
     ],
     "layout-widgets": [
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "window": {
-                "dockTool": "portalContentToggleTool",
+                "dockTool": "portalItemLoaderToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
                 "maximizable": true,
-                "resizable": true
+                "resizable": true,
+                "windowClass": "noPadding"
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "desktop"
             ],
@@ -49,7 +50,7 @@
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "tablet_landscape",
                 "tablet_portrait"
@@ -67,7 +68,7 @@
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "mobile_landscape",
                 "mobile_portrait"
@@ -86,8 +87,8 @@
     "components": [
         {
             "name": "Config",
-            "impl": "./PortalContentModel",
-            "provides": "dn_portalitemloader.PortalContentModel",
+            "impl": "./PortalItemLoaderModel",
+            "provides": "dn_portalitemloader.PortalItemLoaderModel",
             "propertiesConstructor": true,
             "properties": {
                 "portals": [
@@ -199,19 +200,19 @@
             }
         },
         {
-            "name": "PortalContentWidgetFactory",
+            "name": "PortalItemLoaderWidgetFactory",
             "provides": [
                 "dijit.Widget",
                 "dn_portalitemloader.Widget"
             ],
             "instanceFactory": true,
             "properties": {
-                "widgetRole": "portalContentWidget"
+                "widgetRole": "portalItemLoaderWidget"
             },
             "references": [
                 {
-                    "name": "_portalContentModel",
-                    "providing": "dn_portalitemloader.PortalContentModel"
+                    "name": "_portalItemLoaderModel",
+                    "providing": "dn_portalitemloader.PortalItemLoaderModel"
                 },
                 {
                     "name": "_mapWidgetModel",
@@ -220,14 +221,14 @@
             ]
         },
         {
-            "name": "PortalContentToggleTool",
+            "name": "PortalItemLoaderToggleTool",
             "impl": "ct/tools/Tool",
             "provides": [
                 "ct.tools.Tool"
             ],
             "propertiesConstructor": true,
             "properties": {
-                "id": "portalContentToggleTool",
+                "id": "portalItemLoaderToggleTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "iconClass": "icon-toolcase",

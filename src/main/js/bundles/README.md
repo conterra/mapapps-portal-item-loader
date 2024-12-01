@@ -1,14 +1,12 @@
 # dn_portalitemloader
 
-This bundle allows to add portal content
+This bundle allows to add portal content to your map.apps app.
 
 ## Usage
 
 1. First you need to add the bundle dn_mapapps-portal-item-loader to your app.
 2. Then you can configure it.
-3. The last thing you need to do is add the portalContentToggleTool
-
-
+3. The last thing you need to do is add the portalItemLoaderToggleTool
 
 ### Configurable Components of dn_portalitemloader:
 

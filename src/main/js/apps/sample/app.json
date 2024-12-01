@@ -131,7 +131,7 @@
                             "helloTool",
                             "IMPRINT_Imprint_CustomInfoTool",
                             "IMPRINT_Imprint_CustomInfoTool_mobile",
-                            "portalContentToggleTool"
+                            "portalItemLoaderToggleTool"
                         ],
                         "registerWidget": {
                             "widgetRole": "drawer_button"
@@ -145,6 +145,13 @@
                             "before"
                         ]
                     }
+                ]
+            }
+        },
+        "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "portalItemLoaderToggleTool"
                 ]
             }
         }
