@@ -26,6 +26,8 @@ module.exports = {
             addToMap: "Add to map",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",
+            showFilters: "Hide filters",
+            hideFilters: "Show filters",
             filterForPortal: "Select portal",
             tags: "Tags",
             noDataText: "No portal items",

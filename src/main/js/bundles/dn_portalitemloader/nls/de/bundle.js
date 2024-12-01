@@ -22,9 +22,11 @@ module.exports = {
     },
     ui: {
         all: "Alle Portale",
-        addToMap: "Hinzufügen",
+        addToMap: "Zur Karte hinzufügen",
         searchForItems: "Nach Inhalten suchen",
         searchForItemsPlaceholder: "Suchen nach...",
+        showFilters: "Filter anzeigen",
+        hideFilters: "Filter ausblenden",
         filterForPortal: "Portal auswählen",
         tags: "Tags",
         noDataText: "Keine Portalinhalte vorhanden",

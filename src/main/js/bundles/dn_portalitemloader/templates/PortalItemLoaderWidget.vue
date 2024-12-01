@@ -51,7 +51,7 @@
                 #header
             >
                 <div
-                    class="loading-indicator"
+                    class="ct-portal-item-loader-widget__loading-indicator"
                 >
                     <v-progress-linear
                         v-show="loading"
@@ -63,15 +63,11 @@
             <template
                 #item="props"
             >
-                <div
-                    class="portal-flex-item"
-                >
-                    <portal-item
-                        :i18n="i18n"
-                        :item="props.item"
-                        @load-item="$emit('load-item', $event)"
-                    />
-                </div>
+                <portal-item
+                    :i18n="i18n"
+                    :item="props.item"
+                    @load-item="$emit('load-item', $event)"
+                />
             </template>
         </v-data-iterator>
     </div>
@@ -166,10 +162,6 @@
                 type: Array,
                 default: () => []
             }
-        },
-        data() {
-            return {
-            };
         },
         methods: {
             filterItems: function (items, search) {

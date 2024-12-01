@@ -30,8 +30,9 @@
     overflow: auto;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery .loading-indicator {
+.ctAppRoot .ct-portal-item-loader-widget__loading-indicator {
     height: 8px;
+    padding: 0 8px;
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery>div:first-child {
@@ -49,49 +50,77 @@
 
 .ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 12px;
-    padding: 4px;
+    padding: 8px;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card {
-    display: flex;
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-image {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-image .v-image {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .backup-icon {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-image .backup-icon {
     height: 200px;
     max-height: 200px;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-list {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-title {
+    flex: 0 1 auto;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-snippet {
+    flex: 1 1 auto;
+    padding: 0 8px;
+    max-height: 75px;
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-list {
+    flex: 0 1 auto;
+    padding: 8px 8px 0 8px;
+}
+
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-list .v-list {
     padding: 0 0 4px;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-list--dense .v-list__tile--avatar {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-list .v-list--dense .v-list__tile--avatar {
     height: 30px;
     padding: 0;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .v-icon--left {
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-card-list .v-icon--left {
     margin-right: 4px;
 }
 
-.ctAppRoot .ct-portal-item-loader-widget__portal-item-gallery-content .portal-item-card .item-text {
-    display: block;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    padding: 0 24px;
+    padding-bottom: 0;
+}
 
-    padding-left: 8px;
-    padding-right: 8px;
+.ctAppRoot .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-search {
+    padding: 0;
+    width: 100%;
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__portal-item-filter .sort-ascending-button .v-icon {

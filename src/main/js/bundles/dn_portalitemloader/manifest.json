@@ -44,8 +44,12 @@
             ],
             "window": {
                 "marginBox": {
-                    "h": "50%",
-                    "w": "50%"
+                    "h": "70%",
+                    "w": "70%"
+                },
+                "minSize": {
+                    "h": 400,
+                    "w": 340
                 }
             }
         },
@@ -62,8 +66,8 @@
                     "w": "70%"
                 },
                 "minSize": {
-                    "h": 600,
-                    "w": 1000
+                    "h": 400,
+                    "w": 340
                 }
             }
         },
@@ -124,23 +128,23 @@
                 "spaceFilter": "all",
                 "typeFilters": [
                     {
-                        "id":  "MapService",
-                        "title":  "MapService"
+                        "id": "MapService",
+                        "title": "MapService"
                     },
                     {
-                        "id":  "Scene Service",
-                        "title":  "Scene Service"
+                        "id": "Scene Service",
+                        "title": "Scene Service"
                     },
                     {
-                        "id":  "Image Service",
-                        "title":  "Image Service"
+                        "id": "Image Service",
+                        "title": "Image Service"
                     },
                     {
-                        "id":  "Vector Tile Service",
+                        "id": "Vector Tile Service",
                         "title": "Vector Tile Service"
                     },
                     {
-                        "id":  "Feature Service",
+                        "id": "Feature Service",
                         "title": "Feature Service"
                     },
                     {

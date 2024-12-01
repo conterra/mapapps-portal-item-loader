@@ -17,11 +17,12 @@
 -->
 <template>
     <v-card
-        class="portal-item-card ct-flex-container ct-flex-container--column fullHeight"
+        class="ct-portal-item-loader-widget__portal-item-card"
     >
         <a
             :href="item.itemPageUrl"
             target="_blank"
+            class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
                 v-if="item.thumbnailUrl"
@@ -36,15 +37,18 @@
                 panorama
             </v-icon>
         </a>
-        <v-card-title
-            class="ct-flex-item ct-flex-item--no-grow"
+        <div
+            class="ct-portal-item-loader-widget__portal-item-card-title"
         >
-            <h4 class="text-truncate">
-                {{ item.title }}
-            </h4>
-        </v-card-title>
-        <v-card-text
-            class="ct-flex-item py-0"
+            {{ item.title }}
+        </div>
+        <div
+            class="ct-portal-item-loader-widget__portal-item-card-snippet"
+        >
+            {{ item.snippet }}
+        </div>
+        <div
+            class="ct-portal-item-loader-widget__portal-item-card-list"
         >
             <v-list dense>
                 <v-list-tile
@@ -89,18 +93,6 @@
                 >
                     <v-list-tile-avatar>
                         <v-icon>
-                            more_time
-                        </v-icon>
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{ created }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    avatar
-                >
-                    <v-list-tile-avatar>
-                        <v-icon>
                             update
                         </v-icon>
                     </v-list-tile-avatar>
@@ -109,10 +101,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
-            <div class="item-text">
-                {{ item.snippet }}
-            </div>
-        </v-card-text>
+        </div>
         <v-card-actions
             class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink"
         >
@@ -162,11 +151,8 @@
             }
         },
         computed: {
-            created() {
-                return moment(this.item.created).format("DD.MM.YYYY, HH:mm:ss");
-            },
             modified() {
-                return moment(this.item.modified).format("DD.MM.YYYY, HH:mm:ss");
+                return moment(this.item.modified).format("DD.MM.YYYY");
             }
         }
     };
