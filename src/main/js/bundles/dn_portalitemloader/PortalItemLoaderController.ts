@@ -18,17 +18,21 @@ import Portal from "esri/portal/Portal";
 import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
+import GroupLayer from "esri/layers/GroupLayer";
 
 export default class PortalItemLoaderWidgetController {
 
     private readonly mapWidgetModel: MapWidgetModel;
     private readonly portalItemLoaderModel: typeof PortalItemLoaderModel;
+    private readonly addLayerService: any;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
 
-    constructor(i18n: any, mapWidgetModel: MapWidgetModel, portalItemLoaderModel: typeof PortalItemLoaderModel) {
+    constructor(i18n: any, mapWidgetModel: MapWidgetModel,
+        portalItemLoaderModel: typeof PortalItemLoaderModel, addLayerService: any) {
         this.mapWidgetModel = mapWidgetModel;
+        this.addLayerService = addLayerService;
         const model = this.portalItemLoaderModel = portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
         this.changeSelectedPortal(model.portalFilter);
@@ -178,20 +182,32 @@ export default class PortalItemLoaderWidgetController {
         this.portalItemLoaderModel.portalItems = portalItems;
     }
 
-    addPortalItemLayerToMap(item: any): void {
-        Layer.fromPortalItem({
+    async addPortalItemLayerToMap(item: any): Promise<void> {
+        const model = this.portalItemLoaderModel;
+        const map = this.mapWidgetModel.map;
+        const layer = await Layer.fromPortalItem({
             portalItem: {
-                // autocasts new PortalItem()
                 id: item.id,
-                // autocastable to Portal
                 portal: {
                     url: item.portalUrl
                 }
             }
-        }).then((layer) => {
-            // add the layer to the map
-            this.mapWidgetModel.map.add(layer);
         });
+
+        if (this.addLayerService) {
+            this.addLayerService.addLayerToMap(layer);
+            console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
+        } else {
+            let root = map.findLayerById(model.rootId);
+            if (!root) {
+                root = new GroupLayer({
+                    id: model.rootId,
+                    title: model.rootTitle || model.rootId
+                });
+            }
+            map.add(root);
+            root.add(layer);
+        }
     }
 
 }

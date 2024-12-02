@@ -24,6 +24,7 @@ module.exports = {
         ui: {
             all: "All portals",
             addToMap: "Add to map",
+            myServicesTitle: "My Services",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",
             showFilters: "Hide filters",

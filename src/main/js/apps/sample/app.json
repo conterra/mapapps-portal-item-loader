@@ -25,7 +25,8 @@
             "search-ui",
             "locator-store",
             "toc",
-            "dn_portalitemloader"
+            "dn_portalitemloader",
+            "sdi_loadservice"
         ]
     },
     "bundles": {

@@ -23,6 +23,7 @@ module.exports = {
     ui: {
         all: "Alle Portale",
         addToMap: "Zur Karte hinzufügen",
+        myServicesTitle: "Eigene Dienste",
         searchForItems: "Nach Inhalten suchen",
         searchForItemsPlaceholder: "Suchen nach...",
         showFilters: "Filter anzeigen",

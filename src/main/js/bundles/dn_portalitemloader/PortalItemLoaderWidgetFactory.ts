@@ -28,6 +28,7 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _i18n!: InjectedReference<any>;
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private readonly _addLayerService!: InjectedReference<any>;
     private controller: PortalItemLoaderController;
     private vm: Vue;
     private binding: Binding;
@@ -35,7 +36,8 @@ export default class PortalItemLoaderWidgetFactory {
     activate(): void {
         this.initComponent();
         const i18n = this._i18n.get().ui;
-        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel, this._portalItemLoaderModel);
+        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel,
+            this._portalItemLoaderModel, this._addLayerService);
     }
 
     deactivate(): void {
@@ -49,11 +51,11 @@ export default class PortalItemLoaderWidgetFactory {
 
         widget.activateTool = async () => {
             this.binding.enable().syncToLeftNow();
-            const model = this._portalItemLoaderModel;
+            const model = this._portalItemLoaderModel!;
             controller.queryPortalItems(model.pagination, model.portalFilter, model.searchText,
                 model.spaceFilter, model.sortAscending, model.sortByField);
 
-            this.vm.$on("load-item", (item) => {
+            this.vm.$on("load-item", (item: any) => {
                 controller.addPortalItemLayerToMap(item);
             });
         };
