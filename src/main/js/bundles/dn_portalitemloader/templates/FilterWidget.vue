@@ -179,7 +179,7 @@
         },
         data() {
             return {
-                filterVisible: false
+                filterVisible: true
             };
         },
         computed: {
