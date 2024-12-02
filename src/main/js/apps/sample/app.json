@@ -36,7 +36,8 @@
                     {
                         "id": "arcgis",
                         "title": "ArcGIS Online",
-                        "url": "https://arcgis.com"
+                        "url": "https://arcgis.com",
+                        "authMode": "auto"
                     }
                 ]
             }

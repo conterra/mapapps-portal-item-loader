@@ -105,7 +105,7 @@ export default class PortalItemLoaderWidgetController {
     private changeSelectedPortal(portalId: string) {
         const model = this.portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
-        const portal = this.portal = new Portal(selectedPortal.url);
+        const portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
         portal.load().then(() => {
             if (portal.user) {
                 model.authenticated = true;
@@ -115,71 +115,78 @@ export default class PortalItemLoaderWidgetController {
         });
     }
 
-    private queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
+    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
+
+        await this.loginToPortal();
+        let query = "";
+        const filter = "typeKeywords:Service";
+        switch (spaceFilter) {
+            case "all":
+                query = "1=1";
+                break;
+            case "organisation":
+                query = "orgid:" + portal.user.orgId;
+                break;
+            case "my-content":
+                query = "owner:" + portal.user.username;
+        }
+        if (searchText !== "") {
+            query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
+        }
+        if (typeFilter !== "all") {
+            query += " AND type:" + typeFilter;
+        }
+        const queryParams: __esri.PortalQueryParamsProperties = {
+            query: query,
+            sortField: sortByField,
+            sortOrder: sortAscending ? "asc" : "desc",
+            filter: filter,
+            num: rowsPerPage,
+            start: page * rowsPerPage - rowsPerPage + 1
+        };
+
+        const abortController = this.abortController = new AbortController();
+        return portal.queryItems(queryParams, { signal: abortController.signal });
+    }
+
+    private loginToPortal(): Promise<void> {
+        let portal = this.portal!;
         return new Promise(resolve => {
             portal.load().then(() => {
-                let query = "";
-                const filter = "typeKeywords:Service";
-                switch (spaceFilter) {
-                    case "all":
-                        query = "1=1";
-                        break;
-                    case "organisation":
-                        query = "orgid:" + portal.user.orgId;
-                        break;
-                    case "my-content":
-                        query = "owner:" + portal.user.username;
-                }
-                if (searchText !== "") {
-                    query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
-                }
-                if (typeFilter !== "all") {
-                    query += " AND type:" + typeFilter;
-                }
-                const queryParams: __esri.PortalQueryParamsProperties = {
-                    query: query,
-                    sortField: sortByField,
-                    sortOrder: sortAscending ? "asc" : "desc",
-                    filter: filter,
-                    num: rowsPerPage,
-                    start: page * rowsPerPage - rowsPerPage + 1
-                };
-
-                const abortController = this.abortController = new AbortController();
-                portal.queryItems(queryParams, { signal: abortController.signal }).then((result) => {
-                    resolve(result);
-                });
+                resolve();
             }, (error) => {
-                resolve(error);
+                console.error(error);
+                resolve();
             });
         });
-
     }
 
     private addPortalItemsToModel(result: __esri.PortalQueryResult): void {
-        let portalItems = result.results.filter((result) => result.isLayer);
-        portalItems = portalItems.map((portalItem) => {
-            return {
-                id: portalItem.id,
-                title: portalItem.title,
-                snippet: portalItem.snippet,
-                description: portalItem.description,
-                thumbnailUrl: portalItem.thumbnailUrl,
-                tags: portalItem.tags,
-                owner: portalItem.owner,
-                numViews: portalItem.numViews,
-                created: portalItem.created,
-                modified: portalItem.modified,
-                type: portalItem.type,
-                url: portalItem.url,
-                itemPageUrl: portalItem.itemPageUrl,
-                portalUrl: portalItem.portal.url
-            };
-        });
-        this.portalItemLoaderModel.portalItems = portalItems;
+        if (result?.results) {
+            let portalItems = result.results.filter((result) => result.isLayer);
+            portalItems = portalItems.map((portalItem) => {
+                return {
+                    id: portalItem.id,
+                    title: portalItem.title,
+                    snippet: portalItem.snippet,
+                    description: portalItem.description,
+                    thumbnailUrl: portalItem.thumbnailUrl,
+                    tags: portalItem.tags,
+                    owner: portalItem.owner,
+                    numViews: portalItem.numViews,
+                    created: portalItem.created,
+                    modified: portalItem.modified,
+                    type: portalItem.type,
+                    url: portalItem.url,
+                    itemPageUrl: portalItem.itemPageUrl,
+                    portalUrl: portalItem.portal.url
+                };
+            });
+            this.portalItemLoaderModel.portalItems = portalItems;
+        }
     }
 
     async addPortalItemLayerToMap(item: any): Promise<void> {
