@@ -57,7 +57,7 @@ module.exports = {
                 "avg-rating": "Average rating",
                 "num-ratings": "Number of ratings",
                 "num-comments": "Number of comments",
-                "num-view": "Number of views"
+                "num-views": "Number of views"
             }
         }
     },

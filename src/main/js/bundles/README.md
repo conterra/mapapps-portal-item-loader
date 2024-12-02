@@ -98,8 +98,8 @@ This bundle allows to add portal content to your map.apps app.
                 "title": "${ui.sortByFields.num-comments}"
             },
             {
-                "id": "num-view",
-                "title": "${ui.sortByFields.num-view}"
+                "id": "num-views",
+                "title": "${ui.sortByFields.num-views}"
             }
         ]
     }

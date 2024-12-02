@@ -109,13 +109,13 @@
                             v-if="localSortAscending"
                             left
                         >
-                            arrow_downward
+                            arrow_upward
                         </v-icon>
                         <v-icon
                             v-else
                             left
                         >
-                            arrow_upward
+                            arrow_downward
                         </v-icon>
                     </v-btn>
                 </div>

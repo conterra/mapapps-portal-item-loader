@@ -197,8 +197,8 @@
                         "title": "${ui.sortByFields.num-comments}"
                     },*/
                     {
-                        "id": "num-view",
-                        "title": "${ui.sortByFields.num-view}"
+                        "id": "num-views",
+                        "title": "${ui.sortByFields.num-views}"
                     }
                 ],
                 "rootId": "my_services",

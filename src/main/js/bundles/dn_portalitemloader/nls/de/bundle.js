@@ -56,7 +56,7 @@ module.exports = {
             "avg-rating": "Durchschnittliche Bewertung",
             "num-ratings": "Anzahl der Bewertungen",
             "num-comments": "Anzahl der Kommentare",
-            "num-view": "Anzahl der Zugriffe"
+            "num-views": "Anzahl der Zugriffe"
         }
     }
 };
