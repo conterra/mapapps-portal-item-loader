@@ -106,13 +106,10 @@
                     }
                 ],
                 "rowsPerPageItems": [
-                    10,
-                    25,
-                    50,
                     100
                 ],
                 "pagination": {
-                    "rowsPerPage": 10
+                    "rowsPerPage": 100
                 },
                 "spaceFilters": [
                     {
