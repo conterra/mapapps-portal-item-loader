@@ -134,7 +134,7 @@ export default class PortalItemLoaderWidgetController {
                         query = "owner:" + portal.user.username;
                 }
                 if (searchText !== "") {
-                    query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + ")";
+                    query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
                 }
                 if (typeFilter !== "all") {
                     query += " AND type:" + typeFilter;
