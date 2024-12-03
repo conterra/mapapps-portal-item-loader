@@ -153,7 +153,7 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private loginToPortal(): Promise<void> {
-        let portal = this.portal!;
+        const portal = this.portal!;
         return new Promise(resolve => {
             portal.load().then(() => {
                 resolve();
