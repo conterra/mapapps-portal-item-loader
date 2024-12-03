@@ -43,6 +43,10 @@ This bundle allows to add portal content to your map.apps app.
             {
                 "id": "my-content",
                 "title": "${ui.spaceFilters.my-content}"
+            },
+            {
+                "id": "fav",
+                "title": "${ui.spaceFilters.fav}"
             }
         ],
         "spaceFilter": "all",
@@ -113,8 +117,8 @@ This bundle allows to add portal content to your map.apps app.
 | portals          | Object |                                                                                                                                                                                                                                                      |                                                                                                                                           | used portal                       |
 | rowsPerPageItems | Array  | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                                                                                                                           | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                | possible number of rows per page  |
 | pagination       | Object | [```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```  ]                                                                                                                                                                                       | ```  10 ```                                                                                                                               | number of rows per page           |
-| spaceFilter      | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```                                                                                                                                                                                       | ```all```                                                                                                                                 | all possible filter portal spaces |
-| spaceFilters     | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```                                                                                                                                                                                       | ```all```                                                                                                                                 | filter portal space               |
+| spaceFilter      | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```&#124; ```fav```                                                                                                                                                                                       | ```all```                                                                                                                                 | all possible filter portal spaces |
+| spaceFilters     | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```&#124; ```fav```                                                                                                                                                                                       | ```all```                                                                                                                                 | filter portal space               |
 
 
 

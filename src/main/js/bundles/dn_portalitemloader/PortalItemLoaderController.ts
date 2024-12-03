@@ -77,7 +77,7 @@ export default class PortalItemLoaderWidgetController {
         });
     }
 
-    queryPortalItems(pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
+    queryPortalItems(pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
         sortAscending: boolean,
         sortByField: string): void {
         const model = this.portalItemLoaderModel;
@@ -115,7 +115,7 @@ export default class PortalItemLoaderWidgetController {
         });
     }
 
-    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content", typeFilter: string,
+    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content"| "fav", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
@@ -132,6 +132,8 @@ export default class PortalItemLoaderWidgetController {
                 break;
             case "my-content":
                 query = "owner:" + portal.user.username;
+                break;
+
         }
         if (searchText !== "") {
             query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
@@ -147,9 +149,13 @@ export default class PortalItemLoaderWidgetController {
             num: rowsPerPage,
             start: page * rowsPerPage - rowsPerPage + 1
         };
-
         const abortController = this.abortController = new AbortController();
-        return portal.queryItems(queryParams, { signal: abortController.signal });
+        if (spaceFilter === "fav"){
+            return portal.user.queryFavorites();
+        }
+        else{
+            return portal.queryItems(queryParams, { signal: abortController.signal });
+        }
     }
 
     private loginToPortal(): Promise<void> {

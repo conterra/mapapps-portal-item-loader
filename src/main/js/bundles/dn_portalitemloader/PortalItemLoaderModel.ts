@@ -33,7 +33,7 @@ interface PortalItemLoaderModelProps {
     pagination: object,
     portalFilter: string,
     spaceFilters: any[],
-    spaceFilter: "all" | "organisation" | "my-content",
+    spaceFilter: "all" | "organisation" | "my-content" | "fav",
     typeFilter: string,
     typeFilters: any[],
     searchText: "",
