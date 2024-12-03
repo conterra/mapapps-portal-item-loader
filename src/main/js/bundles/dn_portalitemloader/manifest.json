@@ -17,6 +17,9 @@
         "map-widget": "^4.14.0",
         "esri": "^4.22.0"
     },
+    "optionalDependencies": {
+        "sdi_loadservice": "^5.6.0"
+    },
     "cssThemesExtension": [
         {
             "name": "*",
@@ -27,33 +30,34 @@
     ],
     "layout-widgets": [
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "window": {
-                "dockTool": "portalContentToggleTool",
+                "dockTool": "portalItemLoaderToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
                 "maximizable": true,
-                "resizable": true
+                "resizable": true,
+                "windowClass": "noPadding"
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "desktop"
             ],
             "window": {
                 "marginBox": {
-                    "h": "50%",
-                    "w": "50%"
+                    "h": "70%",
+                    "w": "70%"
                 },
                 "minSize": {
-                    "h": 600,
-                    "w": 1000
+                    "h": 400,
+                    "w": 340
                 }
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "tablet_landscape",
                 "tablet_portrait"
@@ -65,13 +69,13 @@
                     "w": "70%"
                 },
                 "minSize": {
-                    "h": 600,
-                    "w": 1000
+                    "h": 400,
+                    "w": 340
                 }
             }
         },
         {
-            "widgetRole": "portalContentWidget",
+            "widgetRole": "portalItemLoaderWidget",
             "sublayout": [
                 "mobile_landscape",
                 "mobile_portrait"
@@ -90,8 +94,8 @@
     "components": [
         {
             "name": "Config",
-            "impl": "./PortalContentModel",
-            "provides": "dn_portalitemloader.PortalContentModel",
+            "impl": "./PortalItemLoaderModel",
+            "provides": "dn_portalitemloader.PortalItemLoaderModel",
             "propertiesConstructor": true,
             "properties": {
                 "portals": [
@@ -102,13 +106,10 @@
                     }
                 ],
                 "rowsPerPageItems": [
-                    10,
-                    25,
-                    50,
                     100
                 ],
                 "pagination": {
-                    "rowsPerPage": 10
+                    "rowsPerPage": 100
                 },
                 "spaceFilters": [
                     {
@@ -127,23 +128,23 @@
                 "spaceFilter": "all",
                 "typeFilters": [
                     {
-                        "id":  "MapService",
-                        "title":  "MapService"
+                        "id": "MapService",
+                        "title": "MapService"
                     },
                     {
-                        "id":  "Scene Service",
-                        "title":  "Scene Service"
+                        "id": "Scene Service",
+                        "title": "Scene Service"
                     },
                     {
-                        "id":  "Image Service",
-                        "title":  "Image Service"
+                        "id": "Image Service",
+                        "title": "Image Service"
                     },
                     {
-                        "id":  "Vector Tile Service",
+                        "id": "Vector Tile Service",
                         "title": "Vector Tile Service"
                     },
                     {
-                        "id":  "Feature Service",
+                        "id": "Feature Service",
                         "title": "Feature Service"
                     },
                     {
@@ -196,42 +197,50 @@
                         "title": "${ui.sortByFields.num-comments}"
                     },*/
                     {
-                        "id": "num-view",
-                        "title": "${ui.sortByFields.num-view}"
+                        "id": "num-views",
+                        "title": "${ui.sortByFields.num-views}"
                     }
-                ]
+                ],
+                "rootId": "my_services",
+                "rootTitle": "${ui.myServicesTitle}"
             }
         },
         {
-            "name": "PortalContentWidgetFactory",
+            "name": "PortalItemLoaderWidgetFactory",
             "provides": [
                 "dijit.Widget",
                 "dn_portalitemloader.Widget"
             ],
             "instanceFactory": true,
             "properties": {
-                "widgetRole": "portalContentWidget"
+                "widgetRole": "portalItemLoaderWidget"
             },
             "references": [
                 {
-                    "name": "_portalContentModel",
-                    "providing": "dn_portalitemloader.PortalContentModel"
+                    "name": "_portalItemLoaderModel",
+                    "providing": "dn_portalitemloader.PortalItemLoaderModel"
                 },
                 {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
+                },
+                {
+                    "name": "_addLayerService",
+                    "providing": "sdi_loadservice.AddLayerService",
+                    "cardinality": "0..1",
+                    "bind": "addLayerService"
                 }
             ]
         },
         {
-            "name": "PortalContentToggleTool",
+            "name": "PortalItemLoaderToggleTool",
             "impl": "ct/tools/Tool",
             "provides": [
                 "ct.tools.Tool"
             ],
             "propertiesConstructor": true,
             "properties": {
-                "id": "portalContentToggleTool",
+                "id": "portalItemLoaderToggleTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "iconClass": "icon-toolcase",

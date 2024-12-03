@@ -24,8 +24,11 @@ module.exports = {
         ui: {
             all: "All portals",
             addToMap: "Add to map",
+            myServicesTitle: "My Services",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",
+            showFilters: "Hide filters",
+            hideFilters: "Show filters",
             filterForPortal: "Select portal",
             tags: "Tags",
             noDataText: "No portal items",
@@ -54,7 +57,7 @@ module.exports = {
                 "avg-rating": "Average rating",
                 "num-ratings": "Number of ratings",
                 "num-comments": "Number of comments",
-                "num-view": "Number of views"
+                "num-views": "Number of views"
             }
         }
     },

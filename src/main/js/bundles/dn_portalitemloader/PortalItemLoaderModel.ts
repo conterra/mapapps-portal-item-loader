@@ -21,9 +21,9 @@ function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P)
     return mutableDefinition;
 }
 
-class PortalContentModel extends Mutable { }
+class PortalItemLoaderModel extends Mutable { }
 
-interface PortalContentModelProps {
+interface PortalItemLoaderModelProps {
     portals: any[],
     portalItems: __esri.PortalItem[],
     authenticated: boolean,
@@ -42,7 +42,7 @@ interface PortalContentModelProps {
     sortByFields: any[]
 }
 
-export default defineProperties<PortalContentModel, PortalContentModelProps>(PortalContentModel, {
+export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
     portals: [],
     portalItems: [],
     authenticated: false,

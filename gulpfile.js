@@ -92,7 +92,7 @@ mapappsBrowserSync.registerTask({
     port: localOverrides?.port ?? 9090,
     // activate https protocol, generates a self signed certificate for "localhost"
     // https://browsersync.io/docs/options#option-https
-    https: localOverrides?.https ?? false,
+    https: localOverrides?.https ?? true,
 
     // to prevent auto open of browser, set this to false
     urlToOpen: localOverrides?.openBrowser ?? true,

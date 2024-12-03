@@ -49,6 +49,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>de.conterra.sdi-extension</groupId>
+            <artifactId>ct-sdi-extension-js</artifactId>
+            <version>5.6.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

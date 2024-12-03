@@ -25,7 +25,8 @@
             "search-ui",
             "locator-store",
             "toc",
-            "dn_portalitemloader"
+            "dn_portalitemloader",
+            "sdi_loadservice"
         ]
     },
     "bundles": {
@@ -35,7 +36,8 @@
                     {
                         "id": "arcgis",
                         "title": "ArcGIS Online",
-                        "url": "https://arcgis.com"
+                        "url": "https://arcgis.com",
+                        "authMode": "auto"
                     }
                 ]
             }
@@ -131,7 +133,7 @@
                             "helloTool",
                             "IMPRINT_Imprint_CustomInfoTool",
                             "IMPRINT_Imprint_CustomInfoTool_mobile",
-                            "portalContentToggleTool"
+                            "portalItemLoaderToggleTool"
                         ],
                         "registerWidget": {
                             "widgetRole": "drawer_button"
@@ -145,6 +147,13 @@
                             "before"
                         ]
                     }
+                ]
+            }
+        },
+        "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "portalItemLoaderToggleTool"
                 ]
             }
         }

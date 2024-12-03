@@ -22,9 +22,12 @@ module.exports = {
     },
     ui: {
         all: "Alle Portale",
-        addToMap: "Hinzufügen",
+        addToMap: "Zur Karte hinzufügen",
+        myServicesTitle: "Eigene Dienste",
         searchForItems: "Nach Inhalten suchen",
         searchForItemsPlaceholder: "Suchen nach...",
+        showFilters: "Filter anzeigen",
+        hideFilters: "Filter ausblenden",
         filterForPortal: "Portal auswählen",
         tags: "Tags",
         noDataText: "Keine Portalinhalte vorhanden",
@@ -53,7 +56,7 @@ module.exports = {
             "avg-rating": "Durchschnittliche Bewertung",
             "num-ratings": "Anzahl der Bewertungen",
             "num-comments": "Anzahl der Kommentare",
-            "num-view": "Anzahl der Zugriffe"
+            "num-views": "Anzahl der Zugriffe"
         }
     }
 };
