@@ -102,8 +102,9 @@ export default class PortalItemLoaderWidgetController {
         }, 500);
     }
 
-    private changeSelectedPortal(portalId: string) {
+    private changeSelectedPortal(portalId: string): void {
         const model = this.portalItemLoaderModel;
+        model.spaceFilter = "all";
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         const portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
         portal.load().then(() => {
@@ -128,17 +129,23 @@ export default class PortalItemLoaderWidgetController {
             case "fav":
                 break;
             case "organisation":
-                query = "orgid:" + portal.user.orgId + " AND ";
+                query = "orgid:" + portal.user.orgId;
                 break;
             case "my-content":
-                query = "owner:" + portal.user.username + " AND ";
+                query = "owner:" + portal.user.username;
                 break;
 
         }
         if (searchText !== "" && searchText !== undefined) {
+            if (query === "") {
+                query += " AND ";
+            }
             query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
         }
         if (typeFilter !== "all") {
+            if (query === "") {
+                query += " AND ";
+            }
             query += "type:" + typeFilter;
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
