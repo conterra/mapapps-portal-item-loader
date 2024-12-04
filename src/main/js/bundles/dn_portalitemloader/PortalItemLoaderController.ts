@@ -122,28 +122,31 @@ export default class PortalItemLoaderWidgetController {
         const rowsPerPage = pagination.rowsPerPage;
 
         await this.loginToPortal();
-        let query = "";
-        const filter = "typeKeywords:Service";
+        let filter = "typeKeywords:Service";
         switch (spaceFilter) {
             case "all":
             case "fav":
                 break;
             case "organisation":
-                query = "orgid:" + portal.user.orgId;
+                filter += " AND orgid:" + portal.user.orgId;
                 break;
             case "my-content":
-                query = "owner:" + portal.user.username;
+                filter += " AND owner:" + portal.user.username;
                 break;
 
         }
+        if (spaceFilter === "fav") {
+            filter += " AND group:" + portal.user.favGroupId;
+        }
+        let query = "";
         if (searchText !== "" && searchText !== undefined) {
-            if (query === "") {
+            if (query !== "") {
                 query += " AND ";
             }
             query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
         }
         if (typeFilter !== "all") {
-            if (query === "") {
+            if (query !== "") {
                 query += " AND ";
             }
             query += "type:" + typeFilter;
@@ -157,12 +160,7 @@ export default class PortalItemLoaderWidgetController {
             start: page * rowsPerPage - rowsPerPage + 1
         };
         const abortController = this.abortController = new AbortController();
-        if (spaceFilter === "fav") {
-            return portal.user.queryFavorites(queryParams);
-        }
-        else {
-            return portal.queryItems(queryParams, { signal: abortController.signal });
-        }
+        return portal.queryItems(queryParams, { signal: abortController.signal });
     }
 
     private loginToPortal(): Promise<void> {
