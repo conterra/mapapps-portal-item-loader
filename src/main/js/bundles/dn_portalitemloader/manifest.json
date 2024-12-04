@@ -123,6 +123,10 @@
                     {
                         "id": "my-content",
                         "title": "${ui.spaceFilters.my-content}"
+                    },
+                    {
+                        "id": "fav",
+                        "title": "${ui.spaceFilters.fav}"
                     }
                 ],
                 "spaceFilter": "all",

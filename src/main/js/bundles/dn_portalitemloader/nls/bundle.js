@@ -37,7 +37,8 @@ module.exports = {
             spaceFilters: {
                 all: "Everywhere",
                 organisation: "Only my organisation",
-                "my-content": "Only my content"
+                "my-content": "Only my content",
+                fav:"My favourites"
             },
             allLayers: {
                 all: "Everywhere",
