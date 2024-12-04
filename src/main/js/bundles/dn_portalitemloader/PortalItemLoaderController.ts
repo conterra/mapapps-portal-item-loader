@@ -136,6 +136,7 @@ export default class PortalItemLoaderWidgetController {
 
         }
         if (spaceFilter === "fav") {
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
             filter += " AND group:" + portal.user.favGroupId;
         }
         let query = "";
