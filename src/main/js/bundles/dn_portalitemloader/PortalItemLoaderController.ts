@@ -115,7 +115,7 @@ export default class PortalItemLoaderWidgetController {
         });
     }
 
-    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content"| "fav", typeFilter: string,
+    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
@@ -125,21 +125,21 @@ export default class PortalItemLoaderWidgetController {
         const filter = "typeKeywords:Service";
         switch (spaceFilter) {
             case "all":
-                query = "1=1";
+            case "fav":
                 break;
             case "organisation":
-                query = "orgid:" + portal.user.orgId;
+                query = "orgid:" + portal.user.orgId + " AND ";
                 break;
             case "my-content":
-                query = "owner:" + portal.user.username;
+                query = "owner:" + portal.user.username + " AND ";
                 break;
 
         }
-        if (searchText !== "") {
-            query += " AND (title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
+        if (searchText !== "" && searchText !== undefined) {
+            query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
         }
         if (typeFilter !== "all") {
-            query += " AND type:" + typeFilter;
+            query += "type:" + typeFilter;
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
             query: query,
@@ -150,10 +150,10 @@ export default class PortalItemLoaderWidgetController {
             start: page * rowsPerPage - rowsPerPage + 1
         };
         const abortController = this.abortController = new AbortController();
-        if (spaceFilter === "fav"){
-            return portal.user.queryFavorites();
+        if (spaceFilter === "fav") {
+            return portal.user.queryFavorites(queryParams);
         }
-        else{
+        else {
             return portal.queryItems(queryParams, { signal: abortController.signal });
         }
     }
