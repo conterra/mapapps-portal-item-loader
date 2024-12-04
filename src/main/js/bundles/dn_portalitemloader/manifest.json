@@ -132,28 +132,44 @@
                 "spaceFilter": "all",
                 "typeFilters": [
                     {
-                        "id": "MapService",
-                        "title": "MapService"
-                    },
-                    {
-                        "id": "Scene Service",
-                        "title": "Scene Service"
-                    },
-                    {
-                        "id": "Image Service",
-                        "title": "Image Service"
-                    },
-                    {
-                        "id": "Vector Tile Service",
-                        "title": "Vector Tile Service"
+                        "id": "all",
+                        "title": "${ui.allLayers.allLayers}"
                     },
                     {
                         "id": "Feature Service",
                         "title": "Feature Service"
                     },
                     {
-                        "id": "all",
-                        "title": "${ui.allLayers.allLayers}"
+                        "id": "Vector Tile Service",
+                        "title": "Vector Tile Service"
+                    },
+                    {
+                        "id": "Map Service",
+                        "title": "Map Service"
+                    },
+                    {
+                        "id": "Image Service",
+                        "title": "Image Service"
+                    },
+                    {
+                        "id": "Scene Service",
+                        "title": "Scene Service"
+                    },
+                    {
+                        "id": "3DTilesService",
+                        "title": "3DTilesService"
+                    },
+                    {
+                        "id": "OGCFeatureServer",
+                        "title": "OGCFeatureServer"
+                    },
+                    {
+                        "id": "WFS",
+                        "title": "WFS"
+                    },
+                    {
+                        "id": "WMS",
+                        "title": "WMS"
                     }
                 ],
                 "typeFilter": "all",
