@@ -18,7 +18,7 @@
         "arcgis-js-api": "4.29.10",
         "chai": "4.3.10",
         "ct-mapapps-browser-sync": "0.0.41",
-        "ct-mapapps-gulp-js": "0.10.3",
+        "ct-mapapps-gulp-js": "0.10.8",
         "eslint-config-ct-prodeng": "1.4.0",
         "license-checker": "25.0.1",
         "mocha": "10.2.0",
@@ -31,7 +31,6 @@
         "tsx": "^4.6.0",
         "typescript": "5.4.5",
         "vue": "2.7.15",
-        "vue-template-compiler": "2.7.15",
-        "@babel/traverse": "7.25.9"
+        "vue-template-compiler": "2.7.15"
     }
 }
