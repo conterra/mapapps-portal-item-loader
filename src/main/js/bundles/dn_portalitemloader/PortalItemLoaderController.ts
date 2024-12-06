@@ -118,7 +118,6 @@ export default class PortalItemLoaderWidgetController {
 
     private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
-        const model = this.portalItemLoaderModel;
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
 
@@ -147,19 +146,23 @@ export default class PortalItemLoaderWidgetController {
             }
             query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
         }
-        if (typeFilter !== "all") {
+        if (typeFilter.length) {
             if (query !== "") {
                 query += " AND ";
             }
-            model.typeFilter.forEach((type: string, index: number) => {
-                if (index === 0) {
-                    query += "(type:" + type;
-                } else if (index === model.typeFilters.length - 1) {
-                    query += " OR type:" + type + ")";
-                } else {
-                    query += " OR type:" + type;
-                }
-            });
+            if (typeFilter.length === 1) {
+                query += "type:" + typeFilter[0];
+            } else {
+                typeFilter.forEach((type: string, index: number) => {
+                    if (index === 0) {
+                        query += "(type:" + type;
+                    } else if (index === typeFilter.length - 1) {
+                        query += " OR type:" + type + ")";
+                    } else {
+                        query += " OR type:" + type;
+                    }
+                });
+            }
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
             query: query,
