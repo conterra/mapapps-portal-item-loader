@@ -118,6 +118,7 @@ export default class PortalItemLoaderWidgetController {
 
     private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
+        const model = this.portalItemLoaderModel;
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
 
@@ -150,7 +151,15 @@ export default class PortalItemLoaderWidgetController {
             if (query !== "") {
                 query += " AND ";
             }
-            query += "type:" + typeFilter;
+            model.typeFilter.forEach((type: string, index: number) => {
+                if (index === 0) {
+                    query += "(type:" + type;
+                } else if (index === model.typeFilters.length - 1) {
+                    query += " OR type:" + type + ")";
+                } else {
+                    query += " OR type:" + type;
+                }
+            });
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
             query: query,

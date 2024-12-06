@@ -76,15 +76,16 @@ export default class PortalItemLoaderWidgetFactory {
 
     private initComponent(): void {
         const vm = this.vm = new Vue(PortalItemLoaderWidget);
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         vm.i18n = this._i18n.get().ui;
         vm.pagination = model.pagination;
         vm.rowsPerPageItems = model.rowsPerPageItems;
         vm.portals = model.portals;
         vm.spaceFilters = model.spaceFilters;
         vm.typeFilters = model.typeFilters;
-        vm.sortByField = model.sortByField;
+        vm.typeFilter = model.typeFilter;
         vm.sortByFields = model.sortByFields;
+        vm.sortByField = model.sortByField;
 
         this.binding = Binding.for(vm, model)
             .syncAll("portalFilter")

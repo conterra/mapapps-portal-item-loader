@@ -111,6 +111,7 @@
                 "pagination": {
                     "rowsPerPage": 100
                 },
+                "spaceFilter": "all",
                 "spaceFilters": [
                     {
                         "id": "all",
@@ -129,12 +130,18 @@
                         "title": "${ui.spaceFilters.fav}"
                     }
                 ],
-                "spaceFilter": "all",
+                "typeFilter": [
+                    "Feature Service",
+                    "Vector Tile Service",
+                    "Map Service",
+                    "Image Service",
+                    "Scene Service",
+                    "3DTilesService",
+                    "OGCFeatureServer",
+                    "WFS",
+                    "WMS"
+                ],
                 "typeFilters": [
-                    {
-                        "id": "all",
-                        "title": "${ui.allLayers.allLayers}"
-                    },
                     {
                         "id": "Feature Service",
                         "title": "Feature Service"
@@ -172,7 +179,6 @@
                         "title": "WMS"
                     }
                 ],
-                "typeFilter": "all",
                 "sortAscending": false,
                 "sortByField": "modified",
                 "sortByFields": [

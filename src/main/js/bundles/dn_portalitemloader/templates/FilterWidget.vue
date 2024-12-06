@@ -74,16 +74,42 @@
                 :label="i18n.spaceFilter"
                 hide-details
             />
-            <v-select
-                v-model="localTypeFilter"
-                class="pb-2"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="typeFilters"
-                :label="i18n.typeFilter"
-                hide-details
-            />
+            <template>
+                <v-select
+                    v-model="localTypeFilter"
+                    class="pb-2"
+                    item-value="id"
+                    item-text="title"
+                    prepend-inner-icon="filter"
+                    :items="typeFilters"
+                    :label="i18n.typeFilter"
+                    hide-details
+                    multiple
+                >
+                    <template #prepend-item>
+                        <v-list-tile
+                            ripple
+                            @click="toggle"
+                        >
+                            <v-list-tile-action>
+                                <v-icon>
+                                    {{ allTypesSelected ? "check_box" : "check_box_outline_blank" }}
+                                </v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ i18n.selectAll }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider class="mt-2" />
+                    </template>
+                    <template #selection="{ item, index }">
+                        <span v-if="index === 0">{{ item.title }}</span>
+                        <span
+                            v-if="index === 1"
+                        >&nbsp;(+{{ localTypeFilter.length - 1 }} {{ i18n.others }})</span>
+                    </template>
+                </v-select>
+            </template>
             <div class="ct-flex-container">
                 <div class="ct-flex-item">
                     <v-select
@@ -148,21 +174,21 @@
                 type: String,
                 default: ""
             },
-            spaceFilters: {
-                type: Array,
-                default: () => []
-            },
             spaceFilter: {
                 type: String,
                 default: "all"
             },
-            typeFilters: {
+            spaceFilters: {
                 type: Array,
                 default: () => []
             },
             typeFilter: {
-                type: String,
-                default: "all"
+                type: Array,
+                default: () => []
+            },
+            typeFilters: {
+                type: Array,
+                default: () => []
             },
             sortAscending: {
                 type: Boolean,
@@ -183,6 +209,9 @@
             };
         },
         computed: {
+            allTypesSelected() {
+                return this.typeFilter.length === this.typeFilters.length;
+            },
             filterText() {
                 if(this.filterVisible) {
                     return this.i18n.hideFilters;
@@ -237,6 +266,17 @@
                 set: function (typeFilter) {
                     this.$emit("update:type-filter", typeFilter);
                 }
+            }
+        },
+        methods: {
+            toggle () {
+                this.$nextTick(() => {
+                    if (this.allTypesSelected) {
+                        this.localTypeFilter = [];
+                    } else {
+                        this.localTypeFilter = this.typeFilters.map((type)=>type.id);
+                    }
+                });
             }
         }
     };

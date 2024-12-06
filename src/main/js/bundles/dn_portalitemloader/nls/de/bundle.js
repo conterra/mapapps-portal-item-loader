@@ -37,7 +37,7 @@ module.exports = {
             all: "Überall",
             organisation: "Nur meine Organisation",
             "my-content": "Nur meine Inhalte",
-            fav:"Meine Favoriten"
+            fav: "Meine Favoriten"
         },
         allLayers: {
             all: "Everywhere",
@@ -62,6 +62,8 @@ module.exports = {
         serviceType: "Dienstetyp",
         owner: "Besitzer",
         views: "Anzahl der Zugriffe",
-        lastUpdate: "Zuletzt bearbeitet"
+        lastUpdate: "Zuletzt bearbeitet",
+        others: "weitere",
+        selectAll: "Alle selektieren"
     }
 };

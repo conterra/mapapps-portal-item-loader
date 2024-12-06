@@ -134,21 +134,21 @@
                 type: String,
                 default: ""
             },
-            spaceFilters: {
-                type: Array,
-                default: () => []
-            },
             spaceFilter: {
                 type: String,
                 default: "all"
             },
-            typeFilters: {
+            spaceFilters: {
                 type: Array,
                 default: () => []
             },
             typeFilter: {
-                type: String,
-                default: "all"
+                type: Array,
+                default: () => []
+            },
+            typeFilters: {
+                type: Array,
+                default: () => []
             },
             sortAscending: {
                 type: Boolean,
