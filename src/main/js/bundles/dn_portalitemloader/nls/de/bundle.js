@@ -52,12 +52,16 @@ module.exports = {
             modified: "Zuletzt bearbeitet",
             username: "Nutzername",
             created: "Erstellt",
-            type: "Typ",
+            type: "Dienstetyp",
             owner: "Besitzer",
             "avg-rating": "Durchschnittliche Bewertung",
             "num-ratings": "Anzahl der Bewertungen",
             "num-comments": "Anzahl der Kommentare",
             "num-views": "Anzahl der Zugriffe"
-        }
+        },
+        serviceType: "Dienstetyp",
+        owner: "Besitzer",
+        views: "Anzahl der Zugriffe",
+        lastUpdate: "Zuletzt bearbeitet"
     }
 };

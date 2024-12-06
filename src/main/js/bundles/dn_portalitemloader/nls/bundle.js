@@ -59,7 +59,11 @@ module.exports = {
                 "num-ratings": "Number of ratings",
                 "num-comments": "Number of comments",
                 "num-views": "Number of views"
-            }
+            },
+            serviceType: "Service type",
+            owner: "Owner",
+            views: "Number of views",
+            lastUpdate: "Last update"
         }
     },
     de: true

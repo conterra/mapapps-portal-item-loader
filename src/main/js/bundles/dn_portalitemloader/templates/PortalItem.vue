@@ -19,9 +19,7 @@
     <v-card
         class="ct-portal-item-loader-widget__portal-item-card"
     >
-        <a
-            :href="item.itemPageUrl"
-            target="_blank"
+        <div
             class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
@@ -36,7 +34,7 @@
             >
                 panorama
             </v-icon>
-        </a>
+        </div>
         <div
             class="ct-portal-item-loader-widget__portal-item-card-title"
         >
@@ -53,12 +51,18 @@
             <v-list dense>
                 <v-list-tile
                     avatar
-                    inactive
                 >
                     <v-list-tile-avatar>
-                        <v-icon>
-                            category
-                        </v-icon>
+                        <v-tooltip bottom>
+                            <template #activator="{ on }">
+                                <v-icon
+                                    v-on="on"
+                                >
+                                    category
+                                </v-icon>
+                            </template>
+                            <span>{{ i18n.serviceType }}</span>
+                        </v-tooltip>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ item.type }}</v-list-tile-title>
@@ -68,9 +72,16 @@
                     avatar
                 >
                     <v-list-tile-avatar>
-                        <v-icon>
-                            person
-                        </v-icon>
+                        <v-tooltip bottom>
+                            <template #activator="{ on }">
+                                <v-icon
+                                    v-on="on"
+                                >
+                                    person
+                                </v-icon>
+                            </template>
+                            <span>{{ i18n.owner }}</span>
+                        </v-tooltip>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ item.owner }}</v-list-tile-title>
@@ -80,9 +91,16 @@
                     avatar
                 >
                     <v-list-tile-avatar>
-                        <v-icon>
-                            visibility
-                        </v-icon>
+                        <v-tooltip bottom>
+                            <template #activator="{ on }">
+                                <v-icon
+                                    v-on="on"
+                                >
+                                    visibility
+                                </v-icon>
+                            </template>
+                            <span>{{ i18n.views }}</span>
+                        </v-tooltip>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ item.numViews }}</v-list-tile-title>
@@ -92,9 +110,16 @@
                     avatar
                 >
                     <v-list-tile-avatar>
-                        <v-icon>
-                            update
-                        </v-icon>
+                        <v-tooltip bottom>
+                            <template #activator="{ on }">
+                                <v-icon
+                                    v-on="on"
+                                >
+                                    update
+                                </v-icon>
+                            </template>
+                            <span>{{ i18n.lastUpdate }}</span>
+                        </v-tooltip>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ modified }}</v-list-tile-title>
