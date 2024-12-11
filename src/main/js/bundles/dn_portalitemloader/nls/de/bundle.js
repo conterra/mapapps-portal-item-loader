@@ -39,11 +39,6 @@ module.exports = {
             "my-content": "Nur meine Inhalte",
             fav: "Meine Favoriten"
         },
-        allLayers: {
-            all: "Everywhere",
-            organisation: "Only my organisation",
-            allLayers: "Alle Layer-Typen"
-        },
         typeFilter: "Nach Typ filtern",
         sortBy: "Sortieren nach",
         sortByFields: {
@@ -60,10 +55,9 @@ module.exports = {
             "num-views": "Anzahl der Zugriffe"
         },
         serviceType: "Dienstetyp",
+        allServiceTypes: "Alle Dienstetypen",
         owner: "Besitzer",
         views: "Anzahl der Zugriffe",
-        lastUpdate: "Zuletzt bearbeitet",
-        others: "weitere",
-        selectAll: "Alle selektieren"
+        lastUpdate: "Zuletzt bearbeitet"
     }
 };

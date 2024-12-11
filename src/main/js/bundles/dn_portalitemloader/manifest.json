@@ -130,18 +130,12 @@
                         "title": "${ui.spaceFilters.fav}"
                     }
                 ],
-                "typeFilter": [
-                    "Feature Service",
-                    "Vector Tile Service",
-                    "Map Service",
-                    "Image Service",
-                    "Scene Service",
-                    "3DTilesService",
-                    "OGCFeatureServer",
-                    "WFS",
-                    "WMS"
-                ],
+                "typeFilter": "all",
                 "typeFilters": [
+                    {
+                        "id": "all",
+                        "title": "${ui.allServiceTypes}"
+                    },
                     {
                         "id": "Feature Service",
                         "title": "Feature Service"

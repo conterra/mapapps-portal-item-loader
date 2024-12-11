@@ -38,12 +38,7 @@ module.exports = {
                 all: "Everywhere",
                 organisation: "Only my organisation",
                 "my-content": "Only my content",
-                fav:"My favourites"
-            },
-            allLayers: {
-                all: "Everywhere",
-                organisation: "Only my organisation",
-                allLayers: "All layer types"
+                fav: "My favourites"
             },
             typeFilter: "What type to search",
             sortBy: "Sort by",
@@ -61,11 +56,10 @@ module.exports = {
                 "num-views": "Number of views"
             },
             serviceType: "Service type",
+            allServiceTypes: "All service types",
             owner: "Owner",
             views: "Number of views",
-            lastUpdate: "Last update",
-            others: "others",
-            selectAll: "Select all"
+            lastUpdate: "Last update"
         }
     },
     de: true

@@ -146,23 +146,11 @@ export default class PortalItemLoaderWidgetController {
             }
             query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
         }
-        if (typeFilter.length) {
+        if (typeFilter !== "all") {
             if (query !== "") {
                 query += " AND ";
             }
-            if (typeFilter.length === 1) {
-                query += "type:" + typeFilter[0];
-            } else {
-                typeFilter.forEach((type: string, index: number) => {
-                    if (index === 0) {
-                        query += "(type:" + type;
-                    } else if (index === typeFilter.length - 1) {
-                        query += " OR type:" + type + ")";
-                    } else {
-                        query += " OR type:" + type;
-                    }
-                });
-            }
+            query += "type:" + typeFilter;
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
             query: query,

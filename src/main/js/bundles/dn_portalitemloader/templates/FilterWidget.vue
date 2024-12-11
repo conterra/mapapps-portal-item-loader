@@ -74,42 +74,16 @@
                 :label="i18n.spaceFilter"
                 hide-details
             />
-            <template>
-                <v-select
-                    v-model="localTypeFilter"
-                    class="pb-2"
-                    item-value="id"
-                    item-text="title"
-                    prepend-inner-icon="filter"
-                    :items="typeFilters"
-                    :label="i18n.typeFilter"
-                    hide-details
-                    multiple
-                >
-                    <template #prepend-item>
-                        <v-list-tile
-                            ripple
-                            @click="toggle"
-                        >
-                            <v-list-tile-action>
-                                <v-icon>
-                                    {{ allTypesSelected ? "check_box" : "check_box_outline_blank" }}
-                                </v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{ i18n.selectAll }}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                        <v-divider class="mt-2" />
-                    </template>
-                    <template #selection="{ item, index }">
-                        <span v-if="index === 0">{{ item.title }}</span>
-                        <span
-                            v-if="index === 1"
-                        >&nbsp;(+{{ localTypeFilter.length - 1 }} {{ i18n.others }})</span>
-                    </template>
-                </v-select>
-            </template>
+            <v-select
+                v-model="localTypeFilter"
+                class="pb-2"
+                item-value="id"
+                item-text="title"
+                prepend-inner-icon="filter"
+                :items="typeFilters"
+                :label="i18n.typeFilter"
+                hide-details
+            />
             <div class="ct-flex-container">
                 <div class="ct-flex-item">
                     <v-select
