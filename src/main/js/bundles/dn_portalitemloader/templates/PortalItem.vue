@@ -103,7 +103,7 @@
                         </v-tooltip>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>{{ item.numViews }}</v-list-tile-title>
+                        <v-list-tile-title>{{ views }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
@@ -159,6 +159,7 @@
 </template>
 <script>
     import moment from 'moment';
+    import * as intl from "esri/intl";
 
     export default {
         props: {
@@ -178,6 +179,12 @@
         computed: {
             modified() {
                 return moment(this.item.modified).format("DD.MM.YYYY");
+            },
+            views() {
+                const numberFormatIntlOptions = intl.convertNumberFormatToIntlOptions({
+                    digitSeparator: true
+                });
+                return intl.formatNumber(this.item.numViews, numberFormatIntlOptions);
             }
         }
     };
