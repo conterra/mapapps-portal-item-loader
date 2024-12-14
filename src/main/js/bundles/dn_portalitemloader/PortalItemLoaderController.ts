@@ -213,25 +213,30 @@ export default class PortalItemLoaderWidgetController {
                     type: portalItem.type,
                     url: portalItem.url,
                     itemPageUrl: portalItem.itemPageUrl,
-                    portalUrl: portalItem.portal.url
+                    portalUrl: portalItem.portal.url,
+                    source: "portal"
                 };
             });
             this.portalItemLoaderModel.portalItems = portalItems;
         }
     }
 
-    async addPortalItemLayerToMap(item: any): Promise<void> {
+    async addItemLayerToMap(item: any): Promise<void> {
         const model = this.portalItemLoaderModel;
         const map = this.mapWidgetModel.map;
-        const layer = await Layer.fromPortalItem({
-            portalItem: {
-                id: item.id,
-                portal: {
-                    url: item.portalUrl
+        let layer;
+        if (item.source === "portal") {
+            layer = await Layer.fromPortalItem({
+                portalItem: {
+                    id: item.id,
+                    portal: {
+                        url: item.portalUrl
+                    }
                 }
-            }
-        });
-
+            });
+        } else if (item.source === "csw") {
+            layer = await Layer.fromArcGISServerUrl(item.url);
+        }
         if (this.addLayerService) {
             this.addLayerService.addLayerToMap(layer);
             console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
@@ -286,7 +291,7 @@ export default class PortalItemLoaderWidgetController {
 
     private addCSWItemsToModel(result: unknown): void {
         if (result?.results) {
-            const portalItems = result.results.map((cswItem) => {
+            let portalItems = result.results.map((cswItem) => {
                 return {
                     id: this.getCswItemAttribute(cswItem, "dc:identifier"),
                     title: this.getCswItemAttribute(cswItem, "dc:title"),
@@ -296,8 +301,12 @@ export default class PortalItemLoaderWidgetController {
                     modified: new Date(this.getCswItemAttribute(cswItem, "dc:date")),
                     type: this.getCswItemAttribute(cswItem, "dc:format"),
                     url: this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST"),
-                    itemPageUrl: this.getCswItemAttribute(cswItem, "dc:URI", "DOI")
+                    itemPageUrl: this.getCswItemAttribute(cswItem, "dc:URI", "DOI"),
+                    source: "csw"
                 };
+            });
+            portalItems = portalItems.filter((item) => {
+                return item.url;
             });
             this.portalItemLoaderModel.portalItems = portalItems;
         }

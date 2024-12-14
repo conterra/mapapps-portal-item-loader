@@ -56,7 +56,7 @@ export default class PortalItemLoaderWidgetFactory {
                 model.spaceFilter, model.sortAscending, model.sortByField);
 
             this.vm.$on("load-item", (item: any) => {
-                controller.addPortalItemLayerToMap(item);
+                controller.addItemLayerToMap(item);
             });
         };
         widget.deactivateTool = () => {
