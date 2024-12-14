@@ -257,6 +257,9 @@ export default class PortalItemLoaderWidgetController {
 
     private async queryCSW(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField): Promise<any> {
         const url = portal.url;
+        if (!searchText) {
+            searchText = "";
+        }
         const response = await apprtFetch(url, {
             method: "GET",
             query: {
