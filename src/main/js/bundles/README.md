@@ -23,13 +23,12 @@ This bundle allows to add portal content to your map.apps app.
             }
         ],
         "rowsPerPageItems": [
-            10,
             25,
             50,
             100
         ],
         "pagination": {
-            "rowsPerPage": 10
+            "rowsPerPage": 25
         },
         "spaceFilters": [
             {
