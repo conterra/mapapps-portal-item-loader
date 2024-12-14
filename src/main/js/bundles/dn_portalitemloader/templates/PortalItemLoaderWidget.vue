@@ -29,6 +29,7 @@
                 :sort-by-fields="sortByFields"
                 :search-text.sync="searchText"
                 :portal-filter.sync="portalFilter"
+                :selected-portal-type.sync="selectedPortalType"
                 :space-filter.sync="spaceFilter"
                 :type-filter.sync="typeFilter"
                 :sort-ascending.sync="sortAscending"
@@ -131,6 +132,10 @@
                 default: ""
             },
             portalFilter: {
+                type: String,
+                default: ""
+            },
+            selectedPortalType: {
                 type: String,
                 default: ""
             },

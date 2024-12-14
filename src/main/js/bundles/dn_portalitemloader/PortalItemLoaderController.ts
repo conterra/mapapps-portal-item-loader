@@ -120,9 +120,11 @@ export default class PortalItemLoaderWidgetController {
     private changeSelectedPortal(portalId: string): void {
         const model = this.portalItemLoaderModel;
         model.spaceFilter = "all";
+        let portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
+        model.selectedPortalType = selectedPortal.type;
         if (selectedPortal.type === "portal") {
-            const portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
+            portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
             portal.load().then(() => {
                 if (portal.user) {
                     model.authenticated = true;
@@ -131,7 +133,7 @@ export default class PortalItemLoaderWidgetController {
                 }
             });
         } else if (selectedPortal.type === "csw") {
-            this.portal = selectedPortal;
+            portal = this.portal = selectedPortal;
         }
     }
 
@@ -266,11 +268,12 @@ export default class PortalItemLoaderWidgetController {
                 outputSchema: "http://www.opengis.net/cat/csw/2.0.2",
                 startPosition: (pagination.page - 1) * pagination.rowsPerPage + 1,
                 maxRecords: pagination.rowsPerPage,
+                SortBy: this.getCSWSortBy(sortAscending, sortByField),
                 typeNames: "csw:Record",
-                elementSetName: "full"//,
-                // CONSTRAINTLANGUAGE: "Filter",
-                // constraint_language_version: "1.1.0",
-                // constraint: '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>apiso:ResourceIdentifier</ogc:PropertyName><ogc:Literal>7988c147-7523-45bb-8f18-7f39d0d20541</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>"'
+                elementSetName: "full",
+                CONSTRAINTLANGUAGE: "FILTER",
+                CONSTRAINT_LANGUAGE_VERSION: "1.1.0",
+                Constraint: this.getCSWFilter(searchText, spaceFilter, typeFilter)
             }
         });
         if (!response.ok) {
@@ -287,6 +290,58 @@ export default class PortalItemLoaderWidgetController {
             total: total,
             results: results
         };
+    }
+
+    private getCSWSortBy(sortAscending: boolean, sortByField: string) {
+        let cswSortByField;
+        switch (sortByField) {
+            case "modified":
+                cswSortByField = "modified";
+                break;
+            case "title":
+                cswSortByField = "title";
+                break;
+            case "created":
+                cswSortByField = "created";
+                break;
+            case "type":
+                cswSortByField = "type";
+                break;
+            case "owner":
+                cswSortByField = "owner";
+                break;
+            case "avg-rating":
+                cswSortByField = "avgrating";
+                break;
+            case "num-rating":
+                cswSortByField = "numratings";
+                break;
+            case "num-comments":
+                cswSortByField = "numcomments";
+                break;
+            case "num-views":
+                cswSortByField = "numViews";
+                break;
+            default:
+                cswSortByField = "modified";
+                break;
+        }
+        const order = sortAscending ? "A" : "D";
+        return `${cswSortByField}:${order}`;
+    }
+
+    private getCSWFilter(searchText: string) {
+        let constraint = `<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">`;
+        constraint += `<ogc:And>`;
+        constraint += `<ogc:PropertyIsEqualTo>`;
+        constraint += `<ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>ESRI:REST</ogc:Literal>`;
+        constraint += `</ogc:PropertyIsEqualTo>`;
+        constraint += `<ogc:PropertyIsLike wildCard="*" singleChar="?" escapeChar="\\">`;
+        constraint += `<ogc:PropertyName>AnyText</ogc:PropertyName><ogc:Literal>*${searchText}*</ogc:Literal>`;
+        constraint += `</ogc:PropertyIsLike>`;
+        constraint += `</ogc:And>`;
+        constraint += `</ogc:Filter>`;
+        return constraint;
     }
 
     private addCSWItemsToModel(result: unknown): void {
@@ -312,7 +367,7 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    private getCswItemAttribute(cswItem: HTMLElement, attributeName: string, protocol: string): string | undefined {
+    private getCswItemAttribute(cswItem: HTMLElement, attributeName: string, protocol?: string): string | undefined {
         const elements = cswItem.getElementsByTagName(attributeName);
         if (!protocol) {
             if (elements.length) {

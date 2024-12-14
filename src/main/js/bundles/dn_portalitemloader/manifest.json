@@ -14,7 +14,6 @@
         "apprt-vue": "^4.14.0",
         "apprt-vuetify": "^4.14.0",
         "apprt-binding": "^4.14.0",
-        "apprt-fetch": "^4.14.0",
         "map-widget": "^4.14.0",
         "esri": "^4.22.0"
     },
@@ -192,10 +191,6 @@
                         "title": "${ui.sortByFields.uploaded}"
                     },
                     {
-                        "id": "username",
-                        "title": "${ui.sortByFields.username}"
-                    },
-                    {
                         "id": "created",
                         "title": "${ui.sortByFields.created}"
                     },
@@ -207,7 +202,7 @@
                         "id": "owner",
                         "title": "${ui.sortByFields.owner}"
                     },
-                    /*{
+                    {
                         "id": "avg-rating",
                         "title": "${ui.sortByFields.avg-rating}"
                     },
@@ -218,7 +213,7 @@
                     {
                         "id": "num-comments",
                         "title": "${ui.sortByFields.num-comments}"
-                    },*/
+                    },
                     {
                         "id": "num-views",
                         "title": "${ui.sortByFields.num-views}"

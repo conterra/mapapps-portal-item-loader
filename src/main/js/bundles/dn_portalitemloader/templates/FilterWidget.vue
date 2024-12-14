@@ -75,6 +75,7 @@
                 hide-details
             />
             <v-select
+                v-if="selectedPortalType==='portal'"
                 v-model="localTypeFilter"
                 class="pb-2"
                 item-value="id"
@@ -145,6 +146,10 @@
                 default: ""
             },
             portalFilter: {
+                type: String,
+                default: ""
+            },
+            selectedPortalType: {
                 type: String,
                 default: ""
             },
