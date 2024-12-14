@@ -19,7 +19,7 @@ import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import GroupLayer from "esri/layers/GroupLayer";
-import { apprtFetch, ContentType } from "apprt-fetch";
+import { apprtFetch } from "apprt-fetch";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -360,9 +360,8 @@ export default class PortalItemLoaderWidgetController {
                     source: "csw"
                 };
             });
-            portalItems = portalItems.filter((item) => {
-                return item.url;
-            });
+            // only use items with url
+            portalItems = portalItems.filter((item) => item.url);
             this.portalItemLoaderModel.portalItems = portalItems;
         }
     }
