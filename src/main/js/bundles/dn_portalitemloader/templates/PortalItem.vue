@@ -146,6 +146,7 @@
                 {{ i18n.addToMap }}
             </v-btn>
             <v-btn
+                v-if="item.itemPageUrl"
                 icon
                 small
                 color="secondary"
