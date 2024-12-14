@@ -157,8 +157,8 @@
                 default: () => []
             },
             typeFilter: {
-                type: Array,
-                default: () => []
+                type: String,
+                default: () => ""
             },
             typeFilters: {
                 type: Array,
