@@ -34,10 +34,17 @@
             "Config": {
                 "portals": [
                     {
+                        "id": "copernicus",
+                        "title": "Copernicus",
+                        "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
+                        "type": "csw"
+                    },
+                    {
                         "id": "arcgis",
                         "title": "ArcGIS Online",
                         "url": "https://arcgis.com",
-                        "authMode": "auto"
+                        "authMode": "auto",
+                        "type": "portal"
                     }
                 ]
             }

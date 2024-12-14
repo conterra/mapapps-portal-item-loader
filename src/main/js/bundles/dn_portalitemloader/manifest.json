@@ -14,6 +14,7 @@
         "apprt-vue": "^4.14.0",
         "apprt-vuetify": "^4.14.0",
         "apprt-binding": "^4.14.0",
+        "apprt-fetch": "^4.14.0",
         "map-widget": "^4.14.0",
         "esri": "^4.22.0"
     },

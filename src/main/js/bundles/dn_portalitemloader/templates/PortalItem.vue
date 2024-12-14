@@ -25,7 +25,7 @@
             <v-img
                 v-if="item.thumbnailUrl"
                 class="ct-flex-item ct-flex-item--no-grow"
-                :src="item.thumbnailUrl + '&w=400'"
+                :src="item.thumbnailUrl"
             />
             <v-icon
                 v-else
@@ -69,6 +69,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="item.owner"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -88,6 +89,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="views !== 'NaN'"
                     avatar
                 >
                     <v-list-tile-avatar>

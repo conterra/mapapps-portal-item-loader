@@ -19,6 +19,7 @@ import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import GroupLayer from "esri/layers/GroupLayer";
+import { apprtFetch, ContentType } from "apprt-fetch";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -88,17 +89,31 @@ export default class PortalItemLoaderWidgetController {
             if (this.abortController) {
                 this.abortController.abort();
             }
-            const promise =
-                this.queryPortal(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
-            promise.then((result) => {
-                this.abortController = undefined;
-                model.loading = false;
-                if (!result) {
-                    return;
-                }
-                this.addPortalItemsToModel(result);
-                model.totalItems = result.total;
-            });
+            if (portal.declaredClass === "esri.portal.Portal") {
+                const promise =
+                    this.queryPortal(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
+                promise.then((result) => {
+                    this.abortController = undefined;
+                    model.loading = false;
+                    if (!result) {
+                        return;
+                    }
+                    this.addPortalItemsToModel(result);
+                    model.totalItems = result.total;
+                });
+            } else {
+                const promise =
+                    this.queryCSW(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
+                promise.then((result) => {
+                    this.abortController = undefined;
+                    model.loading = false;
+                    if (!result) {
+                        return;
+                    }
+                    this.addCSWItemsToModel(result);
+                    model.totalItems = result.total;
+                });
+            }
         }, 500);
     }
 
@@ -106,14 +121,18 @@ export default class PortalItemLoaderWidgetController {
         const model = this.portalItemLoaderModel;
         model.spaceFilter = "all";
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
-        const portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
-        portal.load().then(() => {
-            if (portal.user) {
-                model.authenticated = true;
-            } else {
-                model.authenticated = false;
-            }
-        });
+        if (selectedPortal.type === "portal") {
+            const portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
+            portal.load().then(() => {
+                if (portal.user) {
+                    model.authenticated = true;
+                } else {
+                    model.authenticated = false;
+                }
+            });
+        } else if (selectedPortal.type === "csw") {
+            this.portal = selectedPortal;
+        }
     }
 
     private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
@@ -226,6 +245,74 @@ export default class PortalItemLoaderWidgetController {
             }
             map.add(root);
             root.add(layer);
+        }
+    }
+
+    private async queryCSW(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField): Promise<any> {
+        const url = portal.url;
+        const response = await apprtFetch(url, {
+            method: "GET",
+            query: {
+                service: "CSW",
+                version: "2.0.2",
+                request: "GetRecords",
+                resultType: "results",
+                outputFormat: "application/xml",
+                outputSchema: "http://www.opengis.net/cat/csw/2.0.2",
+                startPosition: (pagination.page - 1) * pagination.rowsPerPage + 1,
+                maxRecords: pagination.rowsPerPage,
+                typeNames: "csw:Record",
+                elementSetName: "full"//,
+                // CONSTRAINTLANGUAGE: "Filter",
+                // constraint_language_version: "1.1.0",
+                // constraint: '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>apiso:ResourceIdentifier</ogc:PropertyName><ogc:Literal>7988c147-7523-45bb-8f18-7f39d0d20541</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>"'
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Request failed");
+        }
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(text, "text/xml");
+        const resultsHtmlCollection = xmlDoc.getElementsByTagName("csw:SearchResults")[0].children;
+        const results = Array.from(resultsHtmlCollection);
+        return {
+            total: results.length,
+            results: results
+        };
+    }
+
+    private addCSWItemsToModel(result: unknown): void {
+        if (result?.results) {
+            const portalItems = result.results.map((cswItem) => {
+                return {
+                    id: this.getCswItemAttribute(cswItem, "dc:identifier"),
+                    title: this.getCswItemAttribute(cswItem, "dc:title"),
+                    snippet: this.getCswItemAttribute(cswItem, "dct:abstract"),
+                    description: this.getCswItemAttribute(cswItem, "dc:description"),
+                    thumbnailUrl: this.getCswItemAttribute(cswItem, "dc:URI", "image/png"),
+                    modified: new Date(this.getCswItemAttribute(cswItem, "dc:date")),
+                    type: this.getCswItemAttribute(cswItem, "dc:format"),
+                    url: this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST"),
+                    itemPageUrl: this.getCswItemAttribute(cswItem, "dc:URI", "DOI")
+                };
+            });
+            this.portalItemLoaderModel.portalItems = portalItems;
+        }
+    }
+
+    private getCswItemAttribute(cswItem: HTMLElement, attributeName: string, protocol: string): string | undefined {
+        const elements = cswItem.getElementsByTagName(attributeName);
+        if (!protocol) {
+            if (elements.length) {
+                return elements[0].innerHTML;
+            } else {
+                return undefined;
+            }
+        } else {
+            const protocolElements = Array.from(elements);
+            const element = protocolElements.find((e) => e.getAttribute("protocol") === protocol);
+            return element?.innerHTML;
         }
     }
 
