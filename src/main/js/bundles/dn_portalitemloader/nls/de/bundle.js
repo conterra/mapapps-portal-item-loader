@@ -17,21 +17,20 @@ module.exports = {
     bundleName: "Portalinhalte",
     bundleDescription: "Dieses Modul ermöglicht es Portalinhalte zu laden.",
     tool: {
-        title: "Portalinhalte hinzufügen",
-        tooltip: "Portalinhalte zur Karte hinzufügen"
+        title: "Inhalte hinzufügen",
+        tooltip: "Inhalte zur Karte hinzufügen"
     },
     ui: {
-        all: "Alle Portale",
         addToMap: "Zur Karte hinzufügen",
         myServicesTitle: "Eigene Dienste",
         searchForItems: "Nach Inhalten suchen",
         searchForItemsPlaceholder: "Suchen nach...",
         showFilters: "Filter anzeigen",
         hideFilters: "Filter ausblenden",
-        filterForPortal: "Portal auswählen",
+        filterForPortal: "Quelle auswählen",
         tags: "Tags",
-        noDataText: "Keine Portalinhalte vorhanden",
-        noResultsText: "Es konnten keine Portalinhalte gefunden werden",
+        noDataText: "Keine Inhalte vorhanden",
+        noResultsText: "Es konnten keine Inhalte gefunden werden",
         spaceFilter: "Wo suchen",
         spaceFilters: {
             all: "Überall",
