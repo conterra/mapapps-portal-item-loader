@@ -34,6 +34,13 @@
             "Config": {
                 "portals": [
                     {
+                        "id": "living_atlas",
+                        "title": "ArcGIS Living Atlas",
+                        "url": "https://arcgis.com",
+                        "filter": "group:47dd57c9a59d458c86d3d6b978560088",
+                        "authMode": "auto"
+                    },
+                    {
                         "id": "arcgis",
                         "title": "ArcGIS Online",
                         "url": "https://arcgis.com",
