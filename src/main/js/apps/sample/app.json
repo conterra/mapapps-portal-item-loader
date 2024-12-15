@@ -40,6 +40,18 @@
                         "type": "csw"
                     },
                     {
+                        "id": "geoportal_nrw",
+                        "title": "Geoportal NRW",
+                        "url": "https://apps.geoportal.nrw.de/csw/service",
+                        "type": "csw"
+                    },
+                    {
+                        "id": "metaver",
+                        "title": "MetaVer",
+                        "url": "https://metaver.de/csw",
+                        "type": "csw"
+                    },
+                    {
                         "id": "arcgis",
                         "title": "ArcGIS Online",
                         "url": "https://arcgis.com",
