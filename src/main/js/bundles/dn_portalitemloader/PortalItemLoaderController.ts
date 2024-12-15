@@ -141,9 +141,14 @@ export default class PortalItemLoaderWidgetController {
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
         const page = pagination.page;
         const rowsPerPage = pagination.rowsPerPage;
+        const model = this.portalItemLoaderModel;
+        const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
 
         await this.loginToPortal();
         let filter = "typeKeywords:Service";
+        if (selectedPortal.filter) {
+            filter += ` AND ${selectedPortal.filter}`;
+        }
         switch (spaceFilter) {
             case "all":
             case "fav":

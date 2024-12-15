@@ -34,6 +34,13 @@
             "Config": {
                 "portals": [
                     {
+                        "id": "living_atlas",
+                        "title": "ArcGIS Living Atlas",
+                        "url": "https://arcgis.com",
+                        "filter": "group:47dd57c9a59d458c86d3d6b978560088",
+                        "authMode": "auto"
+                    },
+                    {
                         "id": "copernicus",
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
