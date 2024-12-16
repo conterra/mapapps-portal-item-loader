@@ -24,6 +24,7 @@ import * as intl from "esri/intl";
 
 export default class PortalItemLoaderWidgetController {
 
+    private readonly i18n: MapWidgetModel;
     private readonly mapWidgetModel: MapWidgetModel;
     private readonly portalItemLoaderModel: typeof PortalItemLoaderModel;
     private readonly addLayerService: any;
@@ -34,6 +35,7 @@ export default class PortalItemLoaderWidgetController {
 
     constructor(i18n: any, mapWidgetModel: MapWidgetModel,
         portalItemLoaderModel: typeof PortalItemLoaderModel, addLayerService: any, serviceToWizardAdder: any) {
+        this.i18n = i18n;
         this.mapWidgetModel = mapWidgetModel;
         this.addLayerService = addLayerService;
         this.serviceToWizardAdder = serviceToWizardAdder;
@@ -401,7 +403,7 @@ export default class PortalItemLoaderWidgetController {
                     modifiedDate = new Date(modified);
                 }
                 // handle url and type
-                let type;
+                let type = this.i18n.noService;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST");
                 if (esriUrl)
                     type = "ESRI";
@@ -424,7 +426,7 @@ export default class PortalItemLoaderWidgetController {
                     description: this.getCswItemAttribute(cswItem, "dc:description"),
                     thumbnailUrl: this.getCswItemAttribute(cswItem, "dc:URI", "image/png"),
                     modified: modifiedDate,
-                    type: this.getCswItemAttribute(cswItem, "dc:format") || type,
+                    type: type,
                     url: url,
                     itemPageUrl: itemPageUrl,
                     source: "csw"

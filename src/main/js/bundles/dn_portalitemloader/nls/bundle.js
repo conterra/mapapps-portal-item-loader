@@ -58,7 +58,8 @@ module.exports = {
             allServiceTypes: "All service types",
             owner: "Owner",
             views: "Number of views",
-            lastUpdate: "Last update"
+            lastUpdate: "Last update",
+            noService: "No Service"
         }
     },
     de: true
