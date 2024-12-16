@@ -53,16 +53,25 @@
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
                         "type": "csw",
-                        "filter": "<ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>ESRI:REST</ogc:Literal>",
+                        "filter": "<ogc:Or><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>ESRI:REST</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WMS</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WFS</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Or>",
                         "enableSortBy": true,
                         "enableItemThumbnail": true
+                    },
+                    {
+                        "id": "gdi_de",
+                        "title": "GDI-DE",
+                        "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+                        "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo><ogc:Or><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WMS</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WFS</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Or>",
+                        "enableSortBy": true,
+                        "enableItemThumbnail": false
                     },
                     {
                         "id": "geoportal_nrw",
                         "title": "Geoportal NRW",
                         "url": "https://apps.geoportal.nrw.de/csw/service",
                         "type": "csw",
-                        "filter": "<ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "enableSortBy": true,
                         "enableItemThumbnail": false
                     },
@@ -71,7 +80,7 @@
                         "title": "MetaVer",
                         "url": "https://metaver.de/csw",
                         "type": "csw",
-                        "filter": "<ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
                         "enableSortBy": false,
                         "enableItemThumbnail": false

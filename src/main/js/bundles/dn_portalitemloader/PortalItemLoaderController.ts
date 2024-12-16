@@ -373,9 +373,7 @@ export default class PortalItemLoaderWidgetController {
         let constraint = `<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">`;
         if (selectedPortal.filter) {
             constraint += `<ogc:And>`;
-            constraint += `<ogc:PropertyIsEqualTo>`;
             constraint += selectedPortal.filter;
-            constraint += `</ogc:PropertyIsEqualTo>`;
         }
         constraint += `<ogc:PropertyIsLike wildCard="*" singleChar="?" escapeChar="\\">`;
         constraint += `<ogc:PropertyName>AnyText</ogc:PropertyName><ogc:Literal>*${searchText}*</ogc:Literal>`;
