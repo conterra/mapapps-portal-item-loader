@@ -40,7 +40,9 @@ interface PortalItemLoaderModelProps {
     typeFilters: any[],
     sortAscending: boolean,
     sortByField: "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views",
-    sortByFields: any[]
+    sortByFields: any[],
+    enableSortBy: boolean,
+    enableItemThumbnail: boolean
 }
 
 export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
@@ -66,5 +68,7 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     typeFilters: ["Feature Service", "Vector Tile Service", "Image Service", "Scene Service", "MapService", "all"],
     sortAscending: false,
     sortByField: "modified",
-    sortByFields: []
+    sortByFields: [],
+    enableSortBy: true,
+    enableItemThumbnail: true
 });

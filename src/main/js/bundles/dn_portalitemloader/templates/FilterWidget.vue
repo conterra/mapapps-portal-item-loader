@@ -85,7 +85,10 @@
                 :label="i18n.typeFilter"
                 hide-details
             />
-            <div class="ct-flex-container">
+            <div
+                v-if="enableSortBy"
+                class="ct-flex-container"
+            >
                 <div class="ct-flex-item">
                     <v-select
                         v-model="localSortByField"
@@ -180,6 +183,10 @@
             sortByFields: {
                 type: Array,
                 default: () => []
+            },
+            enableSortBy: {
+                type: Boolean,
+                default: true
             }
         },
         data() {

@@ -34,6 +34,7 @@
                 :type-filter.sync="typeFilter"
                 :sort-ascending.sync="sortAscending"
                 :sort-by-field.sync="sortByField"
+                :enable-sort-by="enableSortBy"
             />
         </div>
         <v-data-iterator
@@ -67,6 +68,7 @@
                 <portal-item
                     :i18n="i18n"
                     :item="props.item"
+                    :enable-item-thumbnail="enableItemThumbnail"
                     @load-item="$emit('load-item', $event)"
                 />
             </template>
@@ -166,6 +168,14 @@
             sortByFields: {
                 type: Array,
                 default: () => []
+            },
+            enableSortBy: {
+                type: Boolean,
+                default: true
+            },
+            enableItemThumbnail: {
+                type: Boolean,
+                default: true
             }
         },
         methods: {

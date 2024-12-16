@@ -29,6 +29,7 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
     private readonly _addLayerService!: InjectedReference<any>;
+    private readonly _serviceToWizardAdder!: InjectedReference<any>;
     private controller: PortalItemLoaderController;
     private vm: Vue;
     private binding: Binding;
@@ -37,7 +38,7 @@ export default class PortalItemLoaderWidgetFactory {
         this.initComponent();
         const i18n = this._i18n.get().ui;
         this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel,
-            this._portalItemLoaderModel, this._addLayerService);
+            this._portalItemLoaderModel, this._addLayerService, this._serviceToWizardAdder);
     }
 
     deactivate(): void {
@@ -89,7 +90,7 @@ export default class PortalItemLoaderWidgetFactory {
 
         this.binding = Binding.for(vm, model)
             .syncAll("portalFilter")
-            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated")
+            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "enableSortBy", "enableItemThumbnail")
             .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter", "typeFilter");
     }
 

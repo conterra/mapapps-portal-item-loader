@@ -20,6 +20,7 @@
         class="ct-portal-item-loader-widget__portal-item-card"
     >
         <div
+            v-if="enableItemThumbnail"
             class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
@@ -50,6 +51,7 @@
         >
             <v-list dense>
                 <v-list-tile
+                    v-if="item.type"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -109,6 +111,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="modified"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -133,6 +136,7 @@
             class="ct-portal-item-loader-widget__portal-item-card-actions"
         >
             <v-btn
+                :disabled="!item.url"
                 block
                 small
                 color="primary"
@@ -177,11 +181,20 @@
                 default: () => {
                     return {};
                 }
+            },
+            enableItemThumbnail: {
+                type: Boolean,
+                default: true
             }
         },
         computed: {
             modified() {
-                return moment(this.item.modified).format("DD.MM.YYYY");
+                const modified = moment(this.item.modified);
+                if(modified.isValid()) {
+                    return moment(modified).format("DD.MM.YYYY");
+                } else {
+                    return undefined;
+                }
             },
             views() {
                 const numberFormatIntlOptions = intl.convertNumberFormatToIntlOptions({

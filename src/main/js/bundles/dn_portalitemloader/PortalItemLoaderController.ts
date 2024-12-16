@@ -20,20 +20,23 @@ import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import GroupLayer from "esri/layers/GroupLayer";
 import { apprtFetch } from "apprt-fetch";
+import * as intl from "esri/intl";
 
 export default class PortalItemLoaderWidgetController {
 
     private readonly mapWidgetModel: MapWidgetModel;
     private readonly portalItemLoaderModel: typeof PortalItemLoaderModel;
     private readonly addLayerService: any;
+    private readonly serviceToWizardAdder: any;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
 
     constructor(i18n: any, mapWidgetModel: MapWidgetModel,
-        portalItemLoaderModel: typeof PortalItemLoaderModel, addLayerService: any) {
+        portalItemLoaderModel: typeof PortalItemLoaderModel, addLayerService: any, serviceToWizardAdder: any) {
         this.mapWidgetModel = mapWidgetModel;
         this.addLayerService = addLayerService;
+        this.serviceToWizardAdder = serviceToWizardAdder;
         const model = this.portalItemLoaderModel = portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
         this.changeSelectedPortal(model.portalFilter);
@@ -123,6 +126,16 @@ export default class PortalItemLoaderWidgetController {
         let portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
+        if (selectedPortal.enableSortBy === false) {
+            model.enableSortBy = false;
+        } else {
+            model.enableSortBy = true;
+        }
+        if (selectedPortal.enableItemThumbnail === false) {
+            model.enableItemThumbnail = false;
+        } else {
+            model.enableItemThumbnail = true;
+        }
         if (selectedPortal.type === "portal") {
             portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
             portal.load().then(() => {
@@ -139,10 +152,10 @@ export default class PortalItemLoaderWidgetController {
 
     private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
         sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
-        const page = pagination.page;
-        const rowsPerPage = pagination.rowsPerPage;
         const model = this.portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
+        const page = pagination.page;
+        const rowsPerPage = pagination.rowsPerPage;
 
         await this.loginToPortal();
         let filter = "typeKeywords:Service";
@@ -184,7 +197,7 @@ export default class PortalItemLoaderWidgetController {
             sortOrder: sortAscending ? "asc" : "desc",
             filter: filter,
             num: rowsPerPage,
-            start: page * rowsPerPage - rowsPerPage + 1
+            start: (page - 1) * rowsPerPage + 1
         };
         const abortController = this.abortController = new AbortController();
         return portal.queryItems(queryParams, { signal: abortController.signal });
@@ -242,21 +255,29 @@ export default class PortalItemLoaderWidgetController {
                 }
             });
         } else if (item.source === "csw") {
-            layer = await Layer.fromArcGISServerUrl(item.url);
-        }
-        if (this.addLayerService) {
-            this.addLayerService.addLayerToMap(layer);
-            console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
-        } else {
-            let root = map.findLayerById(model.rootId);
-            if (!root) {
-                root = new GroupLayer({
-                    id: model.rootId,
-                    title: model.rootTitle || model.rootId
-                });
+            try {
+                layer = await Layer.fromArcGISServerUrl(item.url);
+            } catch (error) {
+                console.error(error);
             }
-            map.add(root);
-            root.add(layer);
+        }
+        if (layer) {
+            if (this.addLayerService) {
+                this.addLayerService.addLayerToMap(layer);
+                console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
+            } else {
+                let root = map.findLayerById(model.rootId);
+                if (!root) {
+                    root = new GroupLayer({
+                        id: model.rootId,
+                        title: model.rootTitle || model.rootId
+                    });
+                }
+                map.add(root);
+                root.add(layer);
+            }
+        } else if (this.serviceToWizardAdder) {
+            this.serviceToWizardAdder.addService(item.url);
         }
     }
 
@@ -265,6 +286,16 @@ export default class PortalItemLoaderWidgetController {
         if (!searchText) {
             searchText = "";
         }
+        const model = this.portalItemLoaderModel;
+        const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
+        const page = pagination.page;
+        const rowsPerPage = pagination.rowsPerPage;
+
+        let sortBy;
+        if (selectedPortal.enableSortBy) {
+            sortBy = this.getCSWSortBy(sortAscending, sortByField);
+        }
+
         const response = await apprtFetch(url, {
             method: "GET",
             query: {
@@ -274,14 +305,14 @@ export default class PortalItemLoaderWidgetController {
                 resultType: "results",
                 outputFormat: "application/xml",
                 outputSchema: "http://www.opengis.net/cat/csw/2.0.2",
-                startPosition: (pagination.page - 1) * pagination.rowsPerPage + 1,
-                maxRecords: pagination.rowsPerPage,
-                SortBy: this.getCSWSortBy(sortAscending, sortByField),
+                startPosition: (page - 1) * rowsPerPage + 1,
+                maxRecords: rowsPerPage,
+                SortBy: sortBy,
                 typeNames: "csw:Record",
                 elementSetName: "full",
                 CONSTRAINTLANGUAGE: "FILTER",
                 CONSTRAINT_LANGUAGE_VERSION: "1.1.0",
-                Constraint: this.getCSWFilter(searchText, spaceFilter, typeFilter)
+                Constraint: this.getCSWFilter(searchText, selectedPortal)
             }
         });
         if (!response.ok) {
@@ -338,38 +369,69 @@ export default class PortalItemLoaderWidgetController {
         return `${cswSortByField}:${order}`;
     }
 
-    private getCSWFilter(searchText: string) {
+    private getCSWFilter(searchText: string, selectedPortal: any) {
         let constraint = `<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">`;
-        constraint += `<ogc:And>`;
-        constraint += `<ogc:PropertyIsEqualTo>`;
-        constraint += `<ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>ESRI:REST</ogc:Literal>`;
-        constraint += `</ogc:PropertyIsEqualTo>`;
+        if (selectedPortal.filter) {
+            constraint += `<ogc:And>`;
+            constraint += `<ogc:PropertyIsEqualTo>`;
+            constraint += selectedPortal.filter;
+            constraint += `</ogc:PropertyIsEqualTo>`;
+        }
         constraint += `<ogc:PropertyIsLike wildCard="*" singleChar="?" escapeChar="\\">`;
         constraint += `<ogc:PropertyName>AnyText</ogc:PropertyName><ogc:Literal>*${searchText}*</ogc:Literal>`;
         constraint += `</ogc:PropertyIsLike>`;
-        constraint += `</ogc:And>`;
+        if (selectedPortal.filter) {
+            constraint += `</ogc:And>`;
+        }
         constraint += `</ogc:Filter>`;
         return constraint;
     }
 
     private addCSWItemsToModel(result: unknown): void {
+        const model = this.portalItemLoaderModel;
+        const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         if (result?.results) {
-            let portalItems = result.results.map((cswItem) => {
+            const portalItems = result.results.map((cswItem: any) => {
+                const id = this.getCswItemAttribute(cswItem, "dc:identifier");
+                // handle modified date
+                let modified = this.getCswItemAttribute(cswItem, "dct:modified");
+                let modifiedDate;
+                if (!modified) {
+                    modified = this.getCswItemAttribute(cswItem, "dc:date");
+                }
+                if (modified) {
+                    modifiedDate = new Date(modified);
+                }
+                // handle url and type
+                let type;
+                const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST");
+                if (esriUrl)
+                    type = "ESRI";
+                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
+                if (wmsUrl)
+                    type = "WMS";
+                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
+                if (esriUrl)
+                    type = "WFS";
+                const url = esriUrl || wmsUrl || wfsUrl;
+                // handle item page url
+                let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "DOI");
+                if (selectedPortal.itemPageUrl) {
+                    itemPageUrl = intl.substitute(selectedPortal.itemPageUrl, { id: id });
+                }
                 return {
-                    id: this.getCswItemAttribute(cswItem, "dc:identifier"),
+                    id: id,
                     title: this.getCswItemAttribute(cswItem, "dc:title"),
-                    snippet: this.getCswItemAttribute(cswItem, "dct:abstract"),
+                    snippet: this.getCswItemAttribute(cswItem, "dct:abstract") || this.getCswItemAttribute(cswItem, "dc:description"),
                     description: this.getCswItemAttribute(cswItem, "dc:description"),
                     thumbnailUrl: this.getCswItemAttribute(cswItem, "dc:URI", "image/png"),
-                    modified: new Date(this.getCswItemAttribute(cswItem, "dc:date")),
-                    type: this.getCswItemAttribute(cswItem, "dc:format"),
-                    url: this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST"),
-                    itemPageUrl: this.getCswItemAttribute(cswItem, "dc:URI", "DOI"),
+                    modified: modifiedDate,
+                    type: this.getCswItemAttribute(cswItem, "dc:format") || type,
+                    url: url,
+                    itemPageUrl: itemPageUrl,
                     source: "csw"
                 };
             });
-            // only use items with url
-            portalItems = portalItems.filter((item) => item.url);
             this.portalItemLoaderModel.portalItems = portalItems;
         }
     }

@@ -245,8 +245,12 @@
                 {
                     "name": "_addLayerService",
                     "providing": "sdi_loadservice.AddLayerService",
-                    "cardinality": "0..1",
-                    "bind": "addLayerService"
+                    "cardinality": "0..1"
+                },
+                {
+                    "name": "_serviceToWizardAdder",
+                    "providing": "sdi_loadservice.ServiceToWizardAdder",
+                    "cardinality": "0..1"
                 }
             ]
         },
