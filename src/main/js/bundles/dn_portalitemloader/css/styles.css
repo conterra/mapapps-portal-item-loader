@@ -88,9 +88,11 @@
     padding: 0 8px;
     max-height: 75px;
     text-align: left;
-    display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-list {
