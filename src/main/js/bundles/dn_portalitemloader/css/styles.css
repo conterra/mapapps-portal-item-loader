@@ -32,7 +32,7 @@
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__loading-indicator {
     height: 8px;
-    padding: 0 8px;
+    padding: 4px 8px;
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-gallery>div:first-child {
@@ -56,7 +56,7 @@
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card {
-    max-height: 488px;
+    max-height: 480px;
     display: flex !important;
     flex-direction: column !important;
     text-align: center;
