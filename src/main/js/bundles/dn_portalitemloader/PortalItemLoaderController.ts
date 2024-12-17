@@ -21,6 +21,8 @@ import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import GroupLayer from "esri/layers/GroupLayer";
 import { apprtFetch } from "apprt-fetch";
 import * as intl from "esri/intl";
+import WMSLayer from "esri/layers/WMSLayer";
+import WFSLayer from "esri/layers/WFSLayer";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -246,6 +248,7 @@ export default class PortalItemLoaderWidgetController {
     async addItemLayerToMap(item: any): Promise<void> {
         const model = this.portalItemLoaderModel;
         const map = this.mapWidgetModel.map;
+        let root;
         let layer;
         if (item.source === "portal") {
             layer = await Layer.fromPortalItem({
@@ -268,7 +271,7 @@ export default class PortalItemLoaderWidgetController {
                 this.addLayerService.addLayerToMap(layer);
                 console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
             } else {
-                let root = map.findLayerById(model.rootId);
+                root = map.findLayerById(model.rootId) as __esri.GroupLayer;
                 if (!root) {
                     root = new GroupLayer({
                         id: model.rootId,
@@ -280,6 +283,31 @@ export default class PortalItemLoaderWidgetController {
             }
         } else if (this.serviceToWizardAdder) {
             this.serviceToWizardAdder.addService(item.url);
+        } else {
+            root = map.findLayerById(model.rootId) as __esri.GroupLayer;
+            if (!root) {
+                root = new GroupLayer({
+                    id: model.rootId,
+                    title: model.rootTitle || model.rootId
+                });
+            }
+            map.add(root);
+            switch (item.type) {
+                case "WMS": {
+                    const wms = new WMSLayer({
+                        url: item.url
+                    });
+                    root.add(wms);
+                    break;
+                }
+                case "WFS": {
+                    const wms = new WFSLayer({
+                        url: item.url
+                    });
+                    root.add(wms);
+                    break;
+                }
+            }
         }
     }
 
