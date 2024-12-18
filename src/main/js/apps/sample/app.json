@@ -54,6 +54,7 @@
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
                         "type": "csw",
                         "showSortBy": true,
+                        "showTypeFilter": true,
                         "showItemThumbnail": true
                     },
                     {
@@ -64,6 +65,7 @@
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
                         "showSortBy": true,
+                        "showTypeFilter": true,
                         "showItemThumbnail": false
                     },
                     {
@@ -84,6 +86,7 @@
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "showSortBy": true,
+                        "showTypeFilter": true,
                         "showItemThumbnail": false
                     }
                 ],
