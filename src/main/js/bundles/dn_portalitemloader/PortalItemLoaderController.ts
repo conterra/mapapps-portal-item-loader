@@ -337,6 +337,16 @@ export default class PortalItemLoaderWidgetController {
         const text = await response.text();
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, "text/xml");
+        const exeptionElement = xmlDoc.getElementsByTagName("ExceptionText");
+        if (exeptionElement.length) {
+            const errorText = exeptionElement[0].innerHTML;
+            console.error(errorText);
+            this.logService.warn(errorText);
+            return {
+                total: 0,
+                results: []
+            };
+        }
         const searchResults = xmlDoc.getElementsByTagName("csw:SearchResults")[0];
         const total = parseInt(searchResults.getAttribute("numberOfRecordsMatched")!);
         const resultsHtmlCollection = searchResults.children;

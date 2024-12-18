@@ -31,19 +31,19 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _logService!: InjectedReference<any>;
     private readonly _addLayerService!: InjectedReference<any>;
     private readonly _serviceToWizardAdder!: InjectedReference<any>;
-    private controller: PortalItemLoaderController;
-    private vm: Vue;
-    private binding: Binding;
+    private controller!: PortalItemLoaderController;
+    private vm!: Vue;
+    private binding!: Binding | undefined;
 
     activate(): void {
         this.initComponent();
         const i18n = this._i18n.get().ui;
-        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel,
-            this._portalItemLoaderModel, this._logService, this._addLayerService, this._serviceToWizardAdder);
+        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel!,
+            this._portalItemLoaderModel!, this._logService, this._addLayerService, this._serviceToWizardAdder);
     }
 
     deactivate(): void {
-        this.binding.unbind();
+        this.binding?.unbind();
         this.binding = undefined;
     }
 
@@ -52,17 +52,17 @@ export default class PortalItemLoaderWidgetFactory {
         const widget = VueDijit(this.vm, { class: "ct-portal-item-loader-widget" });
 
         widget.activateTool = async () => {
-            this.binding.enable().syncToLeftNow();
+            this.binding?.enable().syncToLeftNow();
             const model = this._portalItemLoaderModel!;
-            controller.queryPortalItems(model.pagination, model.portalFilter, model.searchText,
-                model.spaceFilter, model.sortAscending, model.sortByField);
+            controller.queryPortalItems(model.pagination, model.searchText,
+                model.spaceFilter, model.typeFilter, model.sortAscending, model.sortByField);
 
             this.vm.$on("load-item", (item: any) => {
                 controller.addItemLayerToMap(item);
             });
         };
         widget.deactivateTool = () => {
-            this.binding.disable();
+            this.binding?.disable();
             this.vm.$off();
         };
 
