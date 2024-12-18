@@ -261,6 +261,10 @@
                     "providing": "map-widget.MapWidgetModel"
                 },
                 {
+                    "name": "_logService",
+                    "providing": "ct.framework.api.LogService"
+                },
+                {
                     "name": "_addLayerService",
                     "providing": "sdi_loadservice.AddLayerService",
                     "cardinality": "0..1"

@@ -28,6 +28,7 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _i18n!: InjectedReference<any>;
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private readonly _logService!: InjectedReference<any>;
     private readonly _addLayerService!: InjectedReference<any>;
     private readonly _serviceToWizardAdder!: InjectedReference<any>;
     private controller: PortalItemLoaderController;
@@ -38,7 +39,7 @@ export default class PortalItemLoaderWidgetFactory {
         this.initComponent();
         const i18n = this._i18n.get().ui;
         this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel,
-            this._portalItemLoaderModel, this._addLayerService, this._serviceToWizardAdder);
+            this._portalItemLoaderModel, this._logService, this._addLayerService, this._serviceToWizardAdder);
     }
 
     deactivate(): void {

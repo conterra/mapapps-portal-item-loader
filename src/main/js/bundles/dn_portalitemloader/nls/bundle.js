@@ -26,8 +26,8 @@ module.exports = {
             myServicesTitle: "My Services",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",
-            showFilters: "Hide filters",
-            hideFilters: "Show filters",
+            showFilters: "Show filters",
+            hideFilters: "Hide filters",
             filterForPortal: "Select source",
             tags: "Tags",
             noDataText: "No items",
@@ -59,7 +59,10 @@ module.exports = {
             owner: "Owner",
             views: "Number of views",
             lastUpdate: "Last update",
-            noService: "No Service"
+            noService: "No Service",
+            errors: {
+                noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
+            }
         }
     },
     de: true

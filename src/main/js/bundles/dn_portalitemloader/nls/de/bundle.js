@@ -58,6 +58,9 @@ module.exports = {
         owner: "Besitzer",
         views: "Anzahl der Zugriffe",
         lastUpdate: "Zuletzt bearbeitet",
-        noService: "Kein Dienst"
+        noService: "Kein Dienst",
+        errors: {
+            noMapappsSDI: "Für diese Funktion wird map.apps SDI benötigt. Bitte wenden Sie sich an den Administrator."
+        }
     }
 };
