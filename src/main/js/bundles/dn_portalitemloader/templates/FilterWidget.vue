@@ -86,7 +86,7 @@
                 hide-details
             />
             <div
-                v-if="enableSortBy"
+                v-if="showSortBy"
                 class="ct-flex-container"
             >
                 <div class="ct-flex-item">
@@ -184,7 +184,7 @@
                 type: Array,
                 default: () => []
             },
-            enableSortBy: {
+            showSortBy: {
                 type: Boolean,
                 default: true
             }

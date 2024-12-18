@@ -53,8 +53,8 @@
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
                         "type": "csw",
-                        "enableSortBy": true,
-                        "enableItemThumbnail": true
+                        "showSortBy": true,
+                        "showItemThumbnail": true
                     },
                     {
                         "id": "gdi_de",
@@ -63,8 +63,8 @@
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
-                        "enableSortBy": true,
-                        "enableItemThumbnail": false
+                        "showSortBy": true,
+                        "showItemThumbnail": false
                     },
                     {
                         "id": "metaver",
@@ -73,8 +73,8 @@
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
-                        "enableSortBy": false,
-                        "enableItemThumbnail": false
+                        "showSortBy": false,
+                        "showItemThumbnail": false
                     },
                     {
                         "id": "geoportal_nrw",
@@ -82,8 +82,8 @@
                         "url": "https://apps.geoportal.nrw.de/csw/service",
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
-                        "enableSortBy": true,
-                        "enableItemThumbnail": false
+                        "showSortBy": true,
+                        "showItemThumbnail": false
                     }
                 ]
             }

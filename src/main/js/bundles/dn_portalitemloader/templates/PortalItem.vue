@@ -20,7 +20,7 @@
         class="ct-portal-item-loader-widget__portal-item-card"
     >
         <div
-            v-if="enableItemThumbnail"
+            v-if="showItemThumbnail"
             class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
@@ -182,7 +182,7 @@
                     return {};
                 }
             },
-            enableItemThumbnail: {
+            showItemThumbnail: {
                 type: Boolean,
                 default: true
             }

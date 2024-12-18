@@ -50,8 +50,8 @@ export interface Portal {
     filter: string,
     // only for type csw
     itemPageUrl: string
-    enableSortBy: boolean,
-    enableItemThumbnail: boolean
+    showSortBy: boolean,
+    showItemThumbnail: boolean
 }
 
 export interface Pagination {

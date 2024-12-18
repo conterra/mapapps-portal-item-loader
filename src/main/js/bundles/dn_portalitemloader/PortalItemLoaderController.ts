@@ -131,15 +131,15 @@ export default class PortalItemLoaderWidgetController {
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
-        if (selectedPortal.enableSortBy === false) {
-            model.enableSortBy = false;
+        if (selectedPortal.showSortBy === false) {
+            model.showSortBy = false;
         } else {
-            model.enableSortBy = true;
+            model.showSortBy = true;
         }
-        if (selectedPortal.enableItemThumbnail === false) {
-            model.enableItemThumbnail = false;
+        if (selectedPortal.showItemThumbnail === false) {
+            model.showItemThumbnail = false;
         } else {
-            model.enableItemThumbnail = true;
+            model.showItemThumbnail = true;
         }
         if (selectedPortal.type === "portal") {
             model.typeFilters = model.typeFiltersPortal;
@@ -308,7 +308,7 @@ export default class PortalItemLoaderWidgetController {
         const rowsPerPage = pagination.rowsPerPage;
 
         let sortBy;
-        if (selectedPortal.enableSortBy) {
+        if (selectedPortal.showSortBy) {
             sortBy = this.getCSWSortBy(sortAscending, sortByField);
         }
 
