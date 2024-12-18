@@ -133,7 +133,7 @@
                     }
                 ],
                 "typeFilter": "all",
-                "typeFilters": [
+                "typeFiltersPortal": [
                     {
                         "id": "all",
                         "title": "${ui.allServiceTypes}"
@@ -173,6 +173,24 @@
                     {
                         "id": "WMS",
                         "title": "WMS"
+                    }
+                ],
+                "typeFiltersCSW": [
+                    {
+                        "id": "all",
+                        "title": "${ui.allServiceTypes}"
+                    },
+                    {
+                        "id": "OGC:WFS",
+                        "title": "WFS"
+                    },
+                    {
+                        "id": "OGC:WMS",
+                        "title": "WMS"
+                    },
+                    {
+                        "id": "ESRI:REST",
+                        "title": "Esri"
                     }
                 ],
                 "sortAscending": false,

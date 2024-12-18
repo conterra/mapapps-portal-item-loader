@@ -75,7 +75,7 @@
                 hide-details
             />
             <v-select
-                v-if="selectedPortalType==='portal'"
+                v-if="typeFilters.length"
                 v-model="localTypeFilter"
                 class="pb-2"
                 item-value="id"

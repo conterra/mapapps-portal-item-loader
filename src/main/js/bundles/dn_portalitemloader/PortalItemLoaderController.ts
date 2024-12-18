@@ -111,7 +111,7 @@ export default class PortalItemLoaderWidgetController {
                 });
             } else {
                 const promise =
-                    this.queryCSW(portal, pagination, searchText, sortAscending, sortByField);
+                    this.queryCSW(portal, pagination, searchText, typeFilter, sortAscending, sortByField);
                 promise.then((result) => {
                     this.abortController = undefined;
                     model.loading = false;
@@ -127,7 +127,6 @@ export default class PortalItemLoaderWidgetController {
 
     private changeSelectedPortal(portalId: string): void {
         const model = this.portalItemLoaderModel;
-        model.spaceFilter = "all";
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
@@ -142,6 +141,7 @@ export default class PortalItemLoaderWidgetController {
             model.enableItemThumbnail = true;
         }
         if (selectedPortal.type === "portal") {
+            model.typeFilters = model.typeFiltersPortal;
             portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
             portal.load().then(() => {
                 if (portal.user) {
@@ -151,8 +151,11 @@ export default class PortalItemLoaderWidgetController {
                 }
             });
         } else if (selectedPortal.type === "csw") {
+            model.typeFilters = model.typeFiltersCSW;
             portal = this.portal = selectedPortal;
         }
+        model.spaceFilter = "all";
+        model.typeFilter = "all";
     }
 
     private async queryPortal(portal: __esri.Portal, pagination: Pagination,
@@ -189,7 +192,7 @@ export default class PortalItemLoaderWidgetController {
                 query += " AND ";
             }
             query += `(title:${searchText} OR description:${searchText} OR snippet:${searchText} OR ` +
-                     `tags:${searchText})`;
+                `tags:${searchText})`;
         }
         if (typeFilter !== "all") {
             if (query !== "") {
@@ -314,14 +317,14 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private async queryCSW(portal: Portal, pagination: Pagination, searchText: string,
-        sortAscending: boolean, sortByField: SortByField): Promise<any> {
+        typeFilter: string, sortAscending: boolean, sortByField: SortByField): Promise<any> {
         const url = portal.url;
         if (!searchText) {
             searchText = "";
         }
         const model = this.portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
-        const page = pagination.page;
+        const page = pagination.page!;
         const rowsPerPage = pagination.rowsPerPage;
 
         let sortBy;
@@ -345,7 +348,7 @@ export default class PortalItemLoaderWidgetController {
                 elementSetName: "full",
                 CONSTRAINTLANGUAGE: "FILTER",
                 CONSTRAINT_LANGUAGE_VERSION: "1.1.0",
-                Constraint: this.getCSWFilter(searchText, selectedPortal)
+                Constraint: this.getCSWFilter(searchText, typeFilter, selectedPortal)
             }
         });
         if (!response.ok) {
@@ -402,16 +405,24 @@ export default class PortalItemLoaderWidgetController {
         return `${cswSortByField}:${order}`;
     }
 
-    private getCSWFilter(searchText: string, selectedPortal: any) {
+    private getCSWFilter(searchText: string, typeFilter: string, selectedPortal: any) {
         let constraint = `<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">`;
-        if (selectedPortal.filter) {
+        if (selectedPortal.filter || typeFilter !== "all") {
             constraint += `<ogc:And>`;
+        }
+        if (selectedPortal.filter) {
             constraint += selectedPortal.filter;
+        }
+        if (typeFilter !== "all") {
+            constraint += `<ogc:PropertyIsEqualTo>`;
+            constraint += `<ogc:PropertyName>OnlineResourceType</ogc:PropertyName>`;
+            constraint += `<ogc:Literal>${typeFilter}</ogc:Literal>`;
+            constraint += `</ogc:PropertyIsEqualTo>`;
         }
         constraint += `<ogc:PropertyIsLike wildCard="*" singleChar="?" escapeChar="\\">`;
         constraint += `<ogc:PropertyName>AnyText</ogc:PropertyName><ogc:Literal>*${searchText}*</ogc:Literal>`;
         constraint += `</ogc:PropertyIsLike>`;
-        if (selectedPortal.filter) {
+        if (selectedPortal.filter || typeFilter !== "all") {
             constraint += `</ogc:And>`;
         }
         constraint += `</ogc:Filter>`;

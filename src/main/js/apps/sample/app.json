@@ -53,7 +53,6 @@
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
                         "type": "csw",
-                        "filter": "<ogc:Or><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>ESRI:REST</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WMS</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WFS</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Or>",
                         "enableSortBy": true,
                         "enableItemThumbnail": true
                     },
@@ -62,7 +61,7 @@
                         "title": "GDI-DE",
                         "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
                         "type": "csw",
-                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo><ogc:Or><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WMS</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>OnlineResourceType</ogc:PropertyName><ogc:Literal>OGC:WFS</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Or>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
                         "enableSortBy": true,
                         "enableItemThumbnail": false
