@@ -86,7 +86,15 @@
                         "showSortBy": true,
                         "showItemThumbnail": false
                     }
-                ]
+                ],
+                "rowsPerPageItems": [
+                    25,
+                    50,
+                    100
+                ],
+                "pagination": {
+                    "rowsPerPage": 25
+                }
             }
         },
         "banner": {

@@ -56,12 +56,12 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     loading: false,
     totalItems: 0,
     rowsPerPageItems: [
-        10,
+        25,
         50,
         100
     ],
     pagination: {
-        rowsPerPage: 10
+        rowsPerPage: 25
     },
     searchText: "",
     portalFilter: "",
