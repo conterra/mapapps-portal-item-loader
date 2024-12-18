@@ -74,6 +74,7 @@
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
                         "showSortBy": false,
+                        "showTypeFilter": false,
                         "showItemThumbnail": false
                     },
                     {

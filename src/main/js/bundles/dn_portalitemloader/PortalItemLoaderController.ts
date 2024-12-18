@@ -136,6 +136,11 @@ export default class PortalItemLoaderWidgetController {
         } else {
             model.showSortBy = true;
         }
+        if (selectedPortal.showTypeFilter === false) {
+            model.showTypeFilter = false;
+        } else {
+            model.showTypeFilter = true;
+        }
         if (selectedPortal.showItemThumbnail === false) {
             model.showItemThumbnail = false;
         } else {

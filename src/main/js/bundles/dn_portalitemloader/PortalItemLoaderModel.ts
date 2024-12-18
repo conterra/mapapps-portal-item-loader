@@ -45,6 +45,7 @@ interface PortalItemLoaderModelProps {
     sortByField: SortByField,
     sortByFields: any[],
     showSortBy: boolean,
+    showTypeFilter: boolean,
     showItemThumbnail: boolean
 }
 
@@ -75,5 +76,6 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     sortByField: "modified",
     sortByFields: [],
     showSortBy: true,
+    showTypeFilter: true,
     showItemThumbnail: true
 });

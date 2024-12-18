@@ -75,7 +75,7 @@
                 hide-details
             />
             <v-select
-                v-if="typeFilters.length"
+                v-if="typeFilters.length && showTypeFilter"
                 v-model="localTypeFilter"
                 class="pb-2"
                 item-value="id"
@@ -185,6 +185,10 @@
                 default: () => []
             },
             showSortBy: {
+                type: Boolean,
+                default: true
+            },
+            showTypeFilter: {
                 type: Boolean,
                 default: true
             }

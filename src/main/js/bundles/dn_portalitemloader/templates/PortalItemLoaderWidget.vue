@@ -35,6 +35,7 @@
                 :sort-ascending.sync="sortAscending"
                 :sort-by-field.sync="sortByField"
                 :show-sort-by="showSortBy"
+                :show-type-filter="showTypeFilter"
             />
         </div>
         <v-data-iterator
@@ -170,6 +171,10 @@
                 default: () => []
             },
             showSortBy: {
+                type: Boolean,
+                default: true
+            },
+            showTypeFilter: {
                 type: Boolean,
                 default: true
             },

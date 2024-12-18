@@ -51,6 +51,7 @@ export interface Portal {
     // only for type csw
     itemPageUrl: string
     showSortBy: boolean,
+    showTypeFilter: boolean,
     showItemThumbnail: boolean
 }
 
