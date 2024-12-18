@@ -15,6 +15,7 @@
 ///
 
 import { Mutable, properties } from "apprt-core/Mutable";
+import { Pagination, PortalItem, SortByField, SpaceFilter } from "./api";
 
 function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P): Impl & Mutable<P> {
     properties(mutableDefinition, mutableProperties);
@@ -25,21 +26,21 @@ class PortalItemLoaderModel extends Mutable { }
 
 interface PortalItemLoaderModelProps {
     portals: any[],
-    portalItems: __esri.PortalItem[],
+    portalItems: PortalItem[],
     authenticated: boolean,
     loading: boolean,
     totalItems: number,
     rowsPerPageItems: number[],
-    pagination: object,
-    searchText: "",
+    pagination: Pagination,
+    searchText: string,
     portalFilter: string,
     selectedPortalType: string,
-    spaceFilter: "all" | "organisation" | "my-content" | "fav",
+    spaceFilter: SpaceFilter,
     spaceFilters: any[],
     typeFilter: string,
     typeFilters: any[],
     sortAscending: boolean,
-    sortByField: "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views",
+    sortByField: SortByField,
     sortByFields: any[],
     enableSortBy: boolean,
     enableItemThumbnail: boolean

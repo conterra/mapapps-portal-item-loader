@@ -23,6 +23,7 @@ import { apprtFetch } from "apprt-fetch";
 import * as intl from "esri/intl";
 import WMSLayer from "esri/layers/WMSLayer";
 import WFSLayer from "esri/layers/WFSLayer";
+import { Pagination, SortByField, SpaceFilter, PortalItem } from "./api";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -85,9 +86,9 @@ export default class PortalItemLoaderWidgetController {
         });
     }
 
-    queryPortalItems(pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
+    queryPortalItems(pagination: Pagination, searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
         sortAscending: boolean,
-        sortByField: string): void {
+        sortByField: SortByField): void {
         const model = this.portalItemLoaderModel;
         const portal = this.portal!;
         clearTimeout(this.lastTimeout);
@@ -97,8 +98,8 @@ export default class PortalItemLoaderWidgetController {
                 this.abortController.abort();
             }
             if (portal.declaredClass === "esri.portal.Portal") {
-                const promise =
-                    this.queryPortal(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
+                const promise = this.queryPortal(portal, pagination,
+                    searchText, spaceFilter, typeFilter, sortAscending, sortByField);
                 promise.then((result) => {
                     this.abortController = undefined;
                     model.loading = false;
@@ -110,7 +111,7 @@ export default class PortalItemLoaderWidgetController {
                 });
             } else {
                 const promise =
-                    this.queryCSW(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField);
+                    this.queryCSW(portal, pagination, searchText, sortAscending, sortByField);
                 promise.then((result) => {
                     this.abortController = undefined;
                     model.loading = false;
@@ -127,7 +128,7 @@ export default class PortalItemLoaderWidgetController {
     private changeSelectedPortal(portalId: string): void {
         const model = this.portalItemLoaderModel;
         model.spaceFilter = "all";
-        let portal;
+        let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
         if (selectedPortal.enableSortBy === false) {
@@ -154,8 +155,9 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    private async queryPortal(portal: __esri.Portal, pagination: any, searchText: string, spaceFilter: "all" | "organisation" | "my-content" | "fav", typeFilter: string,
-        sortAscending: boolean, sortByField: string): Promise<__esri.PortalQueryResult> {
+    private async queryPortal(portal: __esri.Portal, pagination: Pagination,
+        searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
+        sortAscending: boolean, sortByField: SortByField): Promise<__esri.PortalQueryResult> {
         const model = this.portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         const page = pagination.page;
@@ -179,8 +181,7 @@ export default class PortalItemLoaderWidgetController {
 
         }
         if (spaceFilter === "fav") {
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            filter += " AND group:" + portal.user.favGroupId;
+            filter += ` AND group:${portal.user.favGroupId}`;
         }
         let query = "";
         if (searchText !== "" && searchText !== undefined) {
@@ -221,8 +222,8 @@ export default class PortalItemLoaderWidgetController {
 
     private addPortalItemsToModel(result: __esri.PortalQueryResult): void {
         if (result?.results) {
-            let portalItems = result.results.filter((result) => result.isLayer);
-            portalItems = portalItems.map((portalItem) => {
+            let filteredPortalItems = result.results.filter((result) => result.isLayer);
+            filteredPortalItems = filteredPortalItems.map((portalItem) => {
                 return {
                     id: portalItem.id,
                     title: portalItem.title,
@@ -241,11 +242,11 @@ export default class PortalItemLoaderWidgetController {
                     source: "portal"
                 };
             });
-            this.portalItemLoaderModel.portalItems = portalItems;
+            this.portalItemLoaderModel.portalItems = filteredPortalItems;
         }
     }
 
-    async addItemLayerToMap(item: any): Promise<void> {
+    async addItemLayerToMap(item: PortalItem): Promise<void> {
         const model = this.portalItemLoaderModel;
         const map = this.mapWidgetModel.map;
         let root;
@@ -311,7 +312,8 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    private async queryCSW(portal, pagination, searchText, spaceFilter, typeFilter, sortAscending, sortByField): Promise<any> {
+    private async queryCSW(portal: Portal, pagination: Pagination, searchText: string,
+        sortAscending: boolean, sortByField: SortByField): Promise<any> {
         const url = portal.url;
         if (!searchText) {
             searchText = "";
