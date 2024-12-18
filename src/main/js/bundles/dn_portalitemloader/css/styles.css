@@ -125,6 +125,10 @@
     width: 100%;
 }
 
+.ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-portal-select {
+    flex: 0 1 auto;
+}
+
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-filter .sort-ascending-button .v-icon {
     margin-right: 0;
 }
