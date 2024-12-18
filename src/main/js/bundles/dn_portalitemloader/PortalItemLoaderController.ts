@@ -173,10 +173,10 @@ export default class PortalItemLoaderWidgetController {
             case "fav":
                 break;
             case "organisation":
-                filter += " AND orgid:" + portal.user.orgId;
+                filter += ` AND orgid:"${portal.user.orgId}`;
                 break;
             case "my-content":
-                filter += " AND owner:" + portal.user.username;
+                filter += ` AND owner:${portal.user.username}`;
                 break;
 
         }
@@ -188,13 +188,14 @@ export default class PortalItemLoaderWidgetController {
             if (query !== "") {
                 query += " AND ";
             }
-            query += "(title:" + searchText + " OR description:" + searchText + " OR snippet:" + searchText + " OR tags:" + searchText + ")";
+            query += `(title:${searchText} OR description:${searchText} OR snippet:${searchText} OR ` +
+                     `tags:${searchText})`;
         }
         if (typeFilter !== "all") {
             if (query !== "") {
                 query += " AND ";
             }
-            query += "type:" + typeFilter;
+            query += `type:${typeFilter}`;
         }
         const queryParams: __esri.PortalQueryParamsProperties = {
             query: query,
