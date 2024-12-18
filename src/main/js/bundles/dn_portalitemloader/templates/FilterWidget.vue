@@ -35,7 +35,17 @@
                 class="ct-portal-item-loader-widget__portal-item-filter-search"
             />
             <v-spacer />
-
+            <v-select
+                v-if="portals.length>1"
+                v-model="localPortalFilter"
+                item-value="id"
+                item-text="title"
+                prepend-inner-icon="filter"
+                :items="portals"
+                :label="i18n.filterForPortal"
+                hide-details
+                class="ct-portal-item-loader-widget__portal-item-filter-portal-select"
+            />
             <v-btn
                 flat
                 :input-value="filterVisible"
@@ -52,17 +62,6 @@
             v-if="filterVisible"
             class="ct-portal-item-loader-widget__portal-item-filter-container"
         >
-            <v-select
-                v-if="portals.length>1"
-                v-model="localPortalFilter"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="portals"
-                :label="i18n.filterForPortal"
-                hide-details
-                class="ct-portal-item-loader-widget__portal-item-filter-portal-select"
-            />
             <v-select
                 v-if="authenticated"
                 v-model="localSpaceFilter"
@@ -195,7 +194,7 @@
         },
         data() {
             return {
-                filterVisible: true
+                filterVisible: false
             };
         },
         computed: {
