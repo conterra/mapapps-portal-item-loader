@@ -31,20 +31,23 @@ export default class PortalItemLoaderWidgetController {
     private readonly logService: any;
     private readonly addLayerService: any;
     private readonly serviceToWizardAdder: any;
+    private readonly componentContext: any;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
 
     constructor(i18n: any, mapWidgetModel: MapWidgetModel,
         portalItemLoaderModel: typeof PortalItemLoaderModel, logService: any,
-        addLayerService: any, serviceToWizardAdder: any) {
+        addLayerService: any, serviceToWizardAdder: any, componentContext: any) {
         this.i18n = i18n;
         this.mapWidgetModel = mapWidgetModel;
         this.logService = logService;
         this.addLayerService = addLayerService;
         this.serviceToWizardAdder = serviceToWizardAdder;
+        this.componentContext = componentContext;
         const model = this.portalItemLoaderModel = portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
+        model.isMobile = this.isMobile();
         this.changeSelectedPortal(model.portalFilter);
 
         portalItemLoaderModel.watch("portalFilter", ({ value }) => {
@@ -486,6 +489,20 @@ export default class PortalItemLoaderWidgetController {
             const element = protocolElements.find((e) => e.getAttribute("protocol") === protocol);
             return element?.innerHTML;
         }
+    }
+
+    private isMobile(): boolean {
+        const envs = this.componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        return envs.some((env: any) => {
+            let mobile = false;
+            const mobileEnvs = ["Mobile", "Android", "iPhone"];
+            mobileEnvs.forEach((mobileEnv) => {
+                if (env.name === mobileEnv) {
+                    mobile = true;
+                }
+            });
+            return mobile;
+        });
     }
 
 }

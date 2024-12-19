@@ -47,6 +47,19 @@
                 class="ct-portal-item-loader-widget__portal-item-filter-portal-select"
             />
             <v-btn
+                v-if="isMobile"
+                icon
+                flat
+                :input-value="filterVisible"
+                :color="filterVisible ? 'primary' : undefined"
+                @click="filterVisible=!filterVisible"
+            >
+                <v-icon>
+                    filter_alt
+                </v-icon>
+            </v-btn>
+            <v-btn
+                v-else
                 flat
                 :input-value="filterVisible"
                 :color="filterVisible ? 'primary' : undefined"
@@ -190,6 +203,10 @@
             showTypeFilter: {
                 type: Boolean,
                 default: true
+            },
+            isMobile: {
+                type: Boolean,
+                default: false
             }
         },
         data() {

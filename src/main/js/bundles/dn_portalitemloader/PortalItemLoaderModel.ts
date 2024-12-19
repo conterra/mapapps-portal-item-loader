@@ -46,7 +46,8 @@ interface PortalItemLoaderModelProps {
     sortByFields: any[],
     showSortBy: boolean,
     showTypeFilter: boolean,
-    showItemThumbnail: boolean
+    showItemThumbnail: boolean,
+    isMobile: boolean
 }
 
 export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
@@ -77,5 +78,6 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     sortByFields: [],
     showSortBy: true,
     showTypeFilter: true,
-    showItemThumbnail: true
+    showItemThumbnail: true,
+    isMobile: false
 });

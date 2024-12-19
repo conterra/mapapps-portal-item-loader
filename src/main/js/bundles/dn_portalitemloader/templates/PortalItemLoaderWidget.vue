@@ -36,6 +36,7 @@
                 :sort-by-field.sync="sortByField"
                 :show-sort-by="showSortBy"
                 :show-type-filter="showTypeFilter"
+                :is-mobile="isMobile"
             />
         </div>
         <v-data-iterator
@@ -181,6 +182,10 @@
             showItemThumbnail: {
                 type: Boolean,
                 default: true
+            },
+            isMobile: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {

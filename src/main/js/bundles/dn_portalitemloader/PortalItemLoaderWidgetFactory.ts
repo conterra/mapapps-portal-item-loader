@@ -31,6 +31,7 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _logService!: InjectedReference<any>;
     private readonly _addLayerService!: InjectedReference<any>;
     private readonly _serviceToWizardAdder!: InjectedReference<any>;
+    private readonly _componentContext!: InjectedReference<any>;
     private controller!: PortalItemLoaderController;
     private vm!: Vue;
     private binding!: Binding | undefined;
@@ -39,7 +40,8 @@ export default class PortalItemLoaderWidgetFactory {
         this.initComponent();
         const i18n = this._i18n.get().ui;
         this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel!,
-            this._portalItemLoaderModel!, this._logService, this._addLayerService, this._serviceToWizardAdder);
+            this._portalItemLoaderModel!, this._logService, this._addLayerService,
+            this._serviceToWizardAdder, this._componentContext);
     }
 
     deactivate(): void {
@@ -90,7 +92,7 @@ export default class PortalItemLoaderWidgetFactory {
 
         this.binding = Binding.for(vm, model)
             .syncAll("portalFilter", "typeFilter")
-            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "showSortBy", "showTypeFilter", "showItemThumbnail", "typeFilters")
+            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "showSortBy", "showTypeFilter", "showItemThumbnail", "typeFilters", "isMobile")
             .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter");
     }
 
