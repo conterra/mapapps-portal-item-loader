@@ -258,6 +258,22 @@
                     "providing": "dn_portalitemloader.PortalItemLoaderModel"
                 },
                 {
+                    "name": "_controller",
+                    "providing": "dn_portalitemloader.PortalItemLoaderController"
+                }
+            ]
+        },
+        {
+            "name": "PortalItemLoaderController",
+            "provides": [
+                "dn_portalitemloader.PortalItemLoaderController"
+            ],
+            "references": [
+                {
+                    "name": "_portalItemLoaderModel",
+                    "providing": "dn_portalitemloader.PortalItemLoaderModel"
+                },
+                {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
                 },

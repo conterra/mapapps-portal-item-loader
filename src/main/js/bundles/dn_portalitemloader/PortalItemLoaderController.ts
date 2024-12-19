@@ -25,32 +25,24 @@ import { Pagination, SortByField, SpaceFilter, PortalItem } from "./api";
 
 export default class PortalItemLoaderWidgetController {
 
-    private readonly i18n: MapWidgetModel;
-    private readonly mapWidgetModel: MapWidgetModel;
-    private readonly portalItemLoaderModel: typeof PortalItemLoaderModel;
-    private readonly logService: any;
-    private readonly addLayerService: any;
-    private readonly serviceToWizardAdder: any;
-    private readonly componentContext: any;
+    private readonly _i18n!: MapWidgetModel;
+    private readonly _mapWidgetModel!: MapWidgetModel;
+    private readonly _portalItemLoaderModel!: typeof PortalItemLoaderModel;
+    private readonly _logService: any;
+    private readonly _addLayerService: any;
+    private readonly _serviceToWizardAdder: any;
+    private readonly _componentContext: any;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
 
-    constructor(i18n: any, mapWidgetModel: MapWidgetModel,
-        portalItemLoaderModel: typeof PortalItemLoaderModel, logService: any,
-        addLayerService: any, serviceToWizardAdder: any, componentContext: any) {
-        this.i18n = i18n;
-        this.mapWidgetModel = mapWidgetModel;
-        this.logService = logService;
-        this.addLayerService = addLayerService;
-        this.serviceToWizardAdder = serviceToWizardAdder;
-        this.componentContext = componentContext;
-        const model = this.portalItemLoaderModel = portalItemLoaderModel;
+    activate(): void {
+        const model = this._portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
         model.isMobile = this.isMobile();
         this.changeSelectedPortal(model.portalFilter);
 
-        portalItemLoaderModel.watch("portalFilter", ({ value }) => {
+        model.watch("portalFilter", ({ value }) => {
             // delete current results
             model.portalItems = [];
             // set new portal
@@ -59,32 +51,32 @@ export default class PortalItemLoaderWidgetController {
                 model.sortAscending, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("searchText", ({ value }) => {
+        model.watch("searchText", ({ value }) => {
             this.queryPortalItems(model.pagination, value, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("pagination", ({ value }) => {
+        model.watch("pagination", ({ value }) => {
             this.queryPortalItems(value, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("spaceFilter", ({ value }) => {
+        model.watch("spaceFilter", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, value, model.typeFilter,
                 model.sortAscending, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("typeFilter", ({ value }) => {
+        model.watch("typeFilter", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, value,
                 model.sortAscending, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("sortAscending", ({ value }) => {
+        model.watch("sortAscending", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 value, model.sortByField);
         });
 
-        portalItemLoaderModel.watch("sortByField", ({ value }) => {
+        model.watch("sortByField", ({ value }) => {
             this.queryPortalItems(model.pagination, model.searchText, model.spaceFilter, model.typeFilter,
                 model.sortAscending, value);
         });
@@ -93,7 +85,7 @@ export default class PortalItemLoaderWidgetController {
     queryPortalItems(pagination: Pagination, searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
         sortAscending: boolean,
         sortByField: SortByField): void {
-        const model = this.portalItemLoaderModel;
+        const model = this._portalItemLoaderModel;
         const portal = this.portal!;
         clearTimeout(this.lastTimeout);
         this.lastTimeout = setTimeout(() => {
@@ -130,7 +122,7 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private changeSelectedPortal(portalId: string): void {
-        const model = this.portalItemLoaderModel;
+        const model = this._portalItemLoaderModel;
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
@@ -170,7 +162,7 @@ export default class PortalItemLoaderWidgetController {
     private async queryPortal(portal: __esri.Portal, pagination: Pagination,
         searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
         sortAscending: boolean, sortByField: SortByField): Promise<__esri.PortalQueryResult> {
-        const model = this.portalItemLoaderModel;
+        const model = this._portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         const page = pagination.page!;
         const rowsPerPage = pagination.rowsPerPage;
@@ -255,13 +247,13 @@ export default class PortalItemLoaderWidgetController {
                     source: "portal"
                 };
             });
-            this.portalItemLoaderModel.portalItems = filteredPortalItems;
+            this._portalItemLoaderModel.portalItems = filteredPortalItems;
         }
     }
 
     async addItemLayerToMap(item: PortalItem): Promise<void> {
-        const model = this.portalItemLoaderModel;
-        const map = this.mapWidgetModel.map;
+        const model = this._portalItemLoaderModel;
+        const map = this._mapWidgetModel.map;
         let root;
         let layer;
         if (item.source === "portal") {
@@ -281,8 +273,8 @@ export default class PortalItemLoaderWidgetController {
             }
         }
         if (layer) {
-            if (this.addLayerService) {
-                this.addLayerService.addLayerToMap(layer);
+            if (this._addLayerService) {
+                this._addLayerService.addLayerToMap(layer);
                 console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
             } else {
                 root = map.findLayerById(model.rootId) as __esri.GroupLayer;
@@ -296,11 +288,11 @@ export default class PortalItemLoaderWidgetController {
                 root.add(layer);
                 console.info("PortalItemLoader: Used default esri methods to add layer to map");
             }
-        } else if (this.serviceToWizardAdder) {
-            this.serviceToWizardAdder.addService(item.url);
+        } else if (this._serviceToWizardAdder) {
+            this._serviceToWizardAdder.addService(item.url);
         } else {
             console.error("PortalItemLoader: ServiceToWizardAdder not available. Layer count not be added to map. Please add sdi_loadservice to app.");
-            this.logService.warn(this.i18n.errors.noMapappsSDI);
+            this._logService.warn(this._i18n.errors.noMapappsSDI);
         }
     }
 
@@ -310,7 +302,7 @@ export default class PortalItemLoaderWidgetController {
         if (!searchText) {
             searchText = "";
         }
-        const model = this.portalItemLoaderModel;
+        const model = this._portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         const page = pagination.page!;
         const rowsPerPage = pagination.rowsPerPage;
@@ -349,7 +341,7 @@ export default class PortalItemLoaderWidgetController {
         if (exeptionElement.length) {
             const errorText = exeptionElement[0].innerHTML;
             console.error(errorText);
-            this.logService.warn(errorText);
+            this._logService.warn(errorText);
             return {
                 total: 0,
                 results: []
@@ -428,7 +420,7 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private addCSWItemsToModel(result: unknown): void {
-        const model = this.portalItemLoaderModel;
+        const model = this._portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         if (result?.results) {
             const portalItems = result.results.map((cswItem: any) => {
@@ -443,7 +435,7 @@ export default class PortalItemLoaderWidgetController {
                     modifiedDate = new Date(modified);
                 }
                 // handle url and type
-                let type = this.i18n.noService;
+                let type = this._i18n.noService;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST");
                 if (esriUrl)
                     type = "ESRI";
@@ -472,7 +464,7 @@ export default class PortalItemLoaderWidgetController {
                     source: "csw"
                 };
             });
-            this.portalItemLoaderModel.portalItems = portalItems;
+            this._portalItemLoaderModel.portalItems = portalItems;
         }
     }
 
@@ -492,7 +484,7 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private isMobile(): boolean {
-        const envs = this.componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        const envs = this._componentContext.getBundleContext().getCurrentExecutionEnvironment();
         return envs.some((env: any) => {
             let mobile = false;
             const mobileEnvs = ["Mobile", "Android", "iPhone"];

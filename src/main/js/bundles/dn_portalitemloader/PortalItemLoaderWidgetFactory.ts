@@ -18,7 +18,6 @@ import type { InjectedReference } from "apprt-core/InjectedReference";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
-import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderController from "./PortalItemLoaderController";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import PortalItemLoaderWidget from "./templates/PortalItemLoaderWidget.vue";
@@ -26,22 +25,13 @@ import PortalItemLoaderWidget from "./templates/PortalItemLoaderWidget.vue";
 export default class PortalItemLoaderWidgetFactory {
 
     private readonly _i18n!: InjectedReference<any>;
-    private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
-    private readonly _logService!: InjectedReference<any>;
-    private readonly _addLayerService!: InjectedReference<any>;
-    private readonly _serviceToWizardAdder!: InjectedReference<any>;
-    private readonly _componentContext!: InjectedReference<any>;
-    private controller!: PortalItemLoaderController;
+    private readonly _controller!: PortalItemLoaderController;
     private vm!: Vue;
     private binding!: Binding | undefined;
 
     activate(): void {
         this.initComponent();
-        const i18n = this._i18n.get().ui;
-        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel!,
-            this._portalItemLoaderModel!, this._logService, this._addLayerService,
-            this._serviceToWizardAdder, this._componentContext);
     }
 
     deactivate(): void {
@@ -50,7 +40,7 @@ export default class PortalItemLoaderWidgetFactory {
     }
 
     createInstance(): any {
-        const controller = this.controller;
+        const controller = this._controller;
         const widget = VueDijit(this.vm, { class: "ct-portal-item-loader-widget" });
 
         widget.activateTool = async () => {
