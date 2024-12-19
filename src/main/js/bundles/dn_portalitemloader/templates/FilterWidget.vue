@@ -22,10 +22,7 @@
         pa-0
         class="ct-portal-item-loader-widget__portal-item-filter"
     >
-        <v-toolbar
-            flat
-            dense
-        >
+        <v-toolbar :extended="filterVisible">
             <v-text-field
                 v-model="localSearchText"
                 clearable
@@ -72,73 +69,78 @@
                     filter_alt
                 </v-icon>
             </v-btn>
-        </v-toolbar>
-        <div
-            v-if="filterVisible && filterAvailable"
-            class="ct-portal-item-loader-widget__portal-item-filter-container"
-        >
-            <v-select
-                v-if="authenticated"
-                v-model="localSpaceFilter"
-                class="pb-2"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="spaceFilters"
-                :label="i18n.spaceFilter"
-                hide-details
-            />
-            <v-select
-                v-if="typeFilters.length && showTypeFilter"
-                v-model="localTypeFilter"
-                class="pb-2"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="typeFilters"
-                :label="i18n.typeFilter"
-                hide-details
-            />
-            <div
-                v-if="showSortBy"
-                class="ct-flex-container"
+            <template
+                v-if="filterVisible && filterAvailable"
+                #extension
             >
-                <div class="ct-flex-item">
+                <div
+                    v-if="filterVisible && filterAvailable"
+                    class="ct-portal-item-loader-widget__portal-item-filter-container"
+                >
                     <v-select
-                        v-model="localSortByField"
+                        v-if="authenticated"
+                        v-model="localSpaceFilter"
                         class="pb-2"
                         item-value="id"
                         item-text="title"
-                        prepend-inner-icon="sort"
-                        :items="sortByFields"
-                        :label="i18n.sortBy"
+                        prepend-inner-icon="filter"
+                        :items="spaceFilters"
+                        :label="i18n.spaceFilter"
                         hide-details
                     />
-                </div>
-                <div class="ct-flex-item ct-flex-item--no-grow">
-                    <v-btn
-                        icon
-                        flat
-                        class="sort-ascending-button"
-                        color="primary"
-                        @click="localSortAscending=!localSortAscending"
+                    <v-select
+                        v-if="typeFilters.length && showTypeFilter"
+                        v-model="localTypeFilter"
+                        class="pb-2"
+                        item-value="id"
+                        item-text="title"
+                        prepend-inner-icon="filter"
+                        :items="typeFilters"
+                        :label="i18n.typeFilter"
+                        hide-details
+                    />
+                    <div
+                        v-if="showSortBy"
+                        class="ct-flex-container"
                     >
-                        <v-icon
-                            v-if="localSortAscending"
-                            left
-                        >
-                            arrow_upward
-                        </v-icon>
-                        <v-icon
-                            v-else
-                            left
-                        >
-                            arrow_downward
-                        </v-icon>
-                    </v-btn>
+                        <div class="ct-flex-item">
+                            <v-select
+                                v-model="localSortByField"
+                                class="pb-2"
+                                item-value="id"
+                                item-text="title"
+                                prepend-inner-icon="sort"
+                                :items="sortByFields"
+                                :label="i18n.sortBy"
+                                hide-details
+                            />
+                        </div>
+                        <div class="ct-flex-item ct-flex-item--no-grow">
+                            <v-btn
+                                icon
+                                flat
+                                class="sort-ascending-button"
+                                color="primary"
+                                @click="localSortAscending=!localSortAscending"
+                            >
+                                <v-icon
+                                    v-if="localSortAscending"
+                                    left
+                                >
+                                    arrow_upward
+                                </v-icon>
+                                <v-icon
+                                    v-else
+                                    left
+                                >
+                                    arrow_downward
+                                </v-icon>
+                            </v-btn>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </v-toolbar>
     </v-container>
 </template>
 <script>

@@ -17,28 +17,24 @@
 -->
 <template>
     <div class="ct-portal-item-loader-widget__main">
-        <div
-            class="ct-portal-item-loader-widget__portal-item-filter"
-        >
-            <filter-widget
-                :i18n="i18n"
-                :portals="portals"
-                :authenticated="authenticated"
-                :space-filters="spaceFilters"
-                :type-filters="typeFilters"
-                :sort-by-fields="sortByFields"
-                :search-text.sync="searchText"
-                :portal-filter.sync="portalFilter"
-                :selected-portal-type.sync="selectedPortalType"
-                :space-filter.sync="spaceFilter"
-                :type-filter.sync="typeFilter"
-                :sort-ascending.sync="sortAscending"
-                :sort-by-field.sync="sortByField"
-                :show-sort-by="showSortBy"
-                :show-type-filter="showTypeFilter"
-                :is-mobile="isMobile"
-            />
-        </div>
+        <filter-widget
+            :i18n="i18n"
+            :portals="portals"
+            :authenticated="authenticated"
+            :space-filters="spaceFilters"
+            :type-filters="typeFilters"
+            :sort-by-fields="sortByFields"
+            :search-text.sync="searchText"
+            :portal-filter.sync="portalFilter"
+            :selected-portal-type.sync="selectedPortalType"
+            :space-filter.sync="spaceFilter"
+            :type-filter.sync="typeFilter"
+            :sort-ascending.sync="sortAscending"
+            :sort-by-field.sync="sortByField"
+            :show-sort-by="showSortBy"
+            :show-type-filter="showTypeFilter"
+            :is-mobile="isMobile"
+        />
         <v-data-iterator
             :items="portalItems"
             :total-items="totalItems"
