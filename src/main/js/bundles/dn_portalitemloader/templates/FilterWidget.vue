@@ -16,9 +16,7 @@
 
 -->
 <template>
-    <v-container
-        fluid
-        grid-list-md
+    <div
         pa-0
         class="ct-portal-item-loader-widget__portal-item-filter"
     >
@@ -142,7 +140,7 @@
                 </div>
             </template>
         </v-toolbar>
-    </v-container>
+    </div>
 </template>
 <script>
     export default {
