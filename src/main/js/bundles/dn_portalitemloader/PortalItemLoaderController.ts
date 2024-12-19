@@ -437,14 +437,15 @@ export default class PortalItemLoaderWidgetController {
                 // handle url and type
                 let type = this._i18n.noService;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST");
-                if (esriUrl)
-                    type = "ESRI";
                 const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
-                if (wmsUrl)
-                    type = "WMS";
                 const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
-                if (esriUrl)
+                if (esriUrl) {
+                    type = "ESRI";
+                } else if (wmsUrl) {
+                    type = "WMS";
+                } else if (wfsUrl) {
                     type = "WFS";
+                }
                 const url = esriUrl || wmsUrl || wfsUrl;
                 // handle item page url
                 let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "DOI");
