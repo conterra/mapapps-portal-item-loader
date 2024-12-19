@@ -53,6 +53,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 12px;
     padding: 8px;
+    padding-top: 0;
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card {
@@ -63,7 +64,7 @@
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-image .v-image {
-    height: 200px;
+    height: 160px;
 }
 
 .ctAppRoot.ctEnv_Mobile .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-image .v-image {
@@ -71,7 +72,7 @@
 }
 
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-image .backup-icon {
-    height: 200px;
+    height: 160px;
 }
 
 .ctAppRoot.ctEnv_Mobile .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-image .backup-icon {
