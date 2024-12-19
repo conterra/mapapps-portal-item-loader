@@ -77,7 +77,7 @@
                     class="ct-portal-item-loader-widget__portal-item-filter-container"
                 >
                     <v-select
-                        v-if="authenticated"
+                        v-if="authenticated && selectedPortalType==='portal'"
                         v-model="localSpaceFilter"
                         class="pb-2"
                         item-value="id"

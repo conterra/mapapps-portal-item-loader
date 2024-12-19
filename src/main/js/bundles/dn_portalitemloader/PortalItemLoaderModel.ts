@@ -15,7 +15,7 @@
 ///
 
 import { Mutable, properties } from "apprt-core/Mutable";
-import { Pagination, PortalItem, SortByField, SpaceFilter } from "./api";
+import { Pagination, PortalItem, PortalType, SortByField, SpaceFilter } from "./api";
 
 function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P): Impl & Mutable<P> {
     properties(mutableDefinition, mutableProperties);
@@ -34,7 +34,7 @@ interface PortalItemLoaderModelProps {
     pagination: Pagination,
     searchText: string,
     portalFilter: string,
-    selectedPortalType: string,
+    selectedPortalType: PortalType,
     spaceFilter: SpaceFilter,
     spaceFilters: any[],
     typeFilter: string,
@@ -66,7 +66,7 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     },
     searchText: "",
     portalFilter: "",
-    selectedPortalType: "",
+    selectedPortalType: "portal",
     spaceFilter: "all",
     spaceFilters: [],
     typeFilter: "",

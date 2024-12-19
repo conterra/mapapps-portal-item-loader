@@ -436,9 +436,9 @@ export default class PortalItemLoaderWidgetController {
                 }
                 // handle url and type
                 let type = this._i18n.noService;
-                const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "ESRI:REST");
-                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
-                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "OGC:WMS");
+                const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "ESRI:REST");
+                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WFS");
+                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WMS");
                 if (esriUrl) {
                     type = "ESRI";
                 } else if (wmsUrl) {
@@ -446,7 +446,8 @@ export default class PortalItemLoaderWidgetController {
                 } else if (wfsUrl) {
                     type = "WFS";
                 }
-                const url = esriUrl || wmsUrl || wfsUrl;
+                let url = esriUrl || wmsUrl || wfsUrl;
+                url = this.htmlDecode(url!);
                 // handle item page url
                 let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "DOI");
                 if (selectedPortal.itemPageUrl) {
@@ -469,18 +470,21 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    private getCswItemAttribute(cswItem: HTMLElement, attributeName: string, protocol?: string): string | undefined {
+    private getCswItemAttribute(cswItem: HTMLElement, attributeName: string,
+        contentName?: string, value?: string): string | undefined {
         const elements = cswItem.getElementsByTagName(attributeName);
-        if (!protocol) {
+        if (!contentName) {
             if (elements.length) {
                 return elements[0].innerHTML;
             } else {
                 return undefined;
             }
-        } else {
+        } else if (value) {
             const protocolElements = Array.from(elements);
-            const element = protocolElements.find((e) => e.getAttribute("protocol") === protocol);
+            const element = protocolElements.find((e) => e.getAttribute(contentName)?.includes(value));
             return element?.innerHTML;
+        } else {
+            return undefined;
         }
     }
 
@@ -496,6 +500,11 @@ export default class PortalItemLoaderWidgetController {
             });
             return mobile;
         });
+    }
+
+    private htmlDecode(input: string): string | undefined {
+        const doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent ? doc.documentElement.textContent : undefined;
     }
 
 }
