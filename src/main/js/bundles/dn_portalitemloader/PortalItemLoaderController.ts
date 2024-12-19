@@ -447,7 +447,9 @@ export default class PortalItemLoaderWidgetController {
                     type = "WFS";
                 }
                 let url = esriUrl || wmsUrl || wfsUrl;
-                url = this.htmlDecode(url!);
+                if (url) {
+                    url = this.htmlDecode(url);
+                }
                 // handle item page url
                 let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "DOI");
                 if (selectedPortal.itemPageUrl) {
