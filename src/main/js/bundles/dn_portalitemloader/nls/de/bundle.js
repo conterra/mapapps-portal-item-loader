@@ -24,7 +24,7 @@ module.exports = {
         addToMap: "Zur Karte hinzufügen",
         myServicesTitle: "Eigene Dienste",
         searchForItems: "Nach Inhalten suchen",
-        searchForItemsPlaceholder: "Suchen nach...",
+        searchForItemsPlaceholder: "Suche nach...",
         showFilters: "Filter anzeigen",
         hideFilters: "Filter ausblenden",
         filterForPortal: "Quelle auswählen",

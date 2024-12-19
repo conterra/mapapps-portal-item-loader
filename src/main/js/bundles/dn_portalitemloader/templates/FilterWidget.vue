@@ -27,6 +27,7 @@
                 v-model="localSearchText"
                 clearable
                 prepend-inner-icon="search"
+                :label="i18n.searchForItems"
                 :placeholder="i18n.searchForItemsPlaceholder"
                 hide-details
                 class="ct-portal-item-loader-widget__portal-item-filter-search"
