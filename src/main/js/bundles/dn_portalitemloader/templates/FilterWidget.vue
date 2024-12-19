@@ -50,6 +50,7 @@
                 v-if="isMobile"
                 icon
                 flat
+                :disabled="!filterAvailable"
                 :input-value="filterVisible"
                 :color="filterVisible ? 'primary' : undefined"
                 @click="filterVisible=!filterVisible"
@@ -61,6 +62,7 @@
             <v-btn
                 v-else
                 flat
+                :disabled="!filterAvailable"
                 :input-value="filterVisible"
                 :color="filterVisible ? 'primary' : undefined"
                 @click="filterVisible=!filterVisible"
@@ -72,7 +74,7 @@
             </v-btn>
         </v-toolbar>
         <div
-            v-if="filterVisible"
+            v-if="filterVisible && filterAvailable"
             class="ct-portal-item-loader-widget__portal-item-filter-container"
         >
             <v-select
@@ -224,6 +226,9 @@
                 } else {
                     return this.i18n.showFilters;
                 }
+            },
+            filterAvailable() {
+                return this.authenticated || (this.typeFilters.length && this.showTypeFilter) || this.showSortBy;
             },
             localSearchText: {
                 get: function () {
