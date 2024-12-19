@@ -22,36 +22,17 @@
         pa-0
         class="ct-portal-item-loader-widget__portal-item-filter"
     >
-        <v-toolbar
-            flat
-            dense
-        >
+        <v-toolbar :extended="filterVisible">
             <v-text-field
                 v-model="localSearchText"
                 clearable
                 prepend-inner-icon="search"
+                :label="i18n.searchForItems"
                 :placeholder="i18n.searchForItemsPlaceholder"
                 hide-details
                 class="ct-portal-item-loader-widget__portal-item-filter-search"
             />
             <v-spacer />
-
-            <v-btn
-                flat
-                :input-value="filterVisible"
-                :color="filterVisible ? 'primary' : undefined"
-                @click="filterVisible=!filterVisible"
-            >
-                {{ filterText }}
-                <v-icon right>
-                    filter_alt
-                </v-icon>
-            </v-btn>
-        </v-toolbar>
-        <div
-            v-if="filterVisible"
-            class="ct-portal-item-loader-widget__portal-item-filter-container"
-        >
             <v-select
                 v-if="portals.length>1"
                 v-model="localPortalFilter"
@@ -63,64 +44,104 @@
                 hide-details
                 class="ct-portal-item-loader-widget__portal-item-filter-portal-select"
             />
-            <v-select
-                v-if="authenticated"
-                v-model="localSpaceFilter"
-                class="pb-2"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="spaceFilters"
-                :label="i18n.spaceFilter"
-                hide-details
-            />
-            <v-select
-                v-model="localTypeFilter"
-                class="pb-2"
-                item-value="id"
-                item-text="title"
-                prepend-inner-icon="filter"
-                :items="typeFilters"
-                :label="i18n.typeFilter"
-                hide-details
-            />
-            <div class="ct-flex-container">
-                <div class="ct-flex-item">
+            <v-btn
+                v-if="isMobile"
+                icon
+                flat
+                :disabled="!filterAvailable"
+                :input-value="filterVisible"
+                :color="filterVisible ? 'primary' : undefined"
+                @click="filterVisible=!filterVisible"
+            >
+                <v-icon>
+                    filter_alt
+                </v-icon>
+            </v-btn>
+            <v-btn
+                v-else
+                flat
+                :disabled="!filterAvailable"
+                :input-value="filterVisible"
+                :color="filterVisible ? 'primary' : undefined"
+                @click="filterVisible=!filterVisible"
+            >
+                {{ filterText }}
+                <v-icon right>
+                    filter_alt
+                </v-icon>
+            </v-btn>
+            <template
+                v-if="filterVisible && filterAvailable"
+                #extension
+            >
+                <div
+                    v-if="filterVisible && filterAvailable"
+                    class="ct-portal-item-loader-widget__portal-item-filter-container"
+                >
                     <v-select
-                        v-model="localSortByField"
+                        v-if="authenticated"
+                        v-model="localSpaceFilter"
                         class="pb-2"
                         item-value="id"
                         item-text="title"
-                        prepend-inner-icon="sort"
-                        :items="sortByFields"
-                        :label="i18n.sortBy"
+                        prepend-inner-icon="filter"
+                        :items="spaceFilters"
+                        :label="i18n.spaceFilter"
                         hide-details
                     />
-                </div>
-                <div class="ct-flex-item ct-flex-item--no-grow">
-                    <v-btn
-                        icon
-                        flat
-                        class="sort-ascending-button"
-                        color="primary"
-                        @click="localSortAscending=!localSortAscending"
+                    <v-select
+                        v-if="typeFilters.length && showTypeFilter"
+                        v-model="localTypeFilter"
+                        class="pb-2"
+                        item-value="id"
+                        item-text="title"
+                        prepend-inner-icon="filter"
+                        :items="typeFilters"
+                        :label="i18n.typeFilter"
+                        hide-details
+                    />
+                    <div
+                        v-if="showSortBy"
+                        class="ct-flex-container"
                     >
-                        <v-icon
-                            v-if="localSortAscending"
-                            left
-                        >
-                            arrow_upward
-                        </v-icon>
-                        <v-icon
-                            v-else
-                            left
-                        >
-                            arrow_downward
-                        </v-icon>
-                    </v-btn>
+                        <div class="ct-flex-item">
+                            <v-select
+                                v-model="localSortByField"
+                                class="pb-2"
+                                item-value="id"
+                                item-text="title"
+                                prepend-inner-icon="sort"
+                                :items="sortByFields"
+                                :label="i18n.sortBy"
+                                hide-details
+                            />
+                        </div>
+                        <div class="ct-flex-item ct-flex-item--no-grow">
+                            <v-btn
+                                icon
+                                flat
+                                class="sort-ascending-button"
+                                color="primary"
+                                @click="localSortAscending=!localSortAscending"
+                            >
+                                <v-icon
+                                    v-if="localSortAscending"
+                                    left
+                                >
+                                    arrow_upward
+                                </v-icon>
+                                <v-icon
+                                    v-else
+                                    left
+                                >
+                                    arrow_downward
+                                </v-icon>
+                            </v-btn>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </v-toolbar>
     </v-container>
 </template>
 <script>
@@ -145,6 +166,10 @@
                 default: ""
             },
             portalFilter: {
+                type: String,
+                default: ""
+            },
+            selectedPortalType: {
                 type: String,
                 default: ""
             },
@@ -175,11 +200,23 @@
             sortByFields: {
                 type: Array,
                 default: () => []
+            },
+            showSortBy: {
+                type: Boolean,
+                default: true
+            },
+            showTypeFilter: {
+                type: Boolean,
+                default: true
+            },
+            isMobile: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                filterVisible: true
+                filterVisible: false
             };
         },
         computed: {
@@ -192,6 +229,9 @@
                 } else {
                     return this.i18n.showFilters;
                 }
+            },
+            filterAvailable() {
+                return this.authenticated || (this.typeFilters.length && this.showTypeFilter) || this.showSortBy;
             },
             localSearchText: {
                 get: function () {

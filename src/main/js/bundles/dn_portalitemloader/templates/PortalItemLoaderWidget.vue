@@ -17,24 +17,24 @@
 -->
 <template>
     <div class="ct-portal-item-loader-widget__main">
-        <div
-            class="ct-portal-item-loader-widget__portal-item-filter"
-        >
-            <filter-widget
-                :i18n="i18n"
-                :portals="portals"
-                :authenticated="authenticated"
-                :space-filters="spaceFilters"
-                :type-filters="typeFilters"
-                :sort-by-fields="sortByFields"
-                :search-text.sync="searchText"
-                :portal-filter.sync="portalFilter"
-                :space-filter.sync="spaceFilter"
-                :type-filter.sync="typeFilter"
-                :sort-ascending.sync="sortAscending"
-                :sort-by-field.sync="sortByField"
-            />
-        </div>
+        <filter-widget
+            :i18n="i18n"
+            :portals="portals"
+            :authenticated="authenticated"
+            :space-filters="spaceFilters"
+            :type-filters="typeFilters"
+            :sort-by-fields="sortByFields"
+            :search-text.sync="searchText"
+            :portal-filter.sync="portalFilter"
+            :selected-portal-type.sync="selectedPortalType"
+            :space-filter.sync="spaceFilter"
+            :type-filter.sync="typeFilter"
+            :sort-ascending.sync="sortAscending"
+            :sort-by-field.sync="sortByField"
+            :show-sort-by="showSortBy"
+            :show-type-filter="showTypeFilter"
+            :is-mobile="isMobile"
+        />
         <v-data-iterator
             :items="portalItems"
             :total-items="totalItems"
@@ -66,6 +66,7 @@
                 <portal-item
                     :i18n="i18n"
                     :item="props.item"
+                    :show-item-thumbnail="showItemThumbnail"
                     @load-item="$emit('load-item', $event)"
                 />
             </template>
@@ -134,6 +135,10 @@
                 type: String,
                 default: ""
             },
+            selectedPortalType: {
+                type: String,
+                default: ""
+            },
             spaceFilter: {
                 type: String,
                 default: "all"
@@ -161,6 +166,22 @@
             sortByFields: {
                 type: Array,
                 default: () => []
+            },
+            showSortBy: {
+                type: Boolean,
+                default: true
+            },
+            showTypeFilter: {
+                type: Boolean,
+                default: true
+            },
+            showItemThumbnail: {
+                type: Boolean,
+                default: true
+            },
+            isMobile: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {

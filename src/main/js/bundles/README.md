@@ -1,25 +1,89 @@
 # dn_portalitemloader
 
-This bundle allows to add portal content to your map.apps app.
+This bundle allows to add portal or csw content to your map.apps app.
 
 ## Usage
 
 1. First you need to add the bundle dn_mapapps-portal-item-loader to your app.
-2. Then you can configure it.
-3. The last thing you need to do is add the portalItemLoaderToggleTool
+2. Next, configure your portals as described in the configuration section below.
+
+To make the functions of this bundle available to the user, the following tool can be added to a toolset:
+
+| Tool ID                    | Component                  | Description              |
+| -------------------------- | -------------------------- | ------------------------ |
+| portalItemLoaderToggleTool | PortalItemLoaderToggleTool | Show or hide the widget. |
+
+### Configure your portals
+
+Sample
+
+```json
+"dn_portalitemloader": {
+    "Config": {
+        "portals": [
+            {
+                "id": "living_atlas",
+                "title": "ArcGIS Living Atlas",
+                "url": "https://arcgis.com",
+                "type": "portal",
+                "filter": "group:47dd57c9a59d458c86d3d6b978560088",
+                "authMode": "auto"
+            },
+            {
+                "id": "gdi_de",
+                "title": "GDI-DE",
+                "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+                "type": "csw",
+                "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
+                "showSortBy": true,
+                "showTypeFilter": true,
+                "showItemThumbnail": false
+            }
+        ]
+    }
+}
+```
+
+| Property          | Type           | Possible Values                                                                 | Default    | Description                                                                          |
+| ----------------- | -------------- | ------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| id                | String         |                                                                                 |            | The unique identifier of the portal.                                                 |
+| title             | String         |                                                                                 |            | The title of the portal.                                                             |
+| url               | String         |                                                                                 |            | The URL of the portal.                                                               |
+| type              | PortalType     | ```portal```  &#124; ```csw```                                                  |            | The type of the portal.                                                              |
+| filter            | PortalAuthMode |                                                                                 |            | The predefined filter of the portal.                                                 |
+| authMode          | PortalAuthMode | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |            | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
+| itemPageUrl       | String         |                                                                                 |            | The URL of the item page. Only applicable for portals of type 'csw'.                 |
+| showSortBy        | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show the sort by option.                                        |
+| showTypeFilter    | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show the type filter.                                           |
+| showItemThumbnail | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show item thumbnails.                                           |
 
 ### Configurable Components of dn_portalitemloader:
 
-#### ActivateLayerAction
+#### Config
 ```
 
 "dn_portalitemloader": {
     "Config": {
         "portals": [
             {
-                "id": "arcgis",
-                "title": "ArcGIS Online",
-                "url": "https://arcgis.com"
+                "id": "living_atlas",
+                "title": "ArcGIS Living Atlas",
+                "url": "https://arcgis.com",
+                "type": "portal",
+                "filter": "group:47dd57c9a59d458c86d3d6b978560088",
+                "authMode": "auto"
+            },
+            {
+                "id": "gdi_de",
+                "title": "GDI-DE",
+                "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+                "type": "csw",
+                "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
+                "showSortBy": true,
+                "showTypeFilter": true,
+                "showItemThumbnail": false
             }
         ],
         "rowsPerPageItems": [
@@ -29,95 +93,15 @@ This bundle allows to add portal content to your map.apps app.
         ],
         "pagination": {
             "rowsPerPage": 25
-        },
-        "spaceFilters": [
-            {
-                "id": "all",
-                "title": "${ui.spaceFilters.all}"
-            },
-            {
-                "id": "organisation",
-                "title": "${ui.spaceFilters.organisation}"
-            },
-            {
-                "id": "my-content",
-                "title": "${ui.spaceFilters.my-content}"
-            },
-            {
-                "id": "fav",
-                "title": "${ui.spaceFilters.fav}"
-            }
-        ],
-        "spaceFilter": "all",
-        "typeFilters": [
-            "Feature Service",
-            "Vector Tile Service",
-            "Image Service",
-            "Scene Service",
-            "MapService"
-        ],
-        "typeFilter": "all",
-        "sortAscending": false,
-        "sortByField": "modified",
-        "sortByFields": [
-            {
-                "id": "modified",
-                "title": "${ui.sortByFields.modified}"
-            },
-            {
-                "id": "title",
-                "title": "${ui.sortByFields.title}"
-            },
-            {
-                "id": "uploaded",
-                "title": "${ui.sortByFields.uploaded}"
-            },
-            {
-                "id": "username",
-                "title": "${ui.sortByFields.username}"
-            },
-            {
-                "id": "created",
-                "title": "${ui.sortByFields.created}"
-            },
-            {
-                "id": "type",
-                "title": "${ui.sortByFields.type}"
-            },
-            {
-                "id": "owner",
-                "title": "${ui.sortByFields.owner}"
-            },
-            {
-                "id": "avg-rating",
-                "title": "${ui.sortByFields.avg-rating}"
-            },
-            {
-                "id": "num-ratings",
-                "title": "${ui.sortByFields.num-ratings}"
-            },
-            {
-                "id": "num-comments",
-                "title": "${ui.sortByFields.num-comments}"
-            },
-            {
-                "id": "num-views",
-                "title": "${ui.sortByFields.num-views}"
-            }
-        ]
+        }
     }
 }
 ```
-| Property         | Type   | Possible Values                                                                                                                                                                                                                                      | Default                                                                                                                                   | Description                       |
-| ---------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| typeFilters      | Array  | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ```  &#124; ```all ```                                                                                         | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ``` | All filter types                  |
-| typeFilter       | Array  | ```Feature Service ``` &#124; ```Vector Tile Service ``` &#124; ```Image Service ``` &#124; ```Scene Service ``` &#124; ```MapService ``` &#124; ```all ```                                                                                          | ```all ```                                                                                                                                | Filter type                       |
-| sortbyFields     | Array  | ``` modified ``` &#124; ```title``` &#124; ```uploaded ``` &#124; ```username``` &#124; ```created ``` &#124; ```type ``` &#124; ```owner ``` &#124; ```avg-rating ``` &#124; ```num-ratings ``` &#124; ```num-comments ``` &#124; ```num-views" ``` | ``` modified ```                                                                                                                          | Sort fields                       |
-| portals          | Object |                                                                                                                                                                                                                                                      |                                                                                                                                           | used portal                       |
-| rowsPerPageItems | Array  | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                                                                                                                           | ```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```                                                                                | possible number of rows per page  |
-| pagination       | Object | [```  10 ``` &#124;``` 25``` &#124;```50``` &#124;```100```  ]                                                                                                                                                                                       | ```  10 ```                                                                                                                               | number of rows per page           |
-| spaceFilter      | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```&#124; ```fav```                                                                                                                                                                                       | ```all```                                                                                                                                 | all possible filter portal spaces |
-| spaceFilters     | Array  | ```all```  &#124; ``` orgarnisation``` &#124; ```my-content```&#124; ```fav```                                                                                                                                                                                       | ```all```                                                                                                                                 | filter portal space               |
+| Property         | Type   | Possible Values | Default                                   | Description                                                                          |
+| ---------------- | ------ | --------------- | ----------------------------------------- | ------------------------------------------------------------------------------------ |
+| portals          | Object |                 |                                           | A list of portals available for selection.                                           |
+| rowsPerPageItems | Array  |                 | ```25``` &#124; ```50``` &#124; ```100``` | An array of possible values for the number of rows displayed per page.               |
+| pagination       | Object |                 | "rowsPerPage": ```25```                   | Configuration object for pagination, specifying the default number of rows per page. |
 
 
 

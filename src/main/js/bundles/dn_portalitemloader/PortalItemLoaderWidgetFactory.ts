@@ -28,20 +28,24 @@ export default class PortalItemLoaderWidgetFactory {
     private readonly _i18n!: InjectedReference<any>;
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private readonly _logService!: InjectedReference<any>;
     private readonly _addLayerService!: InjectedReference<any>;
-    private controller: PortalItemLoaderController;
-    private vm: Vue;
-    private binding: Binding;
+    private readonly _serviceToWizardAdder!: InjectedReference<any>;
+    private readonly _componentContext!: InjectedReference<any>;
+    private controller!: PortalItemLoaderController;
+    private vm!: Vue;
+    private binding!: Binding | undefined;
 
     activate(): void {
         this.initComponent();
         const i18n = this._i18n.get().ui;
-        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel,
-            this._portalItemLoaderModel, this._addLayerService);
+        this.controller = new PortalItemLoaderController(i18n, this._mapWidgetModel!,
+            this._portalItemLoaderModel!, this._logService, this._addLayerService,
+            this._serviceToWizardAdder, this._componentContext);
     }
 
     deactivate(): void {
-        this.binding.unbind();
+        this.binding?.unbind();
         this.binding = undefined;
     }
 
@@ -50,17 +54,17 @@ export default class PortalItemLoaderWidgetFactory {
         const widget = VueDijit(this.vm, { class: "ct-portal-item-loader-widget" });
 
         widget.activateTool = async () => {
-            this.binding.enable().syncToLeftNow();
+            this.binding?.enable().syncToLeftNow();
             const model = this._portalItemLoaderModel!;
-            controller.queryPortalItems(model.pagination, model.portalFilter, model.searchText,
-                model.spaceFilter, model.sortAscending, model.sortByField);
+            controller.queryPortalItems(model.pagination, model.searchText,
+                model.spaceFilter, model.typeFilter, model.sortAscending, model.sortByField);
 
             this.vm.$on("load-item", (item: any) => {
-                controller.addPortalItemLayerToMap(item);
+                controller.addItemLayerToMap(item);
             });
         };
         widget.deactivateTool = () => {
-            this.binding.disable();
+            this.binding?.disable();
             this.vm.$off();
         };
 
@@ -82,15 +86,14 @@ export default class PortalItemLoaderWidgetFactory {
         vm.rowsPerPageItems = model.rowsPerPageItems;
         vm.portals = model.portals;
         vm.spaceFilters = model.spaceFilters;
-        vm.typeFilters = model.typeFilters;
         vm.typeFilter = model.typeFilter;
         vm.sortByFields = model.sortByFields;
         vm.sortByField = model.sortByField;
 
         this.binding = Binding.for(vm, model)
-            .syncAll("portalFilter")
-            .syncAllToLeft("portalItems", "totalItems", "loading", "authenticated")
-            .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter", "typeFilter");
+            .syncAll("portalFilter", "typeFilter")
+            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "showSortBy", "showTypeFilter", "showItemThumbnail", "typeFilters", "isMobile")
+            .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter");
     }
 
 }

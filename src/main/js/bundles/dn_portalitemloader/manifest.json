@@ -82,6 +82,7 @@
             ],
             "window": {
                 "resizable": false,
+                "maximizable": false,
                 "marginBox": {
                     "w": "100%",
                     "h": "100%",
@@ -133,7 +134,7 @@
                     }
                 ],
                 "typeFilter": "all",
-                "typeFilters": [
+                "typeFiltersPortal": [
                     {
                         "id": "all",
                         "title": "${ui.allServiceTypes}"
@@ -175,6 +176,24 @@
                         "title": "WMS"
                     }
                 ],
+                "typeFiltersCSW": [
+                    {
+                        "id": "all",
+                        "title": "${ui.allServiceTypes}"
+                    },
+                    {
+                        "id": "OGC:WFS",
+                        "title": "WFS"
+                    },
+                    {
+                        "id": "OGC:WMS",
+                        "title": "WMS"
+                    },
+                    {
+                        "id": "ESRI:REST",
+                        "title": "Esri"
+                    }
+                ],
                 "sortAscending": false,
                 "sortByField": "modified",
                 "sortByFields": [
@@ -191,10 +210,6 @@
                         "title": "${ui.sortByFields.uploaded}"
                     },
                     {
-                        "id": "username",
-                        "title": "${ui.sortByFields.username}"
-                    },
-                    {
                         "id": "created",
                         "title": "${ui.sortByFields.created}"
                     },
@@ -206,7 +221,7 @@
                         "id": "owner",
                         "title": "${ui.sortByFields.owner}"
                     },
-                    /*{
+                    {
                         "id": "avg-rating",
                         "title": "${ui.sortByFields.avg-rating}"
                     },
@@ -217,7 +232,7 @@
                     {
                         "id": "num-comments",
                         "title": "${ui.sortByFields.num-comments}"
-                    },*/
+                    },
                     {
                         "id": "num-views",
                         "title": "${ui.sortByFields.num-views}"
@@ -247,10 +262,18 @@
                     "providing": "map-widget.MapWidgetModel"
                 },
                 {
+                    "name": "_logService",
+                    "providing": "ct.framework.api.LogService"
+                },
+                {
                     "name": "_addLayerService",
                     "providing": "sdi_loadservice.AddLayerService",
-                    "cardinality": "0..1",
-                    "bind": "addLayerService"
+                    "cardinality": "0..1"
+                },
+                {
+                    "name": "_serviceToWizardAdder",
+                    "providing": "sdi_loadservice.ServiceToWizardAdder",
+                    "cardinality": "0..1"
                 }
             ]
         },

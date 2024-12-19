@@ -37,6 +37,7 @@
                         "id": "living_atlas",
                         "title": "ArcGIS Living Atlas",
                         "url": "https://arcgis.com",
+                        "type": "portal",
                         "filter": "group:47dd57c9a59d458c86d3d6b978560088",
                         "authMode": "auto"
                     },
@@ -44,9 +45,59 @@
                         "id": "arcgis",
                         "title": "ArcGIS Online",
                         "url": "https://arcgis.com",
-                        "authMode": "auto"
+                        "authMode": "auto",
+                        "type": "portal"
+                    },
+                    {
+                        "id": "copernicus",
+                        "title": "Copernicus",
+                        "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
+                        "type": "csw",
+                        "showSortBy": true,
+                        "showTypeFilter": true,
+                        "showItemThumbnail": true
+                    },
+                    {
+                        "id": "gdi_de",
+                        "title": "GDI-DE",
+                        "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+                        "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
+                        "showSortBy": true,
+                        "showTypeFilter": true,
+                        "showItemThumbnail": false
+                    },
+                    {
+                        "id": "metaver",
+                        "title": "MetaVer",
+                        "url": "https://metaver.de/csw",
+                        "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
+                        "showSortBy": false,
+                        "showTypeFilter": false,
+                        "showItemThumbnail": false
+                    },
+                    {
+                        "id": "geoportal_nrw",
+                        "title": "Geoportal NRW",
+                        "url": "https://apps.geoportal.nrw.de/csw/service",
+                        "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "showSortBy": true,
+                        "showTypeFilter": true,
+                        "showItemThumbnail": false
                     }
-                ]
+                ],
+                "rowsPerPageItems": [
+                    25,
+                    50,
+                    100
+                ],
+                "pagination": {
+                    "rowsPerPage": 25
+                }
             }
         },
         "banner": {

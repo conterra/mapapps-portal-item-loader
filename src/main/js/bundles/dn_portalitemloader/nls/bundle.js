@@ -18,21 +18,20 @@ module.exports = {
         bundleName: "Portal Content",
         bundleDescription: "This bundle provides access to portal content.",
         tool: {
-            title: "Add Portal content",
-            tooltip: "Add Portal content to map"
+            title: "Add content",
+            tooltip: "Add content to map"
         },
         ui: {
-            all: "All portals",
             addToMap: "Add to map",
             myServicesTitle: "My Services",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",
-            showFilters: "Hide filters",
-            hideFilters: "Show filters",
-            filterForPortal: "Select portal",
+            showFilters: "Show filters",
+            hideFilters: "Hide filters",
+            filterForPortal: "Select source",
             tags: "Tags",
-            noDataText: "No portal items",
-            noResultsText: "No portal items found",
+            noDataText: "No items",
+            noResultsText: "No items found",
             spaceFilter: "Where to search",
             spaceFilters: {
                 all: "Everywhere",
@@ -59,7 +58,11 @@ module.exports = {
             allServiceTypes: "All service types",
             owner: "Owner",
             views: "Number of views",
-            lastUpdate: "Last update"
+            lastUpdate: "Last update",
+            noService: "No Service",
+            errors: {
+                noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
+            }
         }
     },
     de: true

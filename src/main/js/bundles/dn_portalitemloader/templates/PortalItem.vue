@@ -20,12 +20,13 @@
         class="ct-portal-item-loader-widget__portal-item-card"
     >
         <div
+            v-if="showItemThumbnail"
             class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
                 v-if="item.thumbnailUrl"
                 class="ct-flex-item ct-flex-item--no-grow"
-                :src="item.thumbnailUrl + '&w=400'"
+                :src="item.thumbnailUrl"
             />
             <v-icon
                 v-else
@@ -50,6 +51,7 @@
         >
             <v-list dense>
                 <v-list-tile
+                    v-if="item.type"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -69,6 +71,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="item.owner"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -88,6 +91,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="views !== 'NaN'"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -107,6 +111,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
+                    v-if="modified"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -131,6 +136,7 @@
             class="ct-portal-item-loader-widget__portal-item-card-actions"
         >
             <v-btn
+                :disabled="!item.url"
                 block
                 small
                 color="primary"
@@ -144,6 +150,7 @@
                 {{ i18n.addToMap }}
             </v-btn>
             <v-btn
+                v-if="item.itemPageUrl"
                 icon
                 small
                 color="secondary"
@@ -174,11 +181,20 @@
                 default: () => {
                     return {};
                 }
+            },
+            showItemThumbnail: {
+                type: Boolean,
+                default: true
             }
         },
         computed: {
             modified() {
-                return moment(this.item.modified).format("DD.MM.YYYY");
+                const modified = moment(this.item.modified);
+                if(modified.isValid()) {
+                    return moment(modified).format("DD.MM.YYYY");
+                } else {
+                    return undefined;
+                }
             },
             views() {
                 const numberFormatIntlOptions = intl.convertNumberFormatToIntlOptions({
