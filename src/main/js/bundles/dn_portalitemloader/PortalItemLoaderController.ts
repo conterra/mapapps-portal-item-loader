@@ -451,7 +451,7 @@ export default class PortalItemLoaderWidgetController {
                     url = this.htmlDecode(url);
                 }
                 // handle item page url
-                let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "DOI");
+                let itemPageUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "DOI");
                 if (selectedPortal.itemPageUrl) {
                     itemPageUrl = intl.substitute(selectedPortal.itemPageUrl, { id: id });
                 }
@@ -460,7 +460,7 @@ export default class PortalItemLoaderWidgetController {
                     title: this.getCswItemAttribute(cswItem, "dc:title"),
                     snippet: this.getCswItemAttribute(cswItem, "dct:abstract") || this.getCswItemAttribute(cswItem, "dc:description"),
                     description: this.getCswItemAttribute(cswItem, "dc:description"),
-                    thumbnailUrl: this.getCswItemAttribute(cswItem, "dc:URI", "image/png"),
+                    thumbnailUrl: this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "image/png"),
                     modified: modifiedDate,
                     type: type,
                     url: url,
