@@ -63,6 +63,10 @@
     text-align: center;
 }
 
+.ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card.no-item-thumbnail {
+    max-height: 320px;
+}
+
 .ctAppRoot .ct-portal-item-loader-widget__main .ct-portal-item-loader-widget__portal-item-card-image .v-image {
     height: 160px;
 }

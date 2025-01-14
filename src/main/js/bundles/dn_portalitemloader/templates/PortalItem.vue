@@ -17,7 +17,7 @@
 -->
 <template>
     <v-card
-        class="ct-portal-item-loader-widget__portal-item-card"
+        :class="{ 'no-item-thumbnail': !showItemThumbnail, 'ct-portal-item-loader-widget__portal-item-card': true }"
     >
         <div
             v-if="showItemThumbnail"
