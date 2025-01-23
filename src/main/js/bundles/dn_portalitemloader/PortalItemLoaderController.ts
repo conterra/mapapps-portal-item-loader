@@ -177,7 +177,7 @@ export default class PortalItemLoaderWidgetController {
             case "fav":
                 break;
             case "organisation":
-                filter += ` AND orgid:"${portal.user.orgId}`;
+                filter += ` AND orgid:${portal.user.orgId}`;
                 break;
             case "my-content":
                 filter += ` AND owner:${portal.user.username}`;
