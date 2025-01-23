@@ -227,8 +227,8 @@ export default class PortalItemLoaderWidgetController {
 
     private addPortalItemsToModel(result: __esri.PortalQueryResult): void {
         if (result?.results) {
-            let filteredPortalItems = result.results.filter((result) => result.isLayer);
-            filteredPortalItems = filteredPortalItems.map((portalItem) => {
+            let filteredPortalItems = result.results.filter((result: __esri.PortalItem) => result.isLayer);
+            filteredPortalItems = filteredPortalItems.map((portalItem: __esri.PortalItem) => {
                 return {
                     id: portalItem.id,
                     title: portalItem.title,
