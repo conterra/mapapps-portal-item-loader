@@ -40,6 +40,7 @@
     </pluginRepositories>
     <dependencyManagement>
         <dependencies>
+            <!-- dependency versions available -->
             <dependency>
                 <groupId>de.conterra.mapapps</groupId>
                 <artifactId>ct-mapapps-js-bom</artifactId>
@@ -50,6 +51,14 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- include only if old intern test libs are required -->
+        <dependency>
+            <groupId>de.conterra.mapapps</groupId>
+            <artifactId>ct-mapapps-js-bom-dev-test</artifactId>
+            <version>${mapapps.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>de.conterra.sdi-extension</groupId>
             <artifactId>ct-sdi-extension-js</artifactId>
@@ -147,7 +156,7 @@
                 <plugin>
                     <groupId>de.conterra.maven</groupId>
                     <artifactId>setproperties-maven-plugin</artifactId>
-                    <version>1.0.2</version>
+                    <version>1.0.5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -252,6 +261,14 @@
                                     <includes>layout/theme-everlasting/**,layout/theme-common/**</includes>
                                     <excludes>layout/theme-everlasting/styles/vuetify/**</excludes>
                                 </artifactItem>
+                                <artifactItem>
+                                    <!-- unpack stylus files provided by beautify to map.apps themes -->
+                                    <groupId>org.vuetifyjs</groupId>
+                                    <artifactId>vuetify</artifactId>
+                                    <classifier>dev</classifier>
+                                    <outputDirectory>${project.build.directory}/unpacked/layout</outputDirectory>
+                                    <includes>vuetify/stylus/**</includes>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -263,6 +280,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/bundle-imports</outputDirectory>
+                            <includeTypes>jar</includeTypes>
                             <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
@@ -484,12 +502,12 @@
         <root.build.outputPath>${project.build.directory}/webapp</root.build.outputPath>
         <js.build.outputPath>${root.build.outputPath}/js</js.build.outputPath>
 
-        <mapapps.version>4.18.2</mapapps.version>
+        <mapapps.version>4.19.0</mapapps.version>
         <!-- JS lib versions -->
         <apprt.version>${mapapps.version}</apprt.version>
 
         <!-- java lib versions -->
-        <ct.jsregistry.version>2.1.1</ct.jsregistry.version>
+        <ct.jsregistry.version>2.1.4</ct.jsregistry.version>
 
         <!-- the default app, replaced in the *.html files to switch app names-->
         <default.app.name>sample</default.app.name>
@@ -523,17 +541,18 @@
         <triggerPreOptimization>false</triggerPreOptimization>
     </properties>
     <profiles>
-       <profile>
-      <id>include-mapapps-deps</id>
-      <dependencies>
-          <dependency>
-              <groupId>de.conterra.mapapps</groupId>
-              <artifactId>ct-mapapps-js-bom-dev</artifactId>
-              <type>pom</type>
-              <scope>test</scope>
-          </dependency>
-      </dependencies>
-  </profile>
+        <profile>
+            <id>include-mapapps-deps</id>
+            <dependencies>
+                <dependency>
+                    <groupId>de.conterra.mapapps</groupId>
+                    <artifactId>ct-mapapps-js-bom-dev</artifactId>
+                    <version>${mapapps.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>node-install</id>
             <activation>
