@@ -34,8 +34,9 @@ module.exports = {
         spaceFilter: "Wo suchen",
         spaceFilters: {
             all: "Überall",
-            organisation: "Nur meine Organisation",
-            "my-content": "Nur meine Inhalte",
+            organisation: "Meine Organisation",
+            livingAtlas: "Living Atlas",
+            myContent: "Meine Inhalte",
             fav: "Meine Favoriten"
         },
         typeFilter: "Nach Typ filtern",

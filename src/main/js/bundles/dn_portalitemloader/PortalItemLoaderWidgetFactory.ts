@@ -75,14 +75,12 @@ export default class PortalItemLoaderWidgetFactory {
         vm.pagination = model.pagination;
         vm.rowsPerPageItems = model.rowsPerPageItems;
         vm.portals = model.portals;
-        vm.spaceFilters = model.spaceFilters;
-        vm.typeFilter = model.typeFilter;
         vm.sortByFields = model.sortByFields;
         vm.sortByField = model.sortByField;
 
         this.binding = Binding.for(vm, model)
             .syncAll("portalFilter", "typeFilter")
-            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "showSortBy", "showTypeFilter", "showItemThumbnail", "typeFilters", "isMobile")
+            .syncAllToLeft("selectedPortalType", "portalItems", "totalItems", "loading", "authenticated", "showSortBy", "showTypeFilter", "showItemThumbnail", "spaceFilters", "typeFilters", "isMobile")
             .syncAllToRight("pagination", "searchText", "sortByField", "sortAscending", "spaceFilter");
     }
 

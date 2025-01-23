@@ -128,7 +128,25 @@
                     },
                     {
                         "id": "my-content",
-                        "title": "${ui.spaceFilters.my-content}"
+                        "title": "${ui.spaceFilters.myContent}"
+                    },
+                    {
+                        "id": "fav",
+                        "title": "${ui.spaceFilters.fav}"
+                    }
+                ],
+                "spaceFiltersPortal": [
+                    {
+                        "id": "all",
+                        "title": "${ui.spaceFilters.all}"
+                    },
+                    {
+                        "id": "living-atlas",
+                        "title": "${ui.spaceFilters.livingAtlas}"
+                    },
+                    {
+                        "id": "my-content",
+                        "title": "${ui.spaceFilters.myContent}"
                     },
                     {
                         "id": "fav",

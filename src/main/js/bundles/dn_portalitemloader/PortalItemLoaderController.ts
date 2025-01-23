@@ -123,7 +123,7 @@ export default class PortalItemLoaderWidgetController {
         }, 500);
     }
 
-    private changeSelectedPortal(portalId: string): void {
+    private async changeSelectedPortal(portalId: string): Promise<void> {
         const model = this._portalItemLoaderModel;
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
@@ -144,7 +144,6 @@ export default class PortalItemLoaderWidgetController {
             model.showItemThumbnail = true;
         }
         if (selectedPortal.type === "portal") {
-            model.typeFilters = model.typeFiltersPortal;
             portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
             portal.load().then(() => {
                 if (portal.user) {
@@ -153,6 +152,11 @@ export default class PortalItemLoaderWidgetController {
                     model.authenticated = false;
                 }
             });
+            await portal.load();
+            if (portal.isPortal) {
+                model.spaceFilters = model.spaceFiltersPortal;
+                model.typeFilters = model.typeFiltersPortal;
+            }
         } else if (selectedPortal.type === "csw") {
             model.typeFilters = model.typeFiltersCSW;
             portal = this.portal = selectedPortal;
@@ -180,6 +184,9 @@ export default class PortalItemLoaderWidgetController {
                 break;
             case "organisation":
                 filter += ` AND orgid:${portal.user.orgId}`;
+                break;
+            case "living-atlas":
+                filter += ` AND owner:esri_livingatlas`;
                 break;
             case "my-content":
                 filter += ` AND owner:${portal.user.username}`;

@@ -35,8 +35,9 @@ module.exports = {
             spaceFilter: "Where to search",
             spaceFilters: {
                 all: "Everywhere",
-                organisation: "Only my organisation",
-                "my-content": "Only my content",
+                organisation: "My organisation",
+                livingAtlas: "Living Atlas",
+                myContent: "My content",
                 fav: "My favourites"
             },
             typeFilter: "What type to search",

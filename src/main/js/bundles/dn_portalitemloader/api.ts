@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-export type SpaceFilter = "all" | "organisation" | "my-content" | "fav";
+export type SpaceFilter = "all" | "organisation" | "my-content" | "living-atlas" | "fav";
 
 export type SortByField = "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views"
 
