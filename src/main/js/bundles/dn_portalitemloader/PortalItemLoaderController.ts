@@ -439,8 +439,8 @@ export default class PortalItemLoaderWidgetController {
                 // handle url and type
                 let type = this.i18n.noService;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "ESRI:REST");
-                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WFS");
-                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WMS");
+                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WFS");
+                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WMS");
                 if (esriUrl) {
                     type = "ESRI";
                 } else if (wmsUrl) {
@@ -479,7 +479,14 @@ export default class PortalItemLoaderWidgetController {
         const elements = cswItem.getElementsByTagName(attributeName);
         if (!contentName) {
             if (elements.length) {
-                return elements[0].innerHTML;
+                const innerHTML = elements[0].innerHTML;
+                if (value && innerHTML.includes(value)) {
+                    return innerHTML;
+                } else if (!value) {
+                    return innerHTML;
+                } else {
+                    return undefined;
+                }
             } else {
                 return undefined;
             }
