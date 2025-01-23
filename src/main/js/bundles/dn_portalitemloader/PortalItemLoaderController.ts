@@ -35,8 +35,10 @@ export default class PortalItemLoaderWidgetController {
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
+    private i18n: any;
 
     activate(): void {
+        this.i18n = this._i18n.get().ui;
         const model = this._portalItemLoaderModel;
         model.portalFilter = model.portals[0].id;
         model.isMobile = this.isMobile();
@@ -292,7 +294,7 @@ export default class PortalItemLoaderWidgetController {
             this._serviceToWizardAdder.addService(item.url);
         } else {
             console.error("PortalItemLoader: ServiceToWizardAdder not available. Layer count not be added to map. Please add sdi_loadservice to app.");
-            this._logService.warn(this._i18n.errors.noMapappsSDI);
+            this._logService.warn(this.i18n.errors.noMapappsSDI);
         }
     }
 
@@ -435,7 +437,7 @@ export default class PortalItemLoaderWidgetController {
                     modifiedDate = new Date(modified);
                 }
                 // handle url and type
-                let type = this._i18n.noService;
+                let type = this.i18n.noService;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "ESRI:REST");
                 const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WFS");
                 const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", "description", "WMS");
