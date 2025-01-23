@@ -100,6 +100,7 @@ Sample
 | Property         | Type   | Possible Values | Default                                   | Description                                                                          |
 | ---------------- | ------ | --------------- | ----------------------------------------- | ------------------------------------------------------------------------------------ |
 | portals          | Object |                 |                                           | A list of portals available for selection.                                           |
+| layout           | String |                 | ```grid``` &#124; ```list```              | Set default layout.                                                                  |
 | rowsPerPageItems | Array  |                 | ```25``` &#124; ```50``` &#124; ```100``` | An array of possible values for the number of rows displayed per page.               |
 | pagination       | Object |                 | "rowsPerPage": ```25```                   | Configuration object for pagination, specifying the default number of rows per page. |
 

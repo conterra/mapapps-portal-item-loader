@@ -139,6 +139,20 @@
                     </div>
                 </div>
             </template>
+            <v-btn-toggle v-model="localLayout">
+                <v-btn
+                    value="grid"
+                    flat
+                >
+                    <v-icon>view_module</v-icon>
+                </v-btn>
+                <v-btn
+                    value="list"
+                    flat
+                >
+                    <v-icon>view_list</v-icon>
+                </v-btn>
+            </v-btn-toggle>
         </v-toolbar>
     </div>
 </template>
@@ -150,6 +164,10 @@
                 default: () => {
                     return {};
                 }
+            },
+            layout: {
+                type: String,
+                default: ""
             },
             portals: {
                 type: Array,
@@ -230,6 +248,14 @@
             },
             filterAvailable() {
                 return this.authenticated || (this.typeFilters.length && this.showTypeFilter) || this.showSortBy;
+            },
+            localLayout: {
+                get: function () {
+                    return this.layout;
+                },
+                set: function (layout) {
+                    this.$emit("update:layout", layout);
+                }
             },
             localSearchText: {
                 get: function () {

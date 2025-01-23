@@ -72,6 +72,7 @@ export default class PortalItemLoaderWidgetFactory {
         const vm = this.vm = new Vue(PortalItemLoaderWidget);
         const model = this._portalItemLoaderModel!;
         vm.i18n = this._i18n.get().ui;
+        vm.layout = model.layout;
         vm.pagination = model.pagination;
         vm.rowsPerPageItems = model.rowsPerPageItems;
         vm.portals = model.portals;

@@ -22,6 +22,8 @@ export type PortalAuthMode = "auto" | "anonymous" | "immediate" | "no-prompt";
 
 export type PortalType = "portal" | "csw";
 
+export type Layout = "grid" | "list";
+
 export interface PortalItem {
     id: string,
     title: string,

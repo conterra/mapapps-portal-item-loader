@@ -19,6 +19,7 @@
     <div class="ct-portal-item-loader-widget__main">
         <filter-widget
             :i18n="i18n"
+            :layout.sync="layout"
             :portals="portals"
             :authenticated="authenticated"
             :space-filters="spaceFilters"
@@ -36,6 +37,7 @@
             :is-mobile="isMobile"
         />
         <v-data-iterator
+            v-if="layout==='grid'"
             :items="portalItems"
             :total-items="totalItems"
             :rows-per-page-items="rowsPerPageItems"
@@ -71,16 +73,55 @@
                 />
             </template>
         </v-data-iterator>
+        <v-data-iterator
+            v-else-if="layout==='list'"
+            :items="portalItems"
+            :total-items="totalItems"
+            :rows-per-page-items="rowsPerPageItems"
+            :pagination.sync="pagination"
+            :loading="loading"
+            :no-results-text="i18n.noResultsText"
+            :no-data-text="i18n.noDataText"
+            content-tag="div"
+            content-class="ct-portal-item-loader-widget__portal-list-item-gallery-content"
+            class="ct-portal-item-loader-widget__portal-item-gallery"
+        >
+            <template
+                #header
+            >
+                <div
+                    class="ct-portal-item-loader-widget__loading-indicator"
+                >
+                    <v-progress-linear
+                        v-show="loading"
+                        :indeterminate="true"
+                        class="pa-0 ma-0"
+                    />
+                </div>
+            </template>
+            <template
+                #item="props"
+            >
+                <portal-list-item
+                    :i18n="i18n"
+                    :item="props.item"
+                    :show-item-thumbnail="showItemThumbnail"
+                    @load-item="$emit('load-item', $event)"
+                />
+            </template>
+        </v-data-iterator>
     </div>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
     import PortalItem from "./PortalItem.vue";
+    import PortalListItem from "./PortalListItem.vue";
     import FilterWidget from "./FilterWidget.vue";
 
     export default {
         components: {
             "portal-item": PortalItem,
+            "portal-list-item": PortalListItem,
             "filter-widget": FilterWidget
         },
         mixins: [Bindable],
@@ -90,6 +131,10 @@
                 default: () => {
                     return {};
                 }
+            },
+            layout: {
+                type: String,
+                default: "grid"
             },
             portalItems: {
                 type: Array,
@@ -182,6 +227,11 @@
             isMobile: {
                 type: Boolean,
                 default: false
+            }
+        },
+        watch: {
+            layout(value) {
+                console.warn(value);
             }
         },
         methods: {
