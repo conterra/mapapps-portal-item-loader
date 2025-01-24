@@ -25,12 +25,12 @@
         >
             <v-img
                 v-if="item.thumbnailUrl"
-                class="ct-flex-item ct-flex-item--no-grow"
+                class="ct-portal-item-loader-widget__portal-item-card-thumbnail"
                 :src="item.thumbnailUrl"
             />
             <v-icon
                 v-else
-                class="backup-icon"
+                class="ct-portal-item-loader-widget__portal-item-card-backup-icon"
                 x-large
             >
                 panorama

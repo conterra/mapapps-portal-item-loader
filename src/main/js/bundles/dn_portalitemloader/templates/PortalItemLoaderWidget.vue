@@ -46,7 +46,7 @@
             :no-results-text="i18n.noResultsText"
             :no-data-text="i18n.noDataText"
             content-tag="div"
-            content-class="ct-portal-item-loader-widget__portal-item-gallery-content"
+            content-class="ct-portal-item-loader-widget__portal-grid-item-gallery-content"
             class="ct-portal-item-loader-widget__portal-item-gallery"
         >
             <template
