@@ -432,7 +432,8 @@ export default class PortalItemLoaderWidgetController {
         const model = this._portalItemLoaderModel;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         if (result?.results) {
-            const portalItems = result.results.map((cswItem: any) => {
+            const portalItems: PortalItem[] = [];
+            result.results.forEach((cswItem: any) => {
                 const id = this.getCswItemAttribute(cswItem, "dc:identifier");
                 // handle modified date
                 let modified = this.getCswItemAttribute(cswItem, "dct:modified");
@@ -444,7 +445,7 @@ export default class PortalItemLoaderWidgetController {
                     modifiedDate = new Date(modified);
                 }
                 // handle url and type
-                let type = this.i18n.noService;
+                let type;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "ESRI:REST");
                 const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WFS");
                 const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WMS");
@@ -455,6 +456,9 @@ export default class PortalItemLoaderWidgetController {
                 } else if (wfsUrl) {
                     type = "WFS";
                 }
+                if (!type) {
+                    return;
+                }
                 let url = esriUrl || wmsUrl || wfsUrl;
                 if (url) {
                     url = this.htmlDecode(url);
@@ -464,7 +468,7 @@ export default class PortalItemLoaderWidgetController {
                 if (selectedPortal.itemPageUrl) {
                     itemPageUrl = intl.substitute(selectedPortal.itemPageUrl, { id: id });
                 }
-                return {
+                portalItems.push({
                     id: id,
                     title: this.getCswItemAttribute(cswItem, "dc:title"),
                     snippet: this.getCswItemAttribute(cswItem, "dct:abstract") || this.getCswItemAttribute(cswItem, "dc:description"),
@@ -475,7 +479,7 @@ export default class PortalItemLoaderWidgetController {
                     url: url,
                     itemPageUrl: itemPageUrl,
                     source: "csw"
-                };
+                });
             });
             this._portalItemLoaderModel.portalItems = portalItems;
         }
