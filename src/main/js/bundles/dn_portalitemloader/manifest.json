@@ -325,7 +325,7 @@
                 "id": "portalItemLoaderToggleTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
-                "iconClass": "icon-toolcase",
+                "iconClass": "icon-layer-add",
                 "toolRole": "toolset",
                 "togglable": true,
                 "activateHandler": "activateTool",
