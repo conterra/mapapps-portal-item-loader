@@ -4,7 +4,7 @@ This bundle allows to add portal or csw content to your map.apps app.
 
 ## Usage
 
-1. First you need to add the bundle dn_mapapps-portal-item-loader to your app.
+1. First you need to add the bundle dn_portalitemloader to your app.
 2. Next, configure your portals as described in the configuration section below.
 
 To make the functions of this bundle available to the user, the following tool can be added to a toolset:
