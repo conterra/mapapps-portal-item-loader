@@ -107,6 +107,7 @@ mapappsBrowserSync.registerTask({
         npmModules: [
             "mocha",
             "chai",
+            "sinon",
             "@conterra/mapapps-mocha-runner"
         ]
     },
