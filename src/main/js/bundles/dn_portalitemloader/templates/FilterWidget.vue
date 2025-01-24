@@ -139,7 +139,10 @@
                     </div>
                 </div>
             </template>
-            <v-btn-toggle v-model="localLayout">
+            <v-btn-toggle
+                v-model="localLayout"
+                mandatory
+            >
                 <v-btn
                     value="grid"
                     flat
