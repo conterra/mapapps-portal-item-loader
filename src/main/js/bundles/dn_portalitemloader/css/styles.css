@@ -223,25 +223,23 @@
     }
 
     /*additional mobile styles*/
-    &.ctAppRoot {
-        &.ctEnv_Mobile {
-            .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--grid-view {
-                .ct-portal-item-loader-widget__portal-item-card-thumbnail,
-                .ctAppRoot.ctEnv_Mobile .ct-portal-item-loader-widget__portal-item-card-backup-icon {
-                    height: 100px;
-                }
+    &.ctEnv_Mobile {
+        .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--grid-view {
+            .ct-portal-item-loader-widget__portal-item-card-thumbnail,
+            .ctAppRoot.ctEnv_Mobile .ct-portal-item-loader-widget__portal-item-card-backup-icon {
+                height: 100px;
             }
-            .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--list-view {
-                .ct-portal-item-loader-widget__portal-list-item-card-thumbnail,
-                .ct-portal-item-loader-widget__portal-list-item-card-backup-icon {
-                    width: 100px;
-                    height: 80px;
-                }
+        }
+        .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--list-view {
+            .ct-portal-item-loader-widget__portal-list-item-card-thumbnail,
+            .ct-portal-item-loader-widget__portal-list-item-card-backup-icon {
+                width: 100px;
+                height: 80px;
             }
-            .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-portal-select {
-                min-width: 140px;
-                max-width: 140px;
-            }
+        }
+        .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-portal-select {
+            min-width: 140px;
+            max-width: 140px;
         }
     }
 }
