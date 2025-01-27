@@ -46,7 +46,8 @@
             :no-results-text="i18n.noResultsText"
             :no-data-text="i18n.noDataText"
             content-tag="div"
-            content-class="ct-portal-item-loader-widget__portal-grid-item-gallery-content"
+            CCCCcontent-class="ct-portal-item-loader-widget__portal-grid-item-gallery-content"
+            content-class="ct-portal-item-loader-widget__portal-item-gallery ct-portal-item-loader-widget__portal-item-gallery--grid-view"
             class="ct-portal-item-loader-widget__portal-item-gallery"
         >
             <template
@@ -83,7 +84,8 @@
             :no-results-text="i18n.noResultsText"
             :no-data-text="i18n.noDataText"
             content-tag="div"
-            content-class="ct-portal-item-loader-widget__portal-list-item-gallery-content"
+            CCCcontent-class="ct-portal-item-loader-widget__portal-list-item-gallery-content"
+            content-class="ct-portal-item-loader-widget__portal-item-gallery ct-portal-item-loader-widget__portal-item-gallery--list-view"
             class="ct-portal-item-loader-widget__portal-item-gallery"
         >
             <template
