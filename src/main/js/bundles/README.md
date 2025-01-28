@@ -86,6 +86,7 @@ Sample
                 "showItemThumbnail": false
             }
         ],
+        "layout": "grid",
         "rowsPerPageItems": [
             25,
             50,
