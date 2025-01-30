@@ -88,7 +88,7 @@ export default class PortalItemLoaderWidgetController {
         sortAscending: boolean,
         sortByField: SortByField): void {
         const model = this._portalItemLoaderModel;
-        const portal = this.portal!;
+        const portal = this.portal;
         clearTimeout(this.lastTimeout);
         this.lastTimeout = setTimeout(() => {
             model.loading = true;
@@ -153,9 +153,9 @@ export default class PortalItemLoaderWidgetController {
                 }
             });
             await portal.load();
+            model.typeFilters = model.typeFiltersPortal;
             if (portal.isPortal) {
                 model.spaceFilters = model.spaceFiltersPortal;
-                model.typeFilters = model.typeFiltersPortal;
             }
         } else if (selectedPortal.type === "csw") {
             model.typeFilters = model.typeFiltersCSW;
