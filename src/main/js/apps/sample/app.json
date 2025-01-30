@@ -98,7 +98,8 @@
                 ],
                 "pagination": {
                     "rowsPerPage": 25
-                }
+                },
+                "hideCswContentWithoutService": false
             }
         },
         "banner": {

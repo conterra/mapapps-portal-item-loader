@@ -457,7 +457,11 @@ export default class PortalItemLoaderWidgetController {
                     type = "WFS";
                 }
                 if (!type) {
-                    return;
+                    if (model.hideCswContentWithoutService) {
+                        return;
+                    } else {
+                        type = this.i18n.noService;
+                    }
                 }
                 let url = esriUrl || wmsUrl || wfsUrl;
                 if (url) {

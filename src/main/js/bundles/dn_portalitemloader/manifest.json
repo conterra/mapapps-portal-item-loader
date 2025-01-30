@@ -260,7 +260,8 @@
                     }
                 ],
                 "rootId": "my_services",
-                "rootTitle": "${ui.myServicesTitle}"
+                "rootTitle": "${ui.myServicesTitle}",
+                "hideCswContentWithoutService": false
             }
         },
         {

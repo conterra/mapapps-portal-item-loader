@@ -49,7 +49,8 @@ interface PortalItemLoaderModelProps {
     showSortBy: boolean,
     showTypeFilter: boolean,
     showItemThumbnail: boolean,
-    isMobile: boolean
+    isMobile: boolean,
+    hideCswContentWithoutService: boolean
 }
 
 export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
@@ -83,5 +84,6 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     showSortBy: true,
     showTypeFilter: true,
     showItemThumbnail: true,
-    isMobile: false
+    isMobile: false,
+    hideCswContentWithoutService: true
 });
