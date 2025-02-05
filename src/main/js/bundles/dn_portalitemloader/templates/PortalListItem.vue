@@ -17,11 +17,11 @@
 -->
 <template>
     <v-card
-        :class="{ 'no-item-thumbnail': !showItemThumbnail,
+        :class="{ 'no-item-thumbnail': !visibleElements.itemThumbnail,
                   'ct-portal-item-loader-widget__portal-list-item-card': true }"
     >
         <div
-            v-if="showItemThumbnail"
+            v-if="visibleElements.itemThumbnail"
             class="ct-portal-item-loader-widget__portal-list-item-card-image"
         >
             <v-img
@@ -96,10 +96,6 @@
                 default: () => {
                     return {};
                 }
-            },
-            showItemThumbnail: {
-                type: Boolean,
-                default: true
             },
             visibleElements: {
                 type: VisibleElements,
