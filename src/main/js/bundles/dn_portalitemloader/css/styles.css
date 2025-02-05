@@ -32,16 +32,16 @@
         margin: 4px 8px;
     }
 
-    .ct-portal-item-loader-widget__portal-item-gallery > div:first-child {
+    .ct-portal-item-loader-widget__portal-item-gallery>div:first-child {
         flex: 0 0 auto;
     }
 
-    .ct-portal-item-loader-widget__portal-item-gallery > div:nth-child(2) {
+    .ct-portal-item-loader-widget__portal-item-gallery>div:nth-child(2) {
         flex: 1 1 auto;
         overflow: auto;
     }
 
-    .ct-portal-item-loader-widget__portal-item-gallery > div:nth-child(3) {
+    .ct-portal-item-loader-widget__portal-item-gallery>div:nth-child(3) {
         flex: 0 0 auto;
     }
 
@@ -176,22 +176,27 @@
         }
 
     }
+
     /* filter widget */
     .ct-portal-item-loader-widget__portal-item-filter {
         flex: 0 0 auto;
+
         .v-toolbar__content {
             padding: 8px 12px;
         }
+
         .v-toolbar .v-toolbar__extension {
             height: auto !important;
             padding: 8px 12px;
             display: block;
         }
+
         .ct-portal-item-loader-widget__portal-item-filter-container {
-             display: grid;
-             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-             gap: 12px;
-         }
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
         .ct-portal-item-loader-widget__portal-item-filter-search {
             padding: 12px 12px 0 0;
             width: 100%;
@@ -223,21 +228,55 @@
     /*additional mobile styles*/
     &.ctEnv_Mobile {
         .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--grid-view {
+
             .ct-portal-item-loader-widget__portal-item-card-thumbnail,
             .ctAppRoot.ctEnv_Mobile .ct-portal-item-loader-widget__portal-item-card-backup-icon {
                 height: 100px;
             }
         }
+
         .ct-portal-item-loader-widget__portal-item-gallery.ct-portal-item-loader-widget__portal-item-gallery--list-view {
+
             .ct-portal-item-loader-widget__portal-list-item-card-thumbnail,
             .ct-portal-item-loader-widget__portal-list-item-card-backup-icon {
                 width: 100px;
                 height: 80px;
             }
         }
+
         .ct-portal-item-loader-widget__portal-item-filter .ct-portal-item-loader-widget__portal-item-filter-portal-select {
             min-width: 140px;
             max-width: 140px;
         }
     }
+}
+
+.ctAppRoot .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #2980b9;
+    color: #fff
+}
+
+.ctAppRoot.spring .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #16a085;
+    color: #fff
+}
+
+.ctAppRoot.summer .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #8c0f1a;
+    color: #fff
+}
+
+.ctAppRoot.autumn .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #2980b9;
+    color: #fff
+}
+
+.ctAppRoot.winter .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #3c3c3c;
+    color: #fff
+}
+
+.ctAppRoot.everlasting .toc-window .ct-toc__layers .ct-toc__layer-tree-item.highlight {
+    background-color: #12a5f4;
+    color: #fff
 }

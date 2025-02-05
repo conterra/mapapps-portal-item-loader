@@ -22,6 +22,7 @@ import GroupLayer from "esri/layers/GroupLayer";
 import { apprtFetch } from "apprt-fetch";
 import * as intl from "esri/intl";
 import { Pagination, SortByField, SpaceFilter, PortalItem, VisibleElements } from "./api";
+import async from "apprt-core/async";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -32,6 +33,8 @@ export default class PortalItemLoaderWidgetController {
     private readonly _addLayerService: any;
     private readonly _serviceToWizardAdder: any;
     private readonly _componentContext: any;
+    private readonly _tocToggleTool: any;
+    private readonly _tocWidget: any;
     private defaultVisibleElements!: VisibleElements;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
@@ -298,6 +301,16 @@ export default class PortalItemLoaderWidgetController {
             root.add(layer);
             console.info("PortalItemLoader: Used default esri methods to add layer to map");
             this._logService.info(`${item.title} ${this.i18n.addedToMap}`);
+
+            // highlight layer in toc
+            await layer.load();
+            if (this._tocToggleTool && this._tocWidget) {
+                this._tocToggleTool.set("active", true);
+                this.openEveryLayer(layer);
+                async(() => {
+                    this.highlightTocEntry(layer);
+                }, 100);
+            }
         } else {
             console.error("PortalItemLoader: ServiceToWizardAdder not available. Layer could not be added to map. Please add sdi_loadservice to app.");
             this._logService.warn(this.i18n.errors.noMapappsSDI);
@@ -530,6 +543,87 @@ export default class PortalItemLoaderWidgetController {
     private htmlDecode(input: string): string | undefined {
         const doc = new DOMParser().parseFromString(input, "text/html");
         return doc.documentElement.textContent ? doc.documentElement.textContent : undefined;
+    }
+
+    /**
+     * Function used to recursively make all parent layers of a layer visible
+     *
+     * @param layer Esri Layer which has to made visible, including all parents
+     */
+    private openEveryLayer(layer: any): void {
+        // set visible property to true
+        layer.visible = true;
+
+        // get toc model item and set open to true
+        const tocModelItem = this.getTocModelItem(layer.uid);
+        if (tocModelItem) {
+            tocModelItem.open = true;
+        }
+
+        // if layer has parent call method again
+        if (layer.parent) {
+            this.openEveryLayer(layer.parent);
+        }
+    }
+
+    private getTocModelItem(uid: any): Object {
+        const tocWidget = this._tocWidget;
+        const vm = tocWidget.getVM();
+        const operationalRoot: any = vm.operationalRoot;
+
+        let tocItem: any;
+        operationalRoot.visitTree((it: { reference: { uid: any; }; }) => {
+            if (it.reference.uid === uid) {
+                tocItem = it;
+            }
+        });
+
+        return tocItem;
+    }
+
+    private highlightTocEntry(layer: any): void {
+        const scrollDelay = 500;
+        const tocEntryHiglightTime = 5000;
+
+        // highlight layer entry in toc
+        const tocItemUid: string = this.buildUID(layer);
+        const cssValidId: string = tocItemUid.replace(/[^_a-zA-Z0-9-]/g, '_');
+        const domElementList: HTMLCollectionOf<Element> = document.getElementsByClassName("ct-toc__layer-tree-item--" + cssValidId);
+        const domElement: Element = domElementList.length ? domElementList[0] : undefined;
+        domElement?.classList.add("highlight");
+        // scroll to highlighted layer
+        async(() => {
+            domElement?.scrollIntoView();
+        }, scrollDelay);
+        // remove highlight from layer entry after a configurable time
+        async(() => {
+            domElement?.classList.remove("highlight");
+        }, tocEntryHiglightTime);
+    }
+
+    /**
+     * Method copied from TocItemsToMapSync file in mapapps.
+     *
+     * @param layerOrSublayer
+     * @returns {string|*}
+     * @private
+     */
+    private buildUID(layerOrSublayer: { id: string; layer: any; }): string {
+        if (!layerOrSublayer) {
+            return;
+        }
+        const localId: string = layerOrSublayer.id;
+        if (!this.isSublayer(layerOrSublayer)) {
+            // assumed to be unique
+            return localId;
+        }
+        const uidOfSublayersRoot: string = this.buildUID(layerOrSublayer.layer);
+        return uidOfSublayersRoot + "$" + localId;
+    }
+
+    private isSublayer(layer: { hasOwnProperty: (arg0: string) => any; }): boolean {
+        // eslint-disable-next-line no-prototype-builtins
+        return layer.hasOwnProperty("layer");
     }
 
 }
