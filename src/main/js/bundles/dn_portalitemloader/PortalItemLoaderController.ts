@@ -300,6 +300,7 @@ export default class PortalItemLoaderWidgetController {
                 root.add(layer);
                 console.info("PortalItemLoader: Used default esri methods to add layer to map");
             }
+            this._logService.info(`${item.title} ${this.i18n.addedToMap}`);
         } else if (this._serviceToWizardAdder) {
             this._serviceToWizardAdder.addService(item.url);
         } else {

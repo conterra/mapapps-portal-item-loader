@@ -60,6 +60,7 @@ module.exports = {
         views: "Anzahl der Zugriffe",
         lastUpdate: "Zuletzt bearbeitet",
         noService: "Kein Dienst",
+        addedToMap: "wurde zur Karte hinzugefügt",
         errors: {
             noMapappsSDI: "Für diese Funktion wird map.apps SDI benötigt. Bitte wenden Sie sich an den Administrator."
         }
