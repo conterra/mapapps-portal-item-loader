@@ -284,27 +284,22 @@ export default class PortalItemLoaderWidgetController {
                 console.error(error);
             }
         }
-        if (layer) {
-            if (this._addLayerService) {
-                this._addLayerService.addLayerToMap(layer);
-                console.info("PortalItemLoader: Used sdi_loadservice to add layer to map");
-            } else {
-                root = map.findLayerById(model.rootId) as __esri.GroupLayer;
-                if (!root) {
-                    root = new GroupLayer({
-                        id: model.rootId,
-                        title: model.rootTitle || model.rootId
-                    });
-                }
-                map.add(root);
-                root.add(layer);
-                console.info("PortalItemLoader: Used default esri methods to add layer to map");
-            }
-            this._logService.info(`${item.title} ${this.i18n.addedToMap}`);
-        } else if (this._serviceToWizardAdder) {
+        if (this._serviceToWizardAdder) {
             this._serviceToWizardAdder.addService(item.url);
+        } else if (layer) {
+            root = map.findLayerById(model.rootId) as __esri.GroupLayer;
+            if (!root) {
+                root = new GroupLayer({
+                    id: model.rootId,
+                    title: model.rootTitle || model.rootId
+                });
+            }
+            map.add(root);
+            root.add(layer);
+            console.info("PortalItemLoader: Used default esri methods to add layer to map");
+            this._logService.info(`${item.title} ${this.i18n.addedToMap}`);
         } else {
-            console.error("PortalItemLoader: ServiceToWizardAdder not available. Layer count not be added to map. Please add sdi_loadservice to app.");
+            console.error("PortalItemLoader: ServiceToWizardAdder not available. Layer could not be added to map. Please add sdi_loadservice to app.");
             this._logService.warn(this.i18n.errors.noMapappsSDI);
         }
     }
