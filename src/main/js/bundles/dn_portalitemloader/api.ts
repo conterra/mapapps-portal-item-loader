@@ -71,3 +71,8 @@ export interface VisibleElements {
     views: boolean,
     modified: boolean
 }
+
+export interface TypeFilter {
+    id: string,
+    title: string
+}

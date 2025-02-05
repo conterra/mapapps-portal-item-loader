@@ -15,7 +15,7 @@
 ///
 
 import { Mutable, properties } from "apprt-core/Mutable";
-import { Layout, Pagination, PortalItem, PortalType, SortByField, SpaceFilter, VisibleElements } from "./api";
+import { Layout, Pagination, PortalItem, PortalType, SortByField, SpaceFilter, VisibleElements, TypeFilter } from "./api";
 
 function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P): Impl & Mutable<P> {
     properties(mutableDefinition, mutableProperties);
@@ -40,9 +40,9 @@ interface PortalItemLoaderModelProps {
     spaceFilters: any[],
     spaceFiltersPortal: any[],
     typeFilter: string,
-    typeFilters: any[],
-    typeFiltersPortal: any[],
-    typeFiltersCSW: any[],
+    typeFilters: TypeFilter[],
+    typeFiltersPortal: TypeFilter[],
+    typeFiltersCSW: TypeFilter[],
     sortAscending: boolean,
     sortByField: SortByField,
     sortByFields: any[],

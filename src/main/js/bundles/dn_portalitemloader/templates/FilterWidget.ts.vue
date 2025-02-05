@@ -159,24 +159,24 @@
         </v-toolbar>
     </div>
 </template>
-<script>
-    import { PortalType, SpaceFilter, VisibleElements } from "../api";
+<script lang="ts">
+    import type { Portal, PortalType, SpaceFilter, VisibleElements, Layout, TypeFilter } from "../api";
 
     export default {
         props: {
             i18n: {
                 type: Object,
-                default: () => {
+                default: (): any => {
                     return {};
                 }
             },
             layout: {
-                type: String,
-                default: ""
+                type: String as () => Layout,
+                default: "grid"
             },
             portals: {
                 type: Array,
-                default: () => []
+                default: (): Array<Portal> => []
             },
             authenticated: {
                 type: Boolean,
@@ -191,24 +191,24 @@
                 default: ""
             },
             selectedPortalType: {
-                type: PortalType,
+                type: String as () => PortalType,
                 default: ""
             },
             spaceFilter: {
-                type: SpaceFilter,
+                type: String as () => SpaceFilter,
                 default: "all"
             },
             spaceFilters: {
                 type: Array,
-                default: () => []
+                default: (): Array<SpaceFilter> => []
             },
             typeFilter: {
                 type: String,
-                default: () => ""
+                default: (): string => ""
             },
             typeFilters: {
                 type: Array,
-                default: () => []
+                default: (): Array<TypeFilter> => []
             },
             sortAscending: {
                 type: Boolean,
@@ -220,15 +220,15 @@
             },
             sortByFields: {
                 type: Array,
-                default: () => []
+                default: (): Array<string> => []
             },
             isMobile: {
                 type: Boolean,
                 default: false
             },
             visibleElements: {
-                type: VisibleElements,
-                default: () => {
+                type: Object as () => VisibleElements,
+                default: (): VisibleElements => {
                     return {
                         sortBy: true,
                         typeFilter: true,
@@ -241,90 +241,90 @@
                 }
             }
         },
-        data() {
+        data(): any {
             return {
                 filterVisible: false
             };
         },
         computed: {
-            allTypesSelected() {
+            allTypesSelected(): boolean {
                 return this.typeFilter.length === this.typeFilters.length;
             },
-            filterText() {
+            filterText(): string {
                 if(this.filterVisible) {
                     return this.i18n.hideFilters;
                 } else {
                     return this.i18n.showFilters;
                 }
             },
-            filterAvailable() {
+            filterAvailable(): boolean {
                 return this.authenticated ||
                     (this.typeFilters.length && this.visibleElements.typeFilter) || this.visibleElements.sortBy;
             },
             localLayout: {
-                get: function () {
+                get: function (): Layout {
                     return this.layout;
                 },
-                set: function (layout) {
+                set: function (layout: Layout): void {
                     this.$emit("update:layout", layout);
                 }
             },
             localSearchText: {
-                get: function () {
+                get: function (): string {
                     return this.searchText;
                 },
-                set: function (searchText) {
+                set: function (searchText: string): void {
                     this.$emit("update:search-text", searchText);
                 }
             },
             localPortalFilter: {
-                get: function () {
+                get: function (): string {
                     return this.portalFilter;
                 },
-                set: function (portalFilter) {
+                set: function (portalFilter: string): void {
                     this.$emit("update:portal-filter", portalFilter);
                 }
             },
             localSortByField: {
-                get: function () {
+                get: function (): string {
                     return this.sortByField;
                 },
-                set: function (sortByField) {
+                set: function (sortByField: string): void {
                     this.$emit("update:sort-by-field", sortByField);
                 }
             },
             localSortAscending: {
-                get: function () {
+                get: function (): boolean {
                     return this.sortAscending;
                 },
-                set: function (sortAscending) {
+                set: function (sortAscending: boolean): void {
                     this.$emit("update:sort-ascending", sortAscending);
                 }
             },
             localSpaceFilter: {
-                get: function () {
+                get: function (): SpaceFilter {
                     return this.spaceFilter;
                 },
-                set: function (spaceFilter) {
+                set: function (spaceFilter: SpaceFilter): void {
                     this.$emit("update:space-filter", spaceFilter);
                 }
             },
             localTypeFilter: {
-                get: function () {
+                get: function (): string {
                     return this.typeFilter;
                 },
-                set: function (typeFilter) {
+                set: function (typeFilter: string): void {
                     this.$emit("update:type-filter", typeFilter);
                 }
             }
         },
         methods: {
-            toggle () {
+            toggle(): void {
                 this.$nextTick(() => {
                     if (this.allTypesSelected) {
                         this.localTypeFilter = [];
                     } else {
-                        this.localTypeFilter = this.typeFilters.map((type)=>type.id);
+                        this.localTypeFilter = this.typeFilters.map((type: TypeFilter) => type.id);
                     }
                 });
             }

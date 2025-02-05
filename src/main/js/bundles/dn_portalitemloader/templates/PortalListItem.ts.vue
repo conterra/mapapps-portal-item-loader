@@ -78,7 +78,7 @@
         </div>
     </v-card>
 </template>
-<script>
+<script lang="ts">
     import moment from 'moment';
     import * as intl from "esri/intl";
     import { PortalItem, VisibleElements } from "../api";
@@ -87,19 +87,35 @@
         props: {
             i18n: {
                 type: Object,
-                default: () => {
+                default: (): any => {
                     return {};
                 }
             },
             item: {
-                type: PortalItem,
-                default: () => {
-                    return {};
+                type: Object as () => PortalItem,
+                default: (): PortalItem => {
+                    return {
+                        id: '',
+                        title: '',
+                        snippet: '',
+                        description: '',
+                        thumbnailUrl: '',
+                        tags: [],
+                        owner: '',
+                        numViews: 0,
+                        created: new Date(),
+                        modified: new Date(),
+                        type: '',
+                        url: '',
+                        itemPageUrl: '',
+                        portalUrl: '',
+                        source: "portal"
+                    };
                 }
             },
             visibleElements: {
-                type: VisibleElements,
-                default: () => {
+                type: Object as () => VisibleElements,
+                default: (): VisibleElements => {
                     return {
                         sortBy: true,
                         typeFilter: true,
@@ -113,7 +129,7 @@
             }
         },
         computed: {
-            modified() {
+            modified(): string | undefined {
                 const modified = moment(this.item.modified);
                 if(modified.isValid()) {
                     return moment(modified).format("DD.MM.YYYY");
@@ -121,7 +137,7 @@
                     return undefined;
                 }
             },
-            views() {
+            views(): string {
                 const numberFormatIntlOptions = intl.convertNumberFormatToIntlOptions({
                     digitSeparator: true
                 });

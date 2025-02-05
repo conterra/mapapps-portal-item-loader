@@ -111,16 +111,16 @@
         </v-data-iterator>
     </div>
 </template>
-<script>
+<script lang="ts">
     import Bindable from "apprt-vue/mixins/Bindable";
-    import PortalItem from "./PortalItem.vue";
+    import PortalItemVue from "./PortalItem.vue";
     import PortalListItem from "./PortalListItem.vue";
     import FilterWidget from "./FilterWidget.vue";
-    import { PortalType, VisibleElements, Pagination, Layout } from "../api";
+    import { Portal, PortalItem, PortalType, SpaceFilter, TypeFilter, VisibleElements, Pagination, Layout } from "../api";
 
     export default {
         components: {
-            "portal-item": PortalItem,
+            "portal-item": PortalItemVue,
             "portal-list-item": PortalListItem,
             "filter-widget": FilterWidget
         },
@@ -133,16 +133,16 @@
                 }
             },
             layout: {
-                type: Layout,
+                type: String as () => Layout,
                 default: "grid"
             },
             portalItems: {
                 type: Array,
-                default: () => []
+                default: (): Array<PortalItem> => []
             },
             portals: {
                 type: Array,
-                default: () => []
+                default: (): Array<Portal> => []
             },
             authenticated: {
                 type: Boolean,
@@ -158,15 +158,15 @@
             },
             rowsPerPageItems: {
                 type: Array,
-                default: () => [
+                default: (): Array<number> => [
                     10,
                     50,
                     100
                 ]
             },
             pagination: {
-                type: Pagination,
-                default: () => {
+                type: Object,
+                default: (): Pagination => {
                     return {
                         "rowsPerPage": 10
                     };
@@ -181,24 +181,24 @@
                 default: ""
             },
             selectedPortalType: {
-                type: PortalType,
+                type: String as () => PortalType,
                 default: "portal"
             },
             spaceFilter: {
-                type: String,
+                type: String as () => SpaceFilter,
                 default: "all"
             },
             spaceFilters: {
                 type: Array,
-                default: () => []
+                default: (): Array<SpaceFilter> => []
             },
             typeFilter: {
                 type: String,
-                default: () => ""
+                default: (): string => ""
             },
             typeFilters: {
                 type: Array,
-                default: () => []
+                default: (): Array<TypeFilter> => []
             },
             sortAscending: {
                 type: Boolean,
@@ -210,15 +210,15 @@
             },
             sortByFields: {
                 type: Array,
-                default: () => []
+                default: (): Array<string> => []
             },
             isMobile: {
                 type: Boolean,
                 default: false
             },
             visibleElements: {
-                type: VisibleElements,
-                default: () => {
+                type: Object as () => VisibleElements,
+                default: (): VisibleElements => {
                     return {
                         sortBy: true,
                         typeFilter: true,
@@ -228,39 +228,6 @@
                         views: true,
                         modified: true
                     };
-                }
-            }
-        },
-        watch: {
-            layout(value) {
-                console.warn(value);
-            }
-        },
-        methods: {
-            filterItems: function (items, search) {
-                return items.filter(r => this.customFilter(r, search));
-            },
-            customFilter: function (object, search) {
-                const searchString = search.toLowerCase();
-                let portalFilter = false;
-                let searchFilter = false;
-                if (this.portalFilter.length) {
-                    portalFilter = this.portalFilter.some((portalId)=>{
-                        const portal = this.portals.find((p) => p.id === portalId);
-                        if (portal.url === object?.portal?.url) {
-                            return true;
-                        }
-                    });
-                } else {
-                    portalFilter = true;
-                }
-                if (object.title?.toLowerCase().includes(searchString)) {
-                    searchFilter = true;
-                }
-                if (portalFilter && searchFilter) {
-                    return true;
-                } else {
-                    return false;
                 }
             }
         }
