@@ -88,7 +88,7 @@
                         hide-details
                     />
                     <v-select
-                        v-if="typeFilters.length && showTypeFilter"
+                        v-if="typeFilters.length && visibleElements.typeFilter"
                         v-model="localTypeFilter"
                         class="pb-2"
                         item-value="id"
@@ -99,7 +99,7 @@
                         hide-details
                     />
                     <div
-                        v-if="showSortBy"
+                        v-if="visibleElements.sortBy"
                         class="ct-flex-container"
                     >
                         <div class="ct-flex-item">
@@ -160,6 +160,8 @@
     </div>
 </template>
 <script>
+    import { PortalType, SpaceFilter, VisibleElements } from "../api";
+
     export default {
         props: {
             i18n: {
@@ -189,11 +191,11 @@
                 default: ""
             },
             selectedPortalType: {
-                type: String,
+                type: PortalType,
                 default: ""
             },
             spaceFilter: {
-                type: String,
+                type: SpaceFilter,
                 default: "all"
             },
             spaceFilters: {
@@ -220,17 +222,23 @@
                 type: Array,
                 default: () => []
             },
-            showSortBy: {
-                type: Boolean,
-                default: true
-            },
-            showTypeFilter: {
-                type: Boolean,
-                default: true
-            },
             isMobile: {
                 type: Boolean,
                 default: false
+            },
+            visibleElements: {
+                type: VisibleElements,
+                default: () => {
+                    return {
+                        sortBy: true,
+                        typeFilter: true,
+                        itemThumbnail: true,
+                        serviceType: true,
+                        owner: true,
+                        views: true,
+                        modified: true
+                    };
+                }
             }
         },
         data() {
@@ -250,7 +258,8 @@
                 }
             },
             filterAvailable() {
-                return this.authenticated || (this.typeFilters.length && this.showTypeFilter) || this.showSortBy;
+                return this.authenticated ||
+                    (this.typeFilters.length && this.visibleElements.typeFilter) || this.visibleElements.sortBy;
             },
             localLayout: {
                 get: function () {

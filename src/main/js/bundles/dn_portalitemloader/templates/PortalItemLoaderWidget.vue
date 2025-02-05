@@ -32,9 +32,8 @@
             :type-filter.sync="typeFilter"
             :sort-ascending.sync="sortAscending"
             :sort-by-field.sync="sortByField"
-            :show-sort-by="showSortBy"
-            :show-type-filter="showTypeFilter"
             :is-mobile="isMobile"
+            :visible-elements="visibleElements"
         />
         <v-data-iterator
             v-if="layout==='grid'"
@@ -68,7 +67,7 @@
                 <portal-item
                     :i18n="i18n"
                     :item="props.item"
-                    :show-item-thumbnail="showItemThumbnail"
+                    :visible-elements="visibleElements"
                     @load-item="$emit('load-item', $event)"
                 />
             </template>
@@ -105,7 +104,7 @@
                 <portal-list-item
                     :i18n="i18n"
                     :item="props.item"
-                    :show-item-thumbnail="showItemThumbnail"
+                    :visible-elements="visibleElements"
                     @load-item="$emit('load-item', $event)"
                 />
             </template>
@@ -117,6 +116,7 @@
     import PortalItem from "./PortalItem.vue";
     import PortalListItem from "./PortalListItem.vue";
     import FilterWidget from "./FilterWidget.vue";
+    import { PortalType, VisibleElements, Pagination, Layout } from "../api";
 
     export default {
         components: {
@@ -133,7 +133,7 @@
                 }
             },
             layout: {
-                type: String,
+                type: Layout,
                 default: "grid"
             },
             portalItems: {
@@ -165,7 +165,7 @@
                 ]
             },
             pagination: {
-                type: Object,
+                type: Pagination,
                 default: () => {
                     return {
                         "rowsPerPage": 10
@@ -181,8 +181,8 @@
                 default: ""
             },
             selectedPortalType: {
-                type: String,
-                default: ""
+                type: PortalType,
+                default: "portal"
             },
             spaceFilter: {
                 type: String,
@@ -212,21 +212,23 @@
                 type: Array,
                 default: () => []
             },
-            showSortBy: {
-                type: Boolean,
-                default: true
-            },
-            showTypeFilter: {
-                type: Boolean,
-                default: true
-            },
-            showItemThumbnail: {
-                type: Boolean,
-                default: true
-            },
             isMobile: {
                 type: Boolean,
                 default: false
+            },
+            visibleElements: {
+                type: VisibleElements,
+                default: () => {
+                    return {
+                        sortBy: true,
+                        typeFilter: true,
+                        itemThumbnail: true,
+                        serviceType: true,
+                        owner: true,
+                        views: true,
+                        modified: true
+                    };
+                }
             }
         },
         watch: {

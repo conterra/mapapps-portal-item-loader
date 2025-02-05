@@ -53,9 +53,15 @@
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
                         "type": "csw",
-                        "showSortBy": true,
-                        "showTypeFilter": true,
-                        "showItemThumbnail": true
+                        "visibleElements": {
+                            "sortBy": true,
+                            "typeFilter": true,
+                            "itemThumbnail": true,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
                     },
                     {
                         "id": "gdi_de",
@@ -64,9 +70,15 @@
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
-                        "showSortBy": true,
-                        "showTypeFilter": true,
-                        "showItemThumbnail": false
+                        "visibleElements": {
+                            "sortBy": true,
+                            "typeFilter": true,
+                            "itemThumbnail": false,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
                     },
                     {
                         "id": "metaver",
@@ -75,9 +87,15 @@
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
-                        "showSortBy": false,
-                        "showTypeFilter": false,
-                        "showItemThumbnail": false
+                        "visibleElements": {
+                            "sortBy": false,
+                            "typeFilter": false,
+                            "itemThumbnail": false,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
                     },
                     {
                         "id": "geoportal_nrw",
@@ -85,9 +103,31 @@
                         "url": "https://apps.geoportal.nrw.de/csw/service",
                         "type": "csw",
                         "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
-                        "showSortBy": true,
-                        "showTypeFilter": true,
-                        "showItemThumbnail": false
+                        "visibleElements": {
+                            "sortBy": true,
+                            "typeFilter": true,
+                            "itemThumbnail": false,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
+                    },
+                    {
+                        "id": "geomis_Sachen",
+                        "title": "GeoMIS.Sachsen",
+                        "url": "https://geomis.sachsen.de/geomis-csw/api?SERVICE=CSW",
+                        "itemPageUrl": "https://geomis.sachsen.de/geomis-client/?lang=de#/datasets/iso/{id}",
+                        "type": "csw",
+                        "visibleElements": {
+                            "sortBy": true,
+                            "typeFilter": true,
+                            "itemThumbnail": false,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
                     }
                 ],
                 "layout": "grid",

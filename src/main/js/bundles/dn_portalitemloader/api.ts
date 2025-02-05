@@ -52,9 +52,7 @@ export interface Portal {
     filter: string,
     // only for type csw
     itemPageUrl: string
-    showSortBy: boolean,
-    showTypeFilter: boolean,
-    showItemThumbnail: boolean
+    visibleElements: VisibleElements,
 }
 
 export interface Pagination {
@@ -62,4 +60,14 @@ export interface Pagination {
     page?: number,
     rowsPerPage: number,
     totalItems?: number
+}
+
+export interface VisibleElements {
+    sortBy: boolean,
+    typeFilter: boolean,
+    itemThumbnail: boolean,
+    serviceType: boolean,
+    owner: boolean,
+    views: boolean,
+    modified: boolean
 }

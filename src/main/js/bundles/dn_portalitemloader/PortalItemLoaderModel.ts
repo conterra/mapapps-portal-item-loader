@@ -15,7 +15,7 @@
 ///
 
 import { Mutable, properties } from "apprt-core/Mutable";
-import { Layout, Pagination, PortalItem, PortalType, SortByField, SpaceFilter } from "./api";
+import { Layout, Pagination, PortalItem, PortalType, SortByField, SpaceFilter, VisibleElements } from "./api";
 
 function defineProperties<Impl, P>(mutableDefinition: any, mutableProperties: P): Impl & Mutable<P> {
     properties(mutableDefinition, mutableProperties);
@@ -46,11 +46,9 @@ interface PortalItemLoaderModelProps {
     sortAscending: boolean,
     sortByField: SortByField,
     sortByFields: any[],
-    showSortBy: boolean,
-    showTypeFilter: boolean,
-    showItemThumbnail: boolean,
     isMobile: boolean,
     hideCswContentWithoutService: boolean
+    visibleElements: VisibleElements
 }
 
 export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
@@ -81,9 +79,15 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
     sortAscending: false,
     sortByField: "modified",
     sortByFields: [],
-    showSortBy: true,
-    showTypeFilter: true,
-    showItemThumbnail: true,
     isMobile: false,
-    hideCswContentWithoutService: true
+    hideCswContentWithoutService: true,
+    visibleElements: {
+        sortBy: true,
+        typeFilter: true,
+        itemThumbnail: true,
+        serviceType: true,
+        owner: true,
+        views: true,
+        modified: true
+    }
 });

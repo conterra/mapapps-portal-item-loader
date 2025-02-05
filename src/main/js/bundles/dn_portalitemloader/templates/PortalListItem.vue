@@ -81,6 +81,7 @@
 <script>
     import moment from 'moment';
     import * as intl from "esri/intl";
+    import { PortalItem, VisibleElements } from "../api";
 
     export default {
         props: {
@@ -91,7 +92,7 @@
                 }
             },
             item: {
-                type: Object,
+                type: PortalItem,
                 default: () => {
                     return {};
                 }
@@ -99,6 +100,20 @@
             showItemThumbnail: {
                 type: Boolean,
                 default: true
+            },
+            visibleElements: {
+                type: VisibleElements,
+                default: () => {
+                    return {
+                        sortBy: true,
+                        typeFilter: true,
+                        itemThumbnail: true,
+                        serviceType: true,
+                        owner: true,
+                        views: true,
+                        modified: true
+                    };
+                }
             }
         },
         computed: {

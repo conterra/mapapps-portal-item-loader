@@ -17,10 +17,10 @@
 -->
 <template>
     <v-card
-        :class="{ 'no-item-thumbnail': !showItemThumbnail, 'ct-portal-item-loader-widget__portal-item-card': true }"
+        :class="{ 'no-item-thumbnail': !visibleElements.itemThumbnail, 'ct-portal-item-loader-widget__portal-item-card': true }"
     >
         <div
-            v-if="showItemThumbnail"
+            v-if="visibleElements.itemThumbnail"
             class="ct-portal-item-loader-widget__portal-item-card-image"
         >
             <v-img
@@ -51,7 +51,7 @@
         >
             <v-list dense>
                 <v-list-tile
-                    v-if="item.type"
+                    v-if="item.type && visibleElements.serviceType"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -71,7 +71,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
-                    v-if="item.owner"
+                    v-if="item.owner && visibleElements.owner"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -91,7 +91,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
-                    v-if="views !== 'NaN'"
+                    v-if="views !== 'NaN' && visibleElements.views"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -111,7 +111,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
-                    v-if="modified"
+                    v-if="modified && visibleElements.modified"
                     avatar
                 >
                     <v-list-tile-avatar>
@@ -167,6 +167,7 @@
 <script>
     import moment from 'moment';
     import * as intl from "esri/intl";
+    import { PortalItem, VisibleElements } from "../api";
 
     export default {
         props: {
@@ -177,14 +178,24 @@
                 }
             },
             item: {
-                type: Object,
+                type: PortalItem,
                 default: () => {
                     return {};
                 }
             },
-            showItemThumbnail: {
-                type: Boolean,
-                default: true
+            visibleElements: {
+                type: VisibleElements,
+                default: () => {
+                    return {
+                        sortBy: true,
+                        typeFilter: true,
+                        itemThumbnail: true,
+                        serviceType: true,
+                        owner: true,
+                        views: true,
+                        modified: true
+                    };
+                }
             }
         },
         computed: {

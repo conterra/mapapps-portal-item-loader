@@ -261,7 +261,16 @@
                 ],
                 "rootId": "my_services",
                 "rootTitle": "${ui.myServicesTitle}",
-                "hideCswContentWithoutService": false
+                "hideCswContentWithoutService": false,
+                "visibleElements": {
+                    "sortBy": true,
+                    "typeFilter": true,
+                    "itemThumbnail": true,
+                    "serviceType": true,
+                    "owner": true,
+                    "views": true,
+                    "modified": true
+                }
             }
         },
         {

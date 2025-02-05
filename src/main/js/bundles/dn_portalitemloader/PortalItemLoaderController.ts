@@ -21,7 +21,7 @@ import PortalItemLoaderModel from "./PortalItemLoaderModel";
 import GroupLayer from "esri/layers/GroupLayer";
 import { apprtFetch } from "apprt-fetch";
 import * as intl from "esri/intl";
-import { Pagination, SortByField, SpaceFilter, PortalItem } from "./api";
+import { Pagination, SortByField, SpaceFilter, PortalItem, VisibleElements } from "./api";
 
 export default class PortalItemLoaderWidgetController {
 
@@ -32,6 +32,7 @@ export default class PortalItemLoaderWidgetController {
     private readonly _addLayerService: any;
     private readonly _serviceToWizardAdder: any;
     private readonly _componentContext: any;
+    private defaultVisibleElements!: VisibleElements;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
@@ -40,6 +41,7 @@ export default class PortalItemLoaderWidgetController {
     activate(): void {
         this.i18n = this._i18n.get().ui;
         const model = this._portalItemLoaderModel;
+        this.defaultVisibleElements = model.visibleElements;
         model.portalFilter = model.portals[0].id;
         model.isMobile = this.isMobile();
         this.changeSelectedPortal(model.portalFilter);
@@ -128,21 +130,22 @@ export default class PortalItemLoaderWidgetController {
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
         model.selectedPortalType = selectedPortal.type;
-        if (selectedPortal.showSortBy === false) {
-            model.showSortBy = false;
+        if (selectedPortal.visibleElements) {
+            model.visibleElements = JSON.parse(JSON.stringify(selectedPortal.visibleElements));
         } else {
-            model.showSortBy = true;
+            model.visibleElements = this.defaultVisibleElements;
         }
-        if (selectedPortal.showTypeFilter === false) {
-            model.showTypeFilter = false;
-        } else {
-            model.showTypeFilter = true;
+        // fallback for old properties
+        if (selectedPortal.showSortBy !== undefined) {
+            model.visibleElements.sortBy = selectedPortal.showSortBy;
         }
-        if (selectedPortal.showItemThumbnail === false) {
-            model.showItemThumbnail = false;
-        } else {
-            model.showItemThumbnail = true;
+        if (selectedPortal.showTypeFilter !== undefined) {
+            model.visibleElements.typeFilter = selectedPortal.showTypeFilter;
         }
+        if (selectedPortal.showItemThumbnail !== undefined) {
+            model.visibleElements.itemThumbnail = selectedPortal.showItemThumbnail;
+        }
+        // end of fallback
         if (selectedPortal.type === "portal") {
             portal = this.portal = new Portal({ url: selectedPortal.url, authMode: selectedPortal.authMode || "auto" });
             portal.load().then(() => {
@@ -317,7 +320,7 @@ export default class PortalItemLoaderWidgetController {
         const rowsPerPage = pagination.rowsPerPage;
 
         let sortBy;
-        if (selectedPortal.showSortBy) {
+        if (selectedPortal.showSortBy || selectedPortal.visibleElements.sortBy) {
             sortBy = this.getCSWSortBy(sortAscending, sortByField);
         }
 

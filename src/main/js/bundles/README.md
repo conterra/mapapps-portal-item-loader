@@ -36,27 +36,31 @@ Sample
                 "type": "csw",
                 "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                 "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
-                "showSortBy": true,
-                "showTypeFilter": true,
-                "showItemThumbnail": false
+                "visibleElements": {
+                    "sortBy": true,
+                    "typeFilter": true,
+                    "itemThumbnail": false,
+                    "serviceType": true,
+                    "owner": true,
+                    "views": true,
+                    "modified": true
+                }
             }
         ]
     }
 }
 ```
 
-| Property          | Type           | Possible Values                                                                 | Default    | Description                                                                          |
-| ----------------- | -------------- | ------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| id                | String         |                                                                                 |            | The unique identifier of the portal.                                                 |
-| title             | String         |                                                                                 |            | The title of the portal.                                                             |
-| url               | String         |                                                                                 |            | The URL of the portal.                                                               |
-| type              | PortalType     | ```portal```  &#124; ```csw```                                                  |            | The type of the portal.                                                              |
-| filter            | PortalAuthMode |                                                                                 |            | The predefined filter of the portal.                                                 |
-| authMode          | PortalAuthMode | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |            | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
-| itemPageUrl       | String         |                                                                                 |            | The URL of the item page. Only applicable for portals of type 'csw'.                 |
-| showSortBy        | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show the sort by option.                                        |
-| showTypeFilter    | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show the type filter.                                           |
-| showItemThumbnail | Boolean        | ```true```  &#124; ```false```                                                  | ```true``` | Indicates whether to show item thumbnails.                                           |
+| Property        | Type            | Possible Values                                                                 | Default | Description                                                                          |
+| --------------- | --------------- | ------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| id              | String          |                                                                                 |         | The unique identifier of the portal.                                                 |
+| title           | String          |                                                                                 |         | The title of the portal.                                                             |
+| url             | String          |                                                                                 |         | The URL of the portal.                                                               |
+| type            | PortalType      | ```portal```  &#124; ```csw```                                                  |         | The type of the portal.                                                              |
+| filter          | PortalAuthMode  |                                                                                 |         | The predefined filter of the portal.                                                 |
+| authMode        | PortalAuthMode  | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |         | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
+| itemPageUrl     | String          |                                                                                 |         | The URL of the item page. Only applicable for portals of type 'csw'.                 |
+| visibleElements | VisibleElements |                                                                                 |         | Configuration to hide elements in ui                                                 |
 
 ### Configurable Components of dn_portalitemloader:
 
@@ -81,9 +85,15 @@ Sample
                 "type": "csw",
                 "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
                 "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
-                "showSortBy": true,
-                "showTypeFilter": true,
-                "showItemThumbnail": false
+                "visibleElements": {
+                    "sortBy": true,
+                    "typeFilter": true,
+                    "itemThumbnail": false,
+                    "serviceType": true,
+                    "owner": true,
+                    "views": true,
+                    "modified": true
+                }
             }
         ],
         "layout": "grid",
@@ -94,19 +104,36 @@ Sample
         ],
         "pagination": {
             "rowsPerPage": 25
+        },
+        "visibleElements": {
+            "sortBy": true,
+            "typeFilter": true,
+            "itemThumbnail": true,
+            "serviceType": true,
+            "owner": true,
+            "views": true,
+            "modified": true
         }
     }
 }
+
 ```
-| Property         | Type   | Possible Values | Default                                   | Description                                                                          |
-| ---------------- | ------ | --------------- | ----------------------------------------- | ------------------------------------------------------------------------------------ |
-| portals          | Object |                 |                                           | A list of portals available for selection.                                           |
-| layout           | String |                 | ```grid``` &#124; ```list```              | Set default layout.                                                                  |
-| rowsPerPageItems | Array  |                 | ```25``` &#124; ```50``` &#124; ```100``` | An array of possible values for the number of rows displayed per page.               |
-| pagination       | Object |                 | "rowsPerPage": ```25```                   | Configuration object for pagination, specifying the default number of rows per page. |
+| Property         | Type            | Possible Values | Default                                   | Description                                                                          |
+| ---------------- | --------------- | --------------- | ----------------------------------------- | ------------------------------------------------------------------------------------ |
+| portals          | Object          |                 |                                           | A list of portals available for selection.                                           |
+| layout           | String          |                 | ```grid``` &#124; ```list```              | Set default layout.                                                                  |
+| rowsPerPageItems | Array           |                 | ```25``` &#124; ```50``` &#124; ```100``` | An array of possible values for the number of rows displayed per page.               |
+| pagination       | Object          |                 | "rowsPerPage": ```25```                   | Configuration object for pagination, specifying the default number of rows per page. |
+| visibleElements  | VisibleElements |                 |                                           | Configuration to hide elements in ui                                                 |
 
+#### visibleElements
 
-
-
-
-
+| Property      | Type    | Possible Values                | Default    | Description                                   |
+| ------------- | ------- | ------------------------------ | ---------- | --------------------------------------------- |
+| sortBy        | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show the sort by option. |
+| typeFilter    | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show the type filter.    |
+| itemThumbnail | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item thumbnails.    |
+| serviceType   | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item serviceType.   |
+| owner         | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item owner.         |
+| views         | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item views.         |
+| modified      | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item modified.      |
