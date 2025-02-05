@@ -51,16 +51,17 @@ Sample
 }
 ```
 
-| Property        | Type            | Possible Values                                                                 | Default | Description                                                                          |
-| --------------- | --------------- | ------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| id              | String          |                                                                                 |         | The unique identifier of the portal.                                                 |
-| title           | String          |                                                                                 |         | The title of the portal.                                                             |
-| url             | String          |                                                                                 |         | The URL of the portal.                                                               |
-| type            | PortalType      | ```portal```  &#124; ```csw```                                                  |         | The type of the portal.                                                              |
-| filter          | PortalAuthMode  |                                                                                 |         | The predefined filter of the portal.                                                 |
-| authMode        | PortalAuthMode  | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |         | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
-| itemPageUrl     | String          |                                                                                 |         | The URL of the item page. Only applicable for portals of type 'csw'.                 |
-| visibleElements | VisibleElements |                                                                                 |         | Configuration to hide elements in ui                                                 |
+| Property                               | Type            | Possible Values                                                                 | Default    | Description                                                                          |
+| -------------------------------------- | --------------- | ------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| id                                     | String          |                                                                                 |            | The unique identifier of the portal.                                                 |
+| title                                  | String          |                                                                                 |            | The title of the portal.                                                             |
+| url                                    | String          |                                                                                 |            | The URL of the portal.                                                               |
+| type                                   | PortalType      | ```portal```  &#124; ```csw```                                                  |            | The type of the portal.                                                              |
+| filter                                 | PortalAuthMode  |                                                                                 |            | The predefined filter of the portal.                                                 |
+| authMode                               | PortalAuthMode  | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |            | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
+| itemPageUrl                            | String          |                                                                                 |            | The URL of the item page. Only applicable for portals of type 'csw'.                 |
+| visibleElements                        | VisibleElements |                                                                                 |            | Configuration to hide elements in ui                                                 |
+| useMapAppsSdiWizardAdderForPortalItems | Boolean         | ```true```  &#124; ```false```                                                  | ```true``` | Use map.apps SDI WizardAdder for Esri Portal Items                                   |
 
 ### Configurable Components of dn_portalitemloader:
 

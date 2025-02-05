@@ -284,7 +284,7 @@ export default class PortalItemLoaderWidgetController {
                 console.error(error);
             }
         }
-        if (this._serviceToWizardAdder) {
+        if (this._serviceToWizardAdder && model.useMapAppsSdiWizardAdderForPortalItems) {
             this._serviceToWizardAdder.addService(item.url);
         } else if (layer) {
             root = map.findLayerById(model.rootId) as __esri.GroupLayer;
