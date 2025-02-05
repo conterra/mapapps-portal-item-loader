@@ -26,19 +26,19 @@ export type Layout = "grid" | "list";
 
 export interface PortalItem {
     id: string,
-    title: string,
-    snippet: string,
-    description: string,
-    thumbnailUrl: string,
-    tags: string[],
-    owner: string,
-    numViews: number,
-    created: Date,
-    modified: Date,
-    type: string,
-    url: string,
-    itemPageUrl: string,
-    portalUrl: string,
+    title?: string | undefined,
+    snippet?: string | undefined,
+    description?: string | undefined,
+    thumbnailUrl?: string | undefined,
+    tags?: string[],
+    owner?: string | undefined,
+    numViews?: number | undefined,
+    created?: Date | undefined,
+    modified?: Date | undefined,
+    type?: string | undefined,
+    url?: string | undefined,
+    itemPageUrl?: string | undefined,
+    portalUrl?: string | undefined,
     source: PortalType
 }
 

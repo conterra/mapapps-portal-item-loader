@@ -476,7 +476,7 @@ export default class PortalItemLoaderWidgetController {
                     itemPageUrl = intl.substitute(selectedPortal.itemPageUrl, { id: id });
                 }
                 portalItems.push({
-                    id: id,
+                    id: id!,
                     title: this.getCswItemAttribute(cswItem, "dc:title"),
                     snippet: this.getCswItemAttribute(cswItem, "dct:abstract") || this.getCswItemAttribute(cswItem, "dc:description"),
                     description: this.getCswItemAttribute(cswItem, "dc:description"),
