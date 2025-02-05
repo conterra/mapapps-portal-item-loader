@@ -320,6 +320,51 @@ export default class PortalItemLoaderWidgetController {
         if (selectedPortal.showSortBy) {
             sortBy = this.getCSWSortBy(sortAscending, sortByField);
         }
+        const constraint = this.getCSWFilter(searchText, typeFilter, selectedPortal);
+
+        const textResult = await this.getCSWRecords(url, page, rowsPerPage, sortBy, constraint);
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(textResult, "text/xml");
+        const exeptionElement = xmlDoc.getElementsByTagName("ExceptionText");
+        if (exeptionElement.length) {
+            const errorText = exeptionElement[0].innerHTML;
+            console.error(errorText);
+            this._logService.warn(errorText);
+            return {
+                total: 0,
+                results: []
+            };
+        }
+        const searchResults = xmlDoc.getElementsByTagName("csw:SearchResults")[0];
+        const total = parseInt(searchResults.getAttribute("numberOfRecordsMatched")!);
+        const resultsHtmlCollection = searchResults.children;
+        const results = Array.from(resultsHtmlCollection);
+        const resultIds = results.map((result: any) => this.getCswItemAttribute(result, "dc:identifier")!);
+        const promises = resultIds.map((id: string) => this.getCSWRecordById(url, id));
+        const records = await Promise.all(promises).then((results) => {
+            const records: any[] = [];
+            results.forEach((result: string) => {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(result, "text/xml");
+                const exeptionElement = xmlDoc.getElementsByTagName("ExceptionText");
+                if (exeptionElement.length) {
+                    const errorText = exeptionElement[0].innerHTML;
+                    console.error(errorText);
+                    this._logService.warn(errorText);
+                    return;
+                }
+                records.push(xmlDoc.getElementsByTagName("csw:Record")[0]);
+            });
+            return records;
+        });
+        return {
+            total: total,
+            results: records
+        };
+    }
+
+    private async getCSWRecords(url: string, page: number, rowsPerPage: number,
+        sortBy: string | undefined, constraint: string): Promise<any> {
 
         const response = await apprtFetch(url, {
             method: "GET",
@@ -337,33 +382,32 @@ export default class PortalItemLoaderWidgetController {
                 elementSetName: "full",
                 CONSTRAINTLANGUAGE: "FILTER",
                 CONSTRAINT_LANGUAGE_VERSION: "1.1.0",
-                Constraint: this.getCSWFilter(searchText, typeFilter, selectedPortal)
+                Constraint: constraint
             }
         });
         if (!response.ok) {
             throw new Error("Request failed");
         }
-        const text = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(text, "text/xml");
-        const exeptionElement = xmlDoc.getElementsByTagName("ExceptionText");
-        if (exeptionElement.length) {
-            const errorText = exeptionElement[0].innerHTML;
-            console.error(errorText);
-            this._logService.warn(errorText);
-            return {
-                total: 0,
-                results: []
-            };
+        return response.text();
+    }
+
+    private async getCSWRecordById(url: string, id: string): Promise<string> {
+        const response = await apprtFetch(url, {
+            method: "GET",
+            query: {
+                service: "CSW",
+                version: "2.0.2",
+                request: "GetRecordById",
+                elementSetName: "full",
+                id: id,
+                outputFormat: "application/xml",
+                outputSchema: "http://www.opengis.net/cat/csw/2.0.2"
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Request failed");
         }
-        const searchResults = xmlDoc.getElementsByTagName("csw:SearchResults")[0];
-        const total = parseInt(searchResults.getAttribute("numberOfRecordsMatched")!);
-        const resultsHtmlCollection = searchResults.children;
-        const results = Array.from(resultsHtmlCollection);
-        return {
-            total: total,
-            results: results
-        };
+        return response.text();
     }
 
     private getCSWSortBy(sortAscending: boolean, sortByField: string) {
