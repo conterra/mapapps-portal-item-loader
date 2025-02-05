@@ -62,6 +62,7 @@ module.exports = {
             lastUpdate: "Last update",
             noService: "No Service",
             addedToMap: "was added to map",
+            linkActionTitle: "Show in Portal",
             errors: {
                 noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
             }

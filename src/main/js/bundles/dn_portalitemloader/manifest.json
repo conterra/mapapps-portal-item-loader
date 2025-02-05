@@ -343,6 +343,10 @@
                     "providing": "dn_portalitemloader.Widget"
                 }
             ]
+        },
+        {
+            "name": "PortalItemLinkActionDefinitionFactory",
+            "provides": "toc.ActionDefinitionFactory"
         }
     ]
 }

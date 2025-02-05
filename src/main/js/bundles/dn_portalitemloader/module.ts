@@ -17,4 +17,5 @@
 import ".";
 import "./PortalItemLoaderWidgetFactory";
 import "./PortalItemLoaderModel";
+import "./PortalItemLinkActionDefinitionFactory";
 import "ct/tools/Tool";

@@ -138,3 +138,31 @@ Sample
 | owner         | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item owner.         |
 | views         | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item views.         |
 | modified      | Boolean | ```true```  &#124; ```false``` | ```true``` | Indicates whether to show item modified.      |
+
+This bundle provides a toc action that allows to open the portal item page. Too add this action to the toc add the *portal-item-link* action to available toc actions in the toc bundle:
+
+```
+"toc": {
+    "Config": {
+        "actions": [
+            "portal-item-link",
+            "zoom-to-extent",
+            "activate-children",
+            "deactivate-children",
+            "change-opacity",
+            "show-description",
+            "show-copyright"
+        ]
+    }
+}
+```
+
+Otherwise you can simply use all available actions:
+
+```
+"toc": {
+    "Config": {
+        "actions":  ["*"]
+    }
+}
+```
