@@ -113,9 +113,9 @@
 </template>
 <script lang="ts">
     import Bindable from "apprt-vue/mixins/Bindable";
-    import PortalItemVue from "./PortalItem.vue";
-    import PortalListItem from "./PortalListItem.vue";
-    import FilterWidget from "./FilterWidget.vue";
+    import PortalItemVue from "./PortalItem.ts.vue";
+    import PortalListItem from "./PortalListItem.ts.vue";
+    import FilterWidget from "./FilterWidget.ts.vue";
     import { Portal, PortalItem, PortalType, SpaceFilter, TypeFilter, VisibleElements, Pagination, Layout } from "../api";
 
     export default {
@@ -128,7 +128,7 @@
         props: {
             i18n: {
                 type: Object,
-                default: () => {
+                default: (): Object => {
                     return {};
                 }
             },

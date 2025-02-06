@@ -20,7 +20,7 @@ import VueDijit from "apprt-vue/VueDijit";
 import Binding from "apprt-binding/Binding";
 import PortalItemLoaderController from "./PortalItemLoaderController";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
-import PortalItemLoaderWidget from "./templates/PortalItemLoaderWidget.vue";
+import PortalItemLoaderWidget from "./templates/PortalItemLoaderWidget.ts.vue";
 
 export default class PortalItemLoaderWidgetFactory {
 
