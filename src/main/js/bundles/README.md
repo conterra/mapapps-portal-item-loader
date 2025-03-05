@@ -61,7 +61,7 @@ Sample
 | authMode                               | PortalAuthMode  | ```auto``` &#124; ```anonymous``` &#124; ```immediate``` &#124; ```no-prompt``` |            | The authentication mode of the portal. Only applicable for portals of type 'portal'. |
 | itemPageUrl                            | String          |                                                                                 |            | The URL of the item page. Only applicable for portals of type 'csw'.                 |
 | visibleElements                        | VisibleElements |                                                                                 |            | Configuration to hide elements in ui                                                 |
-| useMapAppsSdiWizardAdderForPortalItems | Boolean         | ```true```  &#124; ```false```                                                  | ```true``` | Use map.apps SDI WizardAdder for Esri Portal Items                                   |
+| useMapAppsSdiWizardAdderForPortalItems | Boolean         | ```true```  &#124; ```false```                                                  | ```false``` | Use map.apps SDI WizardAdder for Esri Portal Items                                   |
 
 ### Configurable Components of dn_portalitemloader:
 

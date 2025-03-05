@@ -139,7 +139,7 @@
                 "pagination": {
                     "rowsPerPage": 25
                 },
-                "hideCswContentWithoutService": false
+                "useMapAppsSdiWizardAdderForPortalItems": true
             }
         },
         "banner": {

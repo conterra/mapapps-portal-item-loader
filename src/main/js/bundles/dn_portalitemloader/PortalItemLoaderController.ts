@@ -287,7 +287,7 @@ export default class PortalItemLoaderWidgetController {
                 console.error(error);
             }
         }
-        if (this._serviceToWizardAdder && model.useMapAppsSdiWizardAdderForPortalItems) {
+        if (this._serviceToWizardAdder && ((model.useMapAppsSdiWizardAdderForPortalItems && item.source === "portal") || item.source === "csw")) {
             this._serviceToWizardAdder.addService(item.url);
         } else if (layer) {
             root = map.findLayerById(model.rootId) as __esri.GroupLayer;

@@ -271,7 +271,7 @@
                     "views": true,
                     "modified": true
                 },
-                "useMapAppsSdiWizardAdderForPortalItems": true
+                "useMapAppsSdiWizardAdderForPortalItems": false
             }
         },
         {
