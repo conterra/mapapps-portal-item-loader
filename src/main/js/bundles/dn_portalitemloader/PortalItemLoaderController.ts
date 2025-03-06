@@ -296,6 +296,7 @@ export default class PortalItemLoaderWidgetController {
                     id: model.rootId,
                     title: model.rootTitle || model.rootId
                 });
+                root.isLoadServiceRoot = true;
             }
             map.add(root);
             root.add(layer);
