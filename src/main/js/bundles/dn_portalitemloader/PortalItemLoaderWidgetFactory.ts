@@ -26,7 +26,7 @@ export default class PortalItemLoaderWidgetFactory {
 
     private readonly _i18n!: InjectedReference<any>;
     private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
-    private readonly _controller!: PortalItemLoaderController;
+    private readonly _controller!: InjectedReference<PortalItemLoaderController>;
     private vm!: Vue;
     private binding!: Binding | undefined;
 

@@ -14,6 +14,7 @@
 /// limitations under the License.
 ///
 
+import { InjectedReference } from "apprt-core/InjectedReference";
 import Portal from "esri/portal/Portal";
 import Layer from "esri/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
@@ -26,15 +27,15 @@ import async from "apprt-core/async";
 
 export default class PortalItemLoaderWidgetController {
 
-    private readonly _i18n!: any;
-    private readonly _mapWidgetModel!: MapWidgetModel;
-    private readonly _portalItemLoaderModel!: typeof PortalItemLoaderModel;
-    private readonly _logService: any;
-    private readonly _addLayerService: any;
-    private readonly _serviceToWizardAdder: any;
-    private readonly _componentContext: any;
-    private readonly _tocToggleTool: any;
-    private readonly _tocWidget: any;
+    private readonly _i18n!: InjectedReference<any>;
+    private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
+    private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private readonly _logService: InjectedReference<any>;
+    private readonly _addLayerService: InjectedReference<any>;
+    private readonly _serviceToWizardAdder: InjectedReference<any>;
+    private readonly _componentContext: InjectedReference<any>;
+    private readonly _tocToggleTool: InjectedReference<any>;
+    private readonly _tocWidget: InjectedReference<any>;
     private defaultVisibleElements!: VisibleElements;
     private lastTimeout: any;
     private abortController: AbortController | undefined;
