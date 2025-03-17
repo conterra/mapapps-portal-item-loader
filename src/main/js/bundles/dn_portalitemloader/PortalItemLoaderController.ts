@@ -26,7 +26,7 @@ import async from "apprt-core/async";
 
 export default class PortalItemLoaderWidgetController {
 
-    private readonly _i18n!: MapWidgetModel;
+    private readonly _i18n!: any;
     private readonly _mapWidgetModel!: MapWidgetModel;
     private readonly _portalItemLoaderModel!: typeof PortalItemLoaderModel;
     private readonly _logService: any;
