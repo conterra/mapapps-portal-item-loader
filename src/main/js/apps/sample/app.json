@@ -49,13 +49,6 @@
                         "type": "portal"
                     },
                     {
-                        "id": "ct_portal",
-                        "title": "Portal",
-                        "url": "https://dev0311w.conterra.de/portal",
-                        "authMode": "immediate",
-                        "type": "portal"
-                    },
-                    {
                         "id": "copernicus",
                         "title": "Copernicus",
                         "url": "https://sdi.eea.europa.eu/catalogue/copernicus/eng/csw",
@@ -146,17 +139,7 @@
                 "pagination": {
                     "rowsPerPage": 25
                 },
-                "useMapAppsSdiWizardAdderForPortalItems": true,
-                "spaceFiltersPortal": [
-                    {
-                        "id": "all",
-                        "title": "Überall"
-                    },
-                    {
-                        "id": "fav",
-                        "title": "Meine Favoriten"
-                    }
-                ]
+                "useMapAppsSdiWizardAdderForPortalItems": true
             }
         },
         "banner": {
