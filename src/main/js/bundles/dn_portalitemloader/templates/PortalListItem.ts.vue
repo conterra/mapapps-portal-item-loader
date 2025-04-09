@@ -48,6 +48,11 @@
             >
                 {{ item.snippet }}
             </div>
+            <div
+                class="ct-portal-item-loader-widget__portal-list-item-card-type"
+            >
+                {{ item.type }}
+            </div>
         </div>
         <div
             class="ct-portal-item-loader-widget__portal-list-item-card-actions"

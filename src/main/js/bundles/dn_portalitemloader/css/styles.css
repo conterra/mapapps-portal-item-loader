@@ -160,13 +160,22 @@
 
         .ct-portal-item-loader-widget__portal-list-item-card-snippet {
             padding: 0 8px;
-            height: 40px;
+            height: 22px;
             text-align: left;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
+        }
+
+        .ct-portal-item-loader-widget__portal-list-item-card-type {
+            padding: 0 8px;
+            height: 24px;
+            text-align: left;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
         }
 
         .ct-portal-item-loader-widget__portal-list-item-card-actions {
