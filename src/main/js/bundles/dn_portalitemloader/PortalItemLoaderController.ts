@@ -40,6 +40,7 @@ export default class PortalItemLoaderWidgetController {
     private lastTimeout: any;
     private abortController: AbortController | undefined;
     private portal: __esri.Portal | undefined;
+    private portalUserGroups: __esri.PortalGroup[];
     private i18n: any;
 
     activate(): void {
@@ -158,6 +159,9 @@ export default class PortalItemLoaderWidgetController {
                 } else {
                     model.authenticated = false;
                 }
+                portal.user.fetchGroups().then((groups: __esri.PortalGroup[]) => {
+                    this.portalUserGroups = groups;
+                });
             });
             await portal.load();
             model.typeFilters = model.typeFiltersPortal;
@@ -197,6 +201,18 @@ export default class PortalItemLoaderWidgetController {
                 break;
             case "my-content":
                 filter += ` AND owner:${portal.user.username}`;
+                break;
+            case "my-groups":
+                if (this.portalUserGroups.length > 0) {
+                    this.portalUserGroups.forEach((group, index) => {
+                        if (index > 0) {
+                            filter += ` OR group:${group.id}`;
+                        } else {
+                            filter += ` AND (group:${group.id}`;
+                        }
+                    });
+                    filter += `)`;
+                }
                 break;
 
         }

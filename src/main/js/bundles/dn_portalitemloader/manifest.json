@@ -150,6 +150,10 @@
                         "title": "${ui.spaceFilters.myContent}"
                     },
                     {
+                        "id": "my-groups",
+                        "title": "${ui.spaceFilters.myGroups}"
+                    },
+                    {
                         "id": "fav",
                         "title": "${ui.spaceFilters.fav}"
                     }

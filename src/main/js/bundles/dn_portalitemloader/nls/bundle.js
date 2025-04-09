@@ -38,6 +38,7 @@ module.exports = {
                 organisation: "My organisation",
                 livingAtlas: "Living Atlas",
                 myContent: "My content",
+                myGroups: "My groups",
                 fav: "My favourites"
             },
             typeFilter: "What type to search",
