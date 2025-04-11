@@ -611,7 +611,10 @@ export default class PortalItemLoaderWidgetController {
         domElement?.classList.add("highlight");
         // scroll to highlighted layer
         async(() => {
-            domElement?.scrollIntoView();
+            const rect = domElement.getBoundingClientRect();
+            if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                domElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
         }, scrollDelay);
         // remove highlight from layer entry after a configurable time
         async(() => {
