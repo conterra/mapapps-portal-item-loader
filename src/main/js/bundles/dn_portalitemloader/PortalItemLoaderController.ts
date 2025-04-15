@@ -220,7 +220,7 @@ export default class PortalItemLoaderWidgetController {
             filter += ` AND group:${portal.user.favGroupId}`;
         }
         let query = "";
-        if (searchText !== "" && searchText !== undefined) {
+        if (searchText !== null && searchText !== undefined && searchText !== "") {
             if (query !== "") {
                 query += " AND ";
             }
