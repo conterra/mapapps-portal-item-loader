@@ -584,7 +584,7 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    private getTocModelItem(uid: any): Object {
+    private getTocModelItem(uid: any): object {
         const tocWidget = this._tocWidget;
         const vm = tocWidget.getVM();
         const operationalRoot: any = vm.operationalRoot;

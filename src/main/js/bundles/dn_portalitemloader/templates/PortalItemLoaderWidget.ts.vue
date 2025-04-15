@@ -128,7 +128,7 @@
         props: {
             i18n: {
                 type: Object,
-                default: (): Object => {
+                default: (): object => {
                     return {};
                 }
             },

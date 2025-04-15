@@ -16,7 +16,7 @@
 
 export type SpaceFilter = "all" | "organisation" | "my-content" | "my-groups" | "living-atlas" | "fav";
 
-export type SortByField = "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views"
+export type SortByField = "modified" | "title" | "uploaded" | "username" | "created" | "type" | "owner" | "avg-rating" | "num-ratings" | "num-comments" | "num-views";
 
 export type PortalAuthMode = "auto" | "anonymous" | "immediate" | "no-prompt";
 
