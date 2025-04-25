@@ -29,7 +29,7 @@ export default class PortalItemLoaderWidgetController {
 
     private readonly _i18n!: InjectedReference<any>;
     private readonly _mapWidgetModel!: InjectedReference<MapWidgetModel>;
-    private readonly _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
+    private _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
     private readonly _logService: InjectedReference<any>;
     private readonly _addLayerService: InjectedReference<any>;
     private readonly _serviceToWizardAdder: InjectedReference<any>;
@@ -45,7 +45,7 @@ export default class PortalItemLoaderWidgetController {
 
     activate(): void {
         this.i18n = this._i18n.get().ui;
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         this.defaultVisibleElements = model.visibleElements;
         model.portalFilter = model.portals[0].id;
         model.isMobile = this.isMobile();
@@ -94,7 +94,7 @@ export default class PortalItemLoaderWidgetController {
     queryPortalItems(pagination: Pagination, searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
         sortAscending: boolean,
         sortByField: SortByField): void {
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         const portal = this.portal;
         clearTimeout(this.lastTimeout);
         this.lastTimeout = setTimeout(() => {
@@ -130,10 +130,15 @@ export default class PortalItemLoaderWidgetController {
         }, 500);
     }
 
-    private async changeSelectedPortal(portalId: string): Promise<void> {
-        const model = this._portalItemLoaderModel;
+    public async changeSelectedPortal(portalId: string): Promise<void> {
+        const model = this._portalItemLoaderModel!;
         let portal: __esri.Portal;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === portalId);
+        if (!selectedPortal) {
+            console.error("Selected portal not found");
+            return;
+        }
+        model.selectedPortalId = portalId;
         model.selectedPortalType = selectedPortal.type;
         if (selectedPortal.visibleElements) {
             model.visibleElements = JSON.parse(JSON.stringify(selectedPortal.visibleElements));
@@ -156,12 +161,12 @@ export default class PortalItemLoaderWidgetController {
             portal.load().then(() => {
                 if (portal.user) {
                     model.authenticated = true;
+                    portal.user.fetchGroups().then((groups: __esri.PortalGroup[]) => {
+                        this.portalUserGroups = groups;
+                    });
                 } else {
                     model.authenticated = false;
                 }
-                portal.user.fetchGroups().then((groups: __esri.PortalGroup[]) => {
-                    this.portalUserGroups = groups;
-                });
             });
             await portal.load();
             model.typeFilters = model.typeFiltersPortal;
@@ -179,7 +184,7 @@ export default class PortalItemLoaderWidgetController {
     private async queryPortal(portal: __esri.Portal, pagination: Pagination,
         searchText: string, spaceFilter: SpaceFilter, typeFilter: string,
         sortAscending: boolean, sortByField: SortByField): Promise<__esri.PortalQueryResult> {
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         const page = pagination.page!;
         const rowsPerPage = pagination.rowsPerPage;
@@ -279,13 +284,13 @@ export default class PortalItemLoaderWidgetController {
                     source: "portal"
                 };
             });
-            this._portalItemLoaderModel.portalItems = filteredPortalItems;
+            this._portalItemLoaderModel!.portalItems = filteredPortalItems;
         }
     }
 
     async addItemLayerToMap(item: PortalItem): Promise<void> {
-        const model = this._portalItemLoaderModel;
-        const map = this._mapWidgetModel.map;
+        const model = this._portalItemLoaderModel!;
+        const map = this._mapWidgetModel!.map;
         let root;
         let layer;
         if (item.source === "portal") {
@@ -341,7 +346,7 @@ export default class PortalItemLoaderWidgetController {
         if (!searchText) {
             searchText = "";
         }
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         const page = pagination.page!;
         const rowsPerPage = pagination.rowsPerPage;
@@ -459,7 +464,7 @@ export default class PortalItemLoaderWidgetController {
     }
 
     private addCSWItemsToModel(result: unknown): void {
-        const model = this._portalItemLoaderModel;
+        const model = this._portalItemLoaderModel!;
         const selectedPortal = model.portals.find((portalConfig) => portalConfig.id === model.portalFilter);
         if (result?.results) {
             const portalItems: PortalItem[] = [];
@@ -515,7 +520,7 @@ export default class PortalItemLoaderWidgetController {
                     source: "csw"
                 });
             });
-            this._portalItemLoaderModel.portalItems = portalItems;
+            model.portalItems = portalItems;
         }
     }
 
@@ -629,7 +634,7 @@ export default class PortalItemLoaderWidgetController {
      * @returns {string|*}
      * @private
      */
-    private buildUID(layerOrSublayer: { id: string; layer: any; }): string {
+    private buildUID(layerOrSublayer: { id: string; layer: any; }): string | undefined {
         if (!layerOrSublayer) {
             return;
         }
@@ -638,13 +643,17 @@ export default class PortalItemLoaderWidgetController {
             // assumed to be unique
             return localId;
         }
-        const uidOfSublayersRoot: string = this.buildUID(layerOrSublayer.layer);
+        const uidOfSublayersRoot: string = this.buildUID(layerOrSublayer.layer) || "defaultUID";
         return uidOfSublayersRoot + "$" + localId;
     }
 
     private isSublayer(layer: { hasOwnProperty: (arg0: string) => any; }): boolean {
         // eslint-disable-next-line no-prototype-builtins
         return layer.hasOwnProperty("layer");
+    }
+
+    public setModel(model: typeof PortalItemLoaderModel): void {
+        this._portalItemLoaderModel = model;
     }
 
 }
