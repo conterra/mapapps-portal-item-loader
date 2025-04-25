@@ -14,8 +14,7 @@
 /// limitations under the License.
 ///
 
-import ".";
-import "./PortalItemLoaderWidgetFactory";
-import "./PortalItemLoaderModel";
-import "./PortalItemLinkActionDefinitionFactory";
+export { default as PortalItemLoaderWidgetFactory } from "./PortalItemLoaderWidgetFactory";
+export { default as PortalItemLoaderModel } from "./PortalItemLoaderModel";
+export { default as PortalItemLinkActionDefinitionFactory } from "./PortalItemLinkActionDefinitionFactory";
 import "ct/tools/Tool";
