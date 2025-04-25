@@ -13,6 +13,7 @@
     "dependencies": {
         "ct": "^4.14.0",
         "apprt-core": "^4.14.0",
+        "apprt-fetch": "^4.14.0",
         "apprt-vue": "^4.14.0",
         "apprt-vuetify": "^4.14.0",
         "apprt-binding": "^4.14.0",
