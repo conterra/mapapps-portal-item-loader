@@ -2,7 +2,6 @@
 
 This bundle allows to add portal content
 
-[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-portal-item-loader/actions/workflows/devnet-bundle-snapshot.yml)
 ![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.18.3-%20?labelColor=%233E464F&color=%232FC050)
 
 # Portal Item Loader
