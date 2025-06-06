@@ -18,7 +18,7 @@
         "apprt-vuetify": "^4.14.0",
         "apprt-binding": "^4.14.0",
         "map-widget": "^4.14.0",
-        "moment": "^4.14.0",
+        "moment": "^2.0.0",
         "esri": "^4.22.0"
     },
     "optionalDependencies": {
