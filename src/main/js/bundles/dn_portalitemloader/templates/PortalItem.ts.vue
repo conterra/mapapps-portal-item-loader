@@ -36,11 +36,17 @@
                 panorama
             </v-icon>
         </div>
-        <div
-            class="ct-portal-item-loader-widget__portal-item-card-title"
-        >
-            {{ item.title }}
-        </div>
+        <v-tooltip top>
+            <template #activator="{ on }">
+                <div
+                    class="ct-portal-item-loader-widget__portal-item-card-title"
+                    v-on="on"
+                >
+                    {{ item.title }}
+                </div>
+            </template>
+            <span>{{ item.title }}</span>
+        </v-tooltip>
         <div
             class="ct-portal-item-loader-widget__portal-item-card-snippet"
         >
