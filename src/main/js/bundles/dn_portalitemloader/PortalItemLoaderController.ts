@@ -482,8 +482,8 @@ export default class PortalItemLoaderWidgetController {
                 // handle url and type
                 let type;
                 const esriUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "ESRI:REST");
-                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WMS");
-                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WFS");
+                const wmsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WMS") || this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC Web Map Service") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WMS");
+                const wfsUrl = this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC:WFS") || this.getCswItemAttribute(cswItem, "dc:URI", "protocol", "OGC Web Feature Service") || this.getCswItemAttribute(cswItem, "dc:URI", undefined, "WFS");
                 if (esriUrl) {
                     type = "ESRI";
                 } else if (wmsUrl) {
@@ -529,11 +529,16 @@ export default class PortalItemLoaderWidgetController {
         const elements = cswItem.getElementsByTagName(attributeName);
         if (!contentName) {
             if (elements.length) {
-                const innerHTML = elements[0].innerHTML;
-                if (value && innerHTML.includes(value)) {
-                    return innerHTML;
-                } else if (!value) {
-                    return innerHTML;
+                let result;
+                Array.from(elements).forEach((element) => {
+                    if (value && element.innerHTML.includes(value)) {
+                        result = element.innerHTML;
+                    } else if (!value) {
+                        result = element.innerHTML;
+                    }
+                });
+                if (result) {
+                    return result;
                 } else {
                     return undefined;
                 }
