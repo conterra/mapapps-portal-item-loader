@@ -68,7 +68,7 @@
                         "title": "GDI-DE",
                         "url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
                         "type": "csw",
-                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>srv:serviceType</ogc:PropertyName><ogc:Literal>view</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://gdk.gdi-de.org/gdi-de/srv/ger/catalog.search#/metadata/{id}",
                         "visibleElements": {
                             "sortBy": true,
@@ -85,7 +85,7 @@
                         "title": "MetaVer",
                         "url": "https://metaver.de/csw",
                         "type": "csw",
-                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>srv:serviceType</ogc:PropertyName><ogc:Literal>view</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "itemPageUrl": "https://metaver.de/trefferanzeige?docuuid={id}",
                         "visibleElements": {
                             "sortBy": false,
@@ -102,7 +102,7 @@
                         "title": "Geoportal NRW",
                         "url": "https://apps.geoportal.nrw.de/csw/service",
                         "type": "csw",
-                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>dc:type</ogc:PropertyName><ogc:Literal>service</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>srv:serviceType</ogc:PropertyName><ogc:Literal>view</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "visibleElements": {
                             "sortBy": true,
                             "typeFilter": true,
@@ -119,6 +119,7 @@
                         "url": "https://geomis.sachsen.de/geomis-csw/api?SERVICE=CSW",
                         "itemPageUrl": "https://geomis.sachsen.de/geomis-client/?lang=de#/datasets/iso/{id}",
                         "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>srv:serviceType</ogc:PropertyName><ogc:Literal>view</ogc:Literal></ogc:PropertyIsEqualTo>",
                         "visibleElements": {
                             "sortBy": true,
                             "typeFilter": true,
