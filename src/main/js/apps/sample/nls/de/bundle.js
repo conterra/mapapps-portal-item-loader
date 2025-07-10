@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 module.exports = {
-    apptitle: "DevNet Bundle Blueprint",
+    apptitle: "Portal Item Loader Sample",
     map: {
         koeln1: {
             title: "Basisdaten",
