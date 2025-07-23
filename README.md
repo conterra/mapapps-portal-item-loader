@@ -16,7 +16,7 @@ The Portal Item Loader allows you to add portal content to your app.
 
 ## Sample App
 
-https://demos.conterra.de/mapapps/resources/apps/downloads_portalitemloader/index.html
+https://demos.conterra.de/mapapps/resources/apps/public_demo_portalitemloader/index.html
 
 ## Installation Guide
 
