@@ -111,6 +111,23 @@
                         }
                     },
                     {
+                        "id": "shmis",
+                        "title": "SH-MIS",
+                        "url": "https://sh-mis.gdi-sh.de/smartfinder-csw/api",
+                        "type": "csw",
+                        "filter": "<ogc:PropertyIsEqualTo><ogc:PropertyName>srv:serviceType</ogc:PropertyName><ogc:Literal>view</ogc:Literal></ogc:PropertyIsEqualTo>",
+                        "itemPageUrl": "https://sh-mis.gdi-sh.de/smartfinder-sdi/?lang=en#/datasets/iso/{id}",
+                        "visibleElements": {
+                            "sortBy": true,
+                            "typeFilter": false,
+                            "itemThumbnail": false,
+                            "serviceType": true,
+                            "owner": true,
+                            "views": true,
+                            "modified": true
+                        }
+                    },
+                    {
                         "id": "geoportal_nrw",
                         "title": "Geoportal NRW",
                         "url": "https://apps.geoportal.nrw.de/csw/service",
