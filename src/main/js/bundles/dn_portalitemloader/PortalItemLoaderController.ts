@@ -281,6 +281,9 @@ export default class PortalItemLoaderWidgetController {
                     url: portalItem.url,
                     itemPageUrl: portalItem.itemPageUrl,
                     portalUrl: portalItem.portal.url,
+                    authoritative: portalItem.sourceJSON.contentStatus &&
+                        typeof portalItem.sourceJSON.contentStatus === 'string' &&
+                        portalItem.sourceJSON.contentStatus.toLowerCase().includes('authoritative'),
                     source: "portal"
                 };
             });

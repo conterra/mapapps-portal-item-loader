@@ -69,15 +69,27 @@
             height: 160px;
         }
 
-        .ct-portal-item-loader-widget__portal-item-card-title {
-            flex: 0 1 auto;
-            padding: 8px;
-            text-align: left;
-            font-weight: bold;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .ct-portal-item-loader-widget__portal-item-card-title-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .ct-portal-item-loader-widget__portal-item-card-title {
+                flex: 1 1 auto;
+                padding: 8px;
+                text-align: left;
+                font-weight: bold;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .ct-portal-item-loader-widget__portal-item-card-authoritative-icon {
+                flex: 0 0 auto;
+                margin-right: 8px;
+            }
         }
 
         .ct-portal-item-loader-widget__portal-item-card-snippet {
@@ -150,16 +162,29 @@
             flex: 1 1 auto;
         }
 
-        .ct-portal-item-loader-widget__portal-list-item-card-title {
-            padding: 8px;
-            height: 30px;
-            text-align: left;
-            font-weight: bold;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
+        .ct-portal-item-loader-widget__portal-list-item-card-title-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .ct-portal-item-loader-widget__portal-list-item-card-title {
+                flex: 1 1 auto;
+                padding: 8px;
+                height: 30px;
+                text-align: left;
+                font-weight: bold;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+            }
+
+            .ct-portal-item-loader-widget__portal-list-item-card-authoritative-icon {
+                flex: 0 0 auto;
+                margin-top: 2px;
+            }
         }
 
         .ct-portal-item-loader-widget__portal-list-item-card-snippet {

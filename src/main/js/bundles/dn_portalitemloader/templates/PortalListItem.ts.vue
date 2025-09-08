@@ -38,10 +38,26 @@
             </v-icon>
         </div>
         <div class="ct-portal-item-loader-widget__portal-list-item-card-texts">
-            <div
-                class="ct-portal-item-loader-widget__portal-list-item-card-title"
-            >
-                {{ item.title }}
+            <div class="ct-portal-item-loader-widget__portal-list-item-card-title-container">
+                <div
+                    class="ct-portal-item-loader-widget__portal-list-item-card-title"
+                >
+                    {{ item.title }}
+                </div>
+                <v-tooltip top>
+                    <template #activator="{ on }">
+                        <v-icon
+                            v-if="item.authoritative"
+                            class="ct-portal-item-loader-widget__portal-list-item-card-authoritative-icon"
+                            color="primary"
+                            small
+                            v-on="on"
+                        >
+                            verified_user
+                        </v-icon>
+                    </template>
+                    <span>{{ i18n.authorativeItemTooltip }}</span>
+                </v-tooltip>
             </div>
             <div
                 class="ct-portal-item-loader-widget__portal-list-item-card-snippet"

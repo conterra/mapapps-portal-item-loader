@@ -36,17 +36,33 @@
                 panorama
             </v-icon>
         </div>
-        <v-tooltip top>
-            <template #activator="{ on }">
-                <div
-                    class="ct-portal-item-loader-widget__portal-item-card-title"
-                    v-on="on"
-                >
-                    {{ item.title }}
-                </div>
-            </template>
-            <span>{{ item.title }}</span>
-        </v-tooltip>
+        <div class="ct-portal-item-loader-widget__portal-item-card-title-container">
+            <v-tooltip top>
+                <template #activator="{ on }">
+                    <div
+                        class="ct-portal-item-loader-widget__portal-item-card-title"
+                        v-on="on"
+                    >
+                        {{ item.title }}
+                    </div>
+                </template>
+                <span>{{ item.title }}</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template #activator="{ on }">
+                    <v-icon
+                        v-if="item.authoritative"
+                        class="ct-portal-item-loader-widget__portal-item-card-authoritative-icon"
+                        color="primary"
+                        small
+                        v-on="on"
+                    >
+                        verified_user
+                    </v-icon>
+                </template>
+                <span>{{ i18n.authorativeItemTooltip }}</span>
+            </v-tooltip>
+        </div>
         <div
             class="ct-portal-item-loader-widget__portal-item-card-snippet"
         >
