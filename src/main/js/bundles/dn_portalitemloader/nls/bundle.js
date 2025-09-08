@@ -64,6 +64,7 @@ module.exports = {
             noService: "No Service",
             addedToMap: "was added to map",
             linkActionTitle: "Show in Portal",
+            detailButtonTooltip: "Show item details",
             errors: {
                 noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
             }

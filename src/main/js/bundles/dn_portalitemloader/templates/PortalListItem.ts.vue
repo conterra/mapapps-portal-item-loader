@@ -57,29 +57,41 @@
         <div
             class="ct-portal-item-loader-widget__portal-list-item-card-actions"
         >
-            <v-btn
-                :disabled="!item.url"
-                block
-                small
-                color="primary"
-                @click="$emit('load-item', item)"
-            >
-                <v-icon>
-                    add
-                </v-icon>
-            </v-btn>
-            <v-btn
-                v-if="item.itemPageUrl"
-                block
-                small
-                color="secondary"
-                :href="item.itemPageUrl"
-                target="_blank"
-            >
-                <v-icon>
-                    open_in_new
-                </v-icon>
-            </v-btn>
+            <v-tooltip top>
+                <template #activator="{ on }">
+                    <v-btn
+                        :disabled="!item.url"
+                        block
+                        small
+                        color="primary"
+                        @click="$emit('load-item', item)"
+                        v-on="on"
+                    >
+                        <v-icon>
+                            add
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>{{ i18n.addToMap }}</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template #activator="{ on }">
+                    <v-btn
+                        v-if="item.itemPageUrl"
+                        block
+                        small
+                        color="secondary"
+                        :href="item.itemPageUrl"
+                        target="_blank"
+                        v-on="on"
+                    >
+                        <v-icon>
+                            open_in_new
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>{{ i18n.detailButtonTooltip }}</span>
+            </v-tooltip>
         </div>
     </v-card>
 </template>

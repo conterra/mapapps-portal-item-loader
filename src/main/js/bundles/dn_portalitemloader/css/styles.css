@@ -112,6 +112,10 @@
 
         .ct-portal-item-loader-widget__portal-item-card-actions {
             flex: 0 1 auto;
+
+            .add-to-map-button {
+                margin-right: 4px;
+            }
         }
     }
 
