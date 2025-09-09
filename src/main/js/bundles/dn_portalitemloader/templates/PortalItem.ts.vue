@@ -53,7 +53,7 @@
                     <v-icon
                         v-if="item.authoritative"
                         class="ct-portal-item-loader-widget__portal-item-card-authoritative-icon"
-                        color="primary"
+                        color="green"
                         small
                         v-on="on"
                     >
