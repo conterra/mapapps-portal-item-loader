@@ -8,7 +8,7 @@ This bundle allows to add portal content
 
 The Portal Item Loader allows you to add portal content to your app.
 
-![Screenshot App](https://github.com/conterra/mapapps-portal-item-loader/blob/main/screenshot.JPG)
+![Screenshot App](https://github.com/conterra/mapapps-portal-item-loader/blob/main/screenshot.png)
 
 ## Build Status
 
