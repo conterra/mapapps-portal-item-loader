@@ -59,6 +59,11 @@
                     >
                         verified_user
                     </v-icon>
+                </template>
+                <span>{{ i18n.authorativeItemTooltip }}</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template #activator="{ on }">
                     <v-icon
                         v-if="item.deprecated"
                         class="ct-portal-item-loader-widget__portal-item-card-deprecated-icon"
@@ -69,7 +74,7 @@
                         block
                     </v-icon>
                 </template>
-                <span>{{ i18n.authorativeItemTooltip }}</span>
+                <span>{{ i18n.deprecatedItemTooltip }}</span>
             </v-tooltip>
         </div>
         <div
