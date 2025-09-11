@@ -55,6 +55,15 @@
                         >
                             verified_user
                         </v-icon>
+                        <v-icon
+                            v-if="item.deprecated"
+                            class="ct-portal-item-loader-widget__portal-list-item-card-deprecated-icon"
+                            color="red"
+                            small
+                            v-on="on"
+                        >
+                            block
+                        </v-icon>
                     </template>
                     <span>{{ i18n.authorativeItemTooltip }}</span>
                 </v-tooltip>

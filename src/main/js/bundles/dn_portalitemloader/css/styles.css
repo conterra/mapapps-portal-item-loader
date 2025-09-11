@@ -90,6 +90,11 @@
                 flex: 0 0 auto;
                 margin-right: 8px;
             }
+
+            .ct-portal-item-loader-widget__portal-item-card-deprecated-icon {
+                flex: 0 0 auto;
+                margin-right: 8px;
+            }
         }
 
         .ct-portal-item-loader-widget__portal-item-card-snippet {
@@ -182,6 +187,11 @@
             }
 
             .ct-portal-item-loader-widget__portal-list-item-card-authoritative-icon {
+                flex: 0 0 auto;
+                margin-top: 2px;
+            }
+
+            .ct-portal-item-loader-widget__portal-list-item-card-deprecated-icon {
                 flex: 0 0 auto;
                 margin-top: 2px;
             }

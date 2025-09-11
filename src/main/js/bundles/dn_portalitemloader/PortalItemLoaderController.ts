@@ -284,6 +284,9 @@ export default class PortalItemLoaderWidgetController {
                     authoritative: portalItem.sourceJSON.contentStatus &&
                         typeof portalItem.sourceJSON.contentStatus === 'string' &&
                         portalItem.sourceJSON.contentStatus.toLowerCase().includes('authoritative'),
+                    deprecated: portalItem.sourceJSON.contentStatus &&
+                        typeof portalItem.sourceJSON.contentStatus === 'string' &&
+                        portalItem.sourceJSON.contentStatus.toLowerCase().includes('deprecated'),
                     source: "portal"
                 };
             });

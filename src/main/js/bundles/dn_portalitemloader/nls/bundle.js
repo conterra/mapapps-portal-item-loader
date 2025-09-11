@@ -66,6 +66,7 @@ module.exports = {
             linkActionTitle: "Show in Portal",
             detailButtonTooltip: "Show item details",
             authorativeItemTooltip: "Authoritative item",
+            deprecatedItemTooltip: "Deprecated item",
             errors: {
                 noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
             }
