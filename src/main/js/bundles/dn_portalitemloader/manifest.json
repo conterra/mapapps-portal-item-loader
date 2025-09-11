@@ -1,6 +1,6 @@
 {
     "name": "dn_portalitemloader",
-    "version": "2.4.1-SNAPSHOT",
+    "version": "2.5.0",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
