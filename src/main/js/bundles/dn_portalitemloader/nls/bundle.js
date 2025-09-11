@@ -63,7 +63,7 @@ module.exports = {
             lastUpdate: "Last update",
             noService: "No Service",
             addedToMap: "was added to map",
-            linkActionTitle: "Show in Portal",
+            linkActionTitle: "Show item details",
             detailButtonTooltip: "Show item details",
             authorativeItemTooltip: "Authoritative item",
             deprecatedItemTooltip: "Deprecated item",

@@ -170,7 +170,7 @@
                 "pagination": {
                     "rowsPerPage": 25
                 },
-                "useMapAppsSdiWizardAdderForPortalItems": true
+                "useMapAppsSdiWizardAdderForPortalItems": false
             }
         },
         "agssearch": {

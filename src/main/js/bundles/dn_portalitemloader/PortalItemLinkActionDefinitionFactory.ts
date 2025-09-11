@@ -37,7 +37,7 @@ export default class PortalItemLinkActionDefinitionFactory {
             id: ID,
             type: "button",
             label: i18n.linkActionTitle,
-            icon: "icon-editor-table",
+            icon: "material-icon-open_in_new",
 
             isVisibleForItem(tocItem: TocItem): boolean {
                 const ref = tocItem.ref;

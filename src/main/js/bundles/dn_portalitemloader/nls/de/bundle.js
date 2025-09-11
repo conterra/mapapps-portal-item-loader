@@ -62,7 +62,7 @@ module.exports = {
         lastUpdate: "Zuletzt bearbeitet",
         noService: "Kein Dienst",
         addedToMap: "wurde zur Karte hinzugefügt",
-        linkActionTitle: "Im Portal anzeigen",
+        linkActionTitle: "Details anzeigen",
         detailButtonTooltip: "Details anzeigen",
         authorativeItemTooltip: "Verlässlicher Inhalt",
         deprecatedItemTooltip: "Veralteter Inhalt",
