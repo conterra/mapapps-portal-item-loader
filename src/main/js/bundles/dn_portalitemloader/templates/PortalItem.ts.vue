@@ -175,7 +175,7 @@
                 <template #activator="{ on }">
                     <v-btn
                         :disabled="!item.url"
-                        class="add-to-map-button"
+                        class="ct-portal-item-loader-widget__portal-item-add-to-map-button"
                         block
                         small
                         color="primary"
@@ -196,6 +196,7 @@
                 <template #activator="{ on }">
                     <v-btn
                         v-if="item.itemPageUrl"
+                        class="ct-portal-item-loader-widget__portal-item-details-button"
                         icon
                         small
                         color="secondary"
