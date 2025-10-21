@@ -22,6 +22,7 @@ module.exports = {
     },
     ui: {
         addToMap: "Zur Karte hinzufügen",
+        addToMapAdvanced: "Erweitertes zur Karte hinzufügen",
         myServicesTitle: "Eigene Dienste",
         searchForItems: "Nach Inhalten suchen",
         searchForItemsPlaceholder: "Suche nach...",

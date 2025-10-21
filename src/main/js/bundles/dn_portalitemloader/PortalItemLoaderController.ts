@@ -294,7 +294,7 @@ export default class PortalItemLoaderWidgetController {
         }
     }
 
-    async addItemLayerToMap(item: PortalItem): Promise<void> {
+    async addItemLayerToMap(item: PortalItem, advancedLayerAdding?: boolean): Promise<void> {
         const model = this._portalItemLoaderModel!;
         const map = this._mapWidgetModel!.map;
         let root;
@@ -315,7 +315,7 @@ export default class PortalItemLoaderWidgetController {
                 console.error(error);
             }
         }
-        if (this._serviceToWizardAdder && ((model.useMapAppsSdiWizardAdderForPortalItems && item.source === "portal") || item.source === "csw")) {
+        if (this._serviceToWizardAdder && (advancedLayerAdding || ((model.useMapAppsSdiWizardAdderForPortalItems && item.source === "portal") || item.source === "csw"))) {
             this._serviceToWizardAdder.addService(item.url);
         } else if (layer) {
             root = map.findLayerById(model.rootId) as __esri.GroupLayer;

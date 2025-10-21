@@ -170,7 +170,17 @@
                 "pagination": {
                     "rowsPerPage": 25
                 },
-                "useMapAppsSdiWizardAdderForPortalItems": false
+                "useMapAppsSdiWizardAdderForPortalItems": false,
+                "visibleElements": {
+                    "sortBy": true,
+                    "typeFilter": true,
+                    "itemThumbnail": false,
+                    "serviceType": true,
+                    "owner": true,
+                    "views": true,
+                    "modified": true,
+                    "advancedLayerAdding": false
+                }
             }
         },
         "agssearch": {

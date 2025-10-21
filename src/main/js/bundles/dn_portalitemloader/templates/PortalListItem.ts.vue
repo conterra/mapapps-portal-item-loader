@@ -94,6 +94,7 @@
                         block
                         small
                         color="primary"
+                        class="ct-portal-item-loader-widget__portal-list-item-add-to-map-button"
                         @click="$emit('load-item', item)"
                         v-on="on"
                     >
@@ -104,6 +105,27 @@
                 </template>
                 <span>{{ i18n.addToMap }}</span>
             </v-tooltip>
+            <v-tooltip
+                v-if="visibleElements.advancedLayerAdding"
+                top
+            >
+                <template #activator="{ on }">
+                    <v-btn
+                        :disabled="!item.url"
+                        block
+                        small
+                        color="primary"
+                        class="ct-portal-item-loader-widget__portal-list-item-add-to-map-advanced-button"
+                        @click="$emit('load-item-advanced', item)"
+                        v-on="on"
+                    >
+                        <v-icon>
+                            add_card
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>{{ i18n.addToMapAdvanced }}</span>
+            </v-tooltip>
             <v-tooltip top>
                 <template #activator="{ on }">
                     <v-btn
@@ -111,6 +133,7 @@
                         block
                         small
                         color="secondary"
+                        class="ct-portal-item-loader-widget__portal-list-item-details-button"
                         :href="item.itemPageUrl"
                         target="_blank"
                         v-on="on"

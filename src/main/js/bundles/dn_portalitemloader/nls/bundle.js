@@ -23,6 +23,7 @@ module.exports = {
         },
         ui: {
             addToMap: "Add to map",
+            addToMapAdvanced: "Advanced add to map",
             myServicesTitle: "My Services",
             searchForItems: "Search for items",
             searchForItemsPlaceholder: "Search for...",

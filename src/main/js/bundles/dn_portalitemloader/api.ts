@@ -69,7 +69,8 @@ export interface VisibleElements {
     serviceType: boolean,
     owner: boolean,
     views: boolean,
-    modified: boolean
+    modified: boolean,
+    advancedLayerAdding: boolean
 }
 
 export interface TypeFilter {

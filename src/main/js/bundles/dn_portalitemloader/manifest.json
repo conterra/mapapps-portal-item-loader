@@ -277,7 +277,8 @@
                     "serviceType": true,
                     "owner": true,
                     "views": true,
-                    "modified": true
+                    "modified": true,
+                    "advancedLayerAdding": false
                 },
                 "useMapAppsSdiWizardAdderForPortalItems": false
             }

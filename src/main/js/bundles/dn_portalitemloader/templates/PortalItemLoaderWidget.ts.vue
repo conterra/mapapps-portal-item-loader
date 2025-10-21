@@ -69,6 +69,7 @@
                     :item="props.item"
                     :visible-elements="visibleElements"
                     @load-item="$emit('load-item', $event)"
+                    @load-item-advanced="$emit('load-item-advanced', $event)"
                 />
             </template>
         </v-data-iterator>
@@ -106,6 +107,7 @@
                     :item="props.item"
                     :visible-elements="visibleElements"
                     @load-item="$emit('load-item', $event)"
+                    @load-item-advanced="$emit('load-item-advanced', $event)"
                 />
             </template>
         </v-data-iterator>

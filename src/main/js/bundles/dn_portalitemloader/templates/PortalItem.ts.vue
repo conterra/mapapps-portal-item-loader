@@ -192,6 +192,27 @@
                 </template>
                 <span>{{ i18n.addToMap }}</span>
             </v-tooltip>
+            <v-tooltip
+                v-if="visibleElements.advancedLayerAdding"
+                top
+            >
+                <template #activator="{ on }">
+                    <v-btn
+                        :disabled="!item.url"
+                        class="ct-portal-item-loader-widget__portal-item-add-to-map-advanced-button"
+                        icon
+                        small
+                        color="primary"
+                        @click="$emit('load-item-advanced', item)"
+                        v-on="on"
+                    >
+                        <v-icon>
+                            add_card
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>{{ i18n.addToMapAdvanced }}</span>
+            </v-tooltip>
             <v-tooltip top>
                 <template #activator="{ on }">
                     <v-btn
@@ -259,7 +280,8 @@
                         serviceType: true,
                         owner: true,
                         views: true,
-                        modified: true
+                        modified: true,
+                        advancedLayerAdding: false
                     };
                 }
             }

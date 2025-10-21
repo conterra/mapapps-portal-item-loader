@@ -91,7 +91,8 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
         serviceType: true,
         owner: true,
         views: true,
-        modified: true
+        modified: true,
+        advancedLayerAdding: false
     },
     useMapAppsSdiWizardAdderForPortalItems: true
 });

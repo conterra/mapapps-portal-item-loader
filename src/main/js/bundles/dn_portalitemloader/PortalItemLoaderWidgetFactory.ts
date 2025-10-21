@@ -52,6 +52,9 @@ export default class PortalItemLoaderWidgetFactory {
             this.vm.$on("load-item", (item: any) => {
                 controller.addItemLayerToMap(item);
             });
+            this.vm.$on("load-item-advanced", (item: any) => {
+                controller.addItemLayerToMap(item, true);
+            });
         };
         widget.deactivateTool = () => {
             this.binding?.disable();
