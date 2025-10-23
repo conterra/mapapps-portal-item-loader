@@ -38,3 +38,5 @@ $ mvn compile -Denv=dev -Pinclude-mapapps-deps
 # run unit tests
 $ mvn test -P run-js-tests,include-mapapps-deps
 ```
+
+For more details refer to the [Developer's Guide](https://docs.conterra.de/en/mapapps/latest/developersguide/getting-started/).
