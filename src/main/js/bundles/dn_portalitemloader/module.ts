@@ -18,4 +18,5 @@ export { default as PortalItemLoaderWidgetFactory } from "./PortalItemLoaderWidg
 export { default as PortalItemLoaderController } from "./PortalItemLoaderController";
 export { default as PortalItemLoaderModel } from "./PortalItemLoaderModel";
 export { default as PortalItemLinkActionDefinitionFactory } from "./PortalItemLinkActionDefinitionFactory";
+export { default as LoadServiceAdder } from "./LoadServiceAdder";
 import "ct/tools/Tool";

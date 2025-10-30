@@ -323,8 +323,8 @@
                     "providing": "ct.framework.api.LogService"
                 },
                 {
-                    "name": "_serviceToWizardAdder",
-                    "providing": "sdi_loadservice.ServiceToWizardAdder",
+                    "name": "_loadServiceAdder",
+                    "providing": "dn_portalitemloader.LoadServiceAdder",
                     "cardinality": "0..1"
                 },
                 {
@@ -368,6 +368,21 @@
         {
             "name": "PortalItemLinkActionDefinitionFactory",
             "provides": "toc.ActionDefinitionFactory"
+        },
+        {
+            "name": "LoadServiceAdder",
+            "provides": "dn_portalitemloader.LoadServiceAdder",
+            "references": [
+                {
+                    "name": "_loadServiceTool",
+                    "providing": "sdi_loadservice.LoadServiceTool"
+                },
+                {
+                    "name": "_loadServiceWizard",
+                    "providing": "dijit.Widget",
+                    "filter": "(widgetRole=sdi_loadservice)"
+                }
+            ]
         }
     ]
 }

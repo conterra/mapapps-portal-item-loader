@@ -32,7 +32,7 @@ export default class PortalItemLoaderWidgetController {
     private _portalItemLoaderModel!: InjectedReference<typeof PortalItemLoaderModel>;
     private readonly _logService: InjectedReference<any>;
     private readonly _addLayerService: InjectedReference<any>;
-    private readonly _serviceToWizardAdder: InjectedReference<any>;
+    private readonly _loadServiceAdder: InjectedReference<any>;
     private readonly _componentContext: InjectedReference<any>;
     private readonly _tocToggleTool: InjectedReference<any>;
     private readonly _tocWidget: InjectedReference<any>;
@@ -315,8 +315,8 @@ export default class PortalItemLoaderWidgetController {
                 console.error(error);
             }
         }
-        if (this._serviceToWizardAdder && (advancedLayerAdding || ((model.useMapAppsSdiWizardAdderForPortalItems && item.source === "portal") || item.source === "csw"))) {
-            this._serviceToWizardAdder.addService(item.url);
+        if (this._loadServiceAdder && (advancedLayerAdding || ((model.useMapAppsSdiWizardAdderForPortalItems && item.source === "portal") || item.source === "csw"))) {
+            this._loadServiceAdder.addService(item.url);
         } else if (layer) {
             root = map.findLayerById(model.rootId) as __esri.GroupLayer;
             if (!root) {
