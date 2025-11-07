@@ -42,9 +42,9 @@ export default class LoadServiceAdder {
     private initializeUI(vm: any, url: string, serviceType: string) {
         vm.reset();
         vm.initialInputTab = "url_input";
-        vm.serviceUrl = url;
-        vm.serviceType = serviceType;
         apprtAsync(() => { // We need to wait here until all event handlers watching the reset event have been executed.
+            vm.serviceUrl = url;
+            vm.serviceType = serviceType;
             vm.updateFormData({ url, type: serviceType });
             vm.setValididation(true);
         }, 100);
