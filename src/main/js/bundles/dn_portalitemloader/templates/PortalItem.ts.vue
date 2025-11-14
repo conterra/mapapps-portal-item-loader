@@ -237,7 +237,7 @@
 </template>
 <script lang="ts">
     import moment from 'moment';
-    import * as intl from "esri/intl";
+    import * as intl from "@arcgis/core/intl";
     import { PortalItem, VisibleElements } from "../api";
 
     export default {

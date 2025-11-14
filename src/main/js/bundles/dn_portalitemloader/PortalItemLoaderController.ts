@@ -15,13 +15,13 @@
 ///
 
 import { InjectedReference } from "apprt-core/InjectedReference";
-import Portal from "esri/portal/Portal";
-import Layer from "esri/layers/Layer";
+import Portal from "@arcgis/core/portal/Portal";
+import Layer from "@arcgis/core/layers/Layer";
 import MapWidgetModel from "map-widget/MapWidgetModel";
 import PortalItemLoaderModel from "./PortalItemLoaderModel";
-import GroupLayer from "esri/layers/GroupLayer";
+import GroupLayer from "@arcgis/core/layers/GroupLayer";
 import { apprtFetch } from "apprt-fetch";
-import * as intl from "esri/intl";
+import * as intl from "@arcgis/core/intl";
 import { Pagination, SortByField, SpaceFilter, PortalItem, VisibleElements } from "./api";
 import async from "apprt-core/async";
 
