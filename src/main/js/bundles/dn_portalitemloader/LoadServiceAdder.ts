@@ -41,6 +41,7 @@ export default class LoadServiceAdder {
 
     private initializeUI(vm: any, url: string, serviceType: string) {
         vm.reset();
+        vm.serviceUrl = undefined;
         vm.initialInputTab = "url_input";
         apprtAsync(() => { // We need to wait here until all event handlers watching the reset event have been executed.
             vm.serviceUrl = url;
