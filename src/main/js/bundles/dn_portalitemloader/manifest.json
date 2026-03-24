@@ -36,6 +36,7 @@
         {
             "widgetRole": "portalItemLoaderWidget",
             "window": {
+                "title": "${ui.windowTitle}",
                 "dockTool": "portalItemLoaderToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,

@@ -69,6 +69,7 @@ module.exports = {
         deprecatedItemTooltip: "Veralteter Inhalt",
         errors: {
             noMapappsSDI: "Für diese Funktion wird map.apps SDI benötigt. Bitte wenden Sie sich an den Administrator."
-        }
+        },
+        windowTitle : "Inhalte hinzufügen"
     }
 };
