@@ -70,7 +70,8 @@ module.exports = {
             deprecatedItemTooltip: "Deprecated item",
             errors: {
                 noMapappsSDI: "For this function, map.apps SDI is required. Please contact the administrator."
-            }
+            },
+            windowTitle : "Add content"
         }
     },
     de: true
