@@ -126,6 +126,7 @@ Sample
 | rowsPerPageItems | Array           |                 | ```25``` &#124; ```50``` &#124; ```100``` | An array of possible values for the number of rows displayed per page.               |
 | pagination       | Object          |                 | "rowsPerPage": ```25```                   | Configuration object for pagination, specifying the default number of rows per page. |
 | visibleElements  | VisibleElements |                 |                                           | Configuration to hide elements in ui                                                 |
+| showNonAddablePortalItems | Boolean | ```true``` &#124; ```false``` | ```true``` | Controls how items that cannot be added to the map (items without a loadable service URL) are handled. When ```true``` they are listed with a disabled "add to map" button. When ```false``` they are removed from the result list entirely. |
 
 #### visibleElements
 
