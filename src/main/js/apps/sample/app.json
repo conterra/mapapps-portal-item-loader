@@ -181,7 +181,7 @@
                     "modified": true,
                     "advancedLayerAdding": false
                 },
-                "showNonAddablePortalItems": false
+                "showNonAddablePortalItems": true
             }
         },
         "agssearch": {
