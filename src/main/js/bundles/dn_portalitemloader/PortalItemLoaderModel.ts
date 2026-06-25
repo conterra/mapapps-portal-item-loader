@@ -50,7 +50,8 @@ interface PortalItemLoaderModelProps {
     isMobile: boolean,
     hideCswContentWithoutService: boolean
     visibleElements: VisibleElements,
-    useMapAppsSdiWizardAdderForPortalItems: boolean
+    useMapAppsSdiWizardAdderForPortalItems: boolean,
+    showNonAddablePortalItems: boolean
 }
 
 export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProps>(PortalItemLoaderModel, {
@@ -94,5 +95,6 @@ export default defineProperties<PortalItemLoaderModel, PortalItemLoaderModelProp
         modified: true,
         advancedLayerAdding: false
     },
-    useMapAppsSdiWizardAdderForPortalItems: true
+    useMapAppsSdiWizardAdderForPortalItems: true,
+    showNonAddablePortalItems: true
 });

@@ -180,7 +180,8 @@
                     "views": true,
                     "modified": true,
                     "advancedLayerAdding": false
-                }
+                },
+                "showNonAddablePortalItems": true
             }
         },
         "agssearch": {

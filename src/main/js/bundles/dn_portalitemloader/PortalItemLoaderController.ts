@@ -290,8 +290,15 @@ export default class PortalItemLoaderWidgetController {
                     source: "portal"
                 };
             });
-            this._portalItemLoaderModel!.portalItems = filteredPortalItems;
+            this._portalItemLoaderModel!.portalItems = this.filterAddablePortalItems(filteredPortalItems);
         }
+    }
+
+    private filterAddablePortalItems(items: PortalItem[]): PortalItem[] {
+        if (this._portalItemLoaderModel!.showNonAddablePortalItems) {
+            return items;
+        }
+        return items.filter((item) => !!item.url);
     }
 
     async addItemLayerToMap(item: PortalItem, advancedLayerAdding?: boolean): Promise<void> {
@@ -526,7 +533,7 @@ export default class PortalItemLoaderWidgetController {
                     source: "csw"
                 });
             });
-            model.portalItems = portalItems;
+            model.portalItems = this.filterAddablePortalItems(portalItems);
         }
     }
 

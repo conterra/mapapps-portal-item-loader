@@ -281,7 +281,8 @@
                     "modified": true,
                     "advancedLayerAdding": false
                 },
-                "useMapAppsSdiWizardAdderForPortalItems": false
+                "useMapAppsSdiWizardAdderForPortalItems": false,
+                "showNonAddablePortalItems": true
             }
         },
         {
